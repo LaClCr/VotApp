@@ -1,39 +1,37 @@
-{
-  "degrees": [
-    {
-      "name": "Administración y finanzas",
-      "abbreviation": "AFI",
-      "code": "AFI-24"
-    },
-    {
-      "name": "Animación 3D, Juegos y Entornos Interactivos Online",
-      "abbreviation": "3D",
-      "code": "3D-24"
-    },
-    {
-      "name": "Automatización y Robótica Industrial",
-      "abbreviation": "ARI",
-      "code": "ARI-24"
-    },
-    {
-      "name": "Educación Infantil",
-      "abbreviation": "EI",
-      "code": "EI-24"
-    },
-    {
-      "name": "Desarrollo de Aplicaciones Multiplataforma",
-      "abbreviation": "DAM",
-      "code": "DAM-24"
-    },
-    {
-      "name": "Desarrollo de Aplicaciones Web",
-      "abbreviation": "DAW",
-      "code": "DAW-24"
-    },
-    {
-      "name": "Mecatrónica Industrial",
-      "abbreviation": "MI",
-      "code": "MI-24"
-    }
-  ]
-}
+[
+  {
+    "name": "Administración y finanzas",
+    "abbreviation": "AFI",
+    "code": "AFI-24"
+  },
+  {
+    "name": "Animación 3D, Juegos y Entornos Interactivos Online",
+    "abbreviation": "3D",
+    "code": "3D-24"
+  },
+  {
+    "name": "Automatización y Robótica Industrial",
+    "abbreviation": "ARI",
+    "code": "ARI-24"
+  },
+  {
+    "name": "Educación Infantil",
+    "abbreviation": "EI",
+    "code": "EI-24"
+  },
+  {
+    "name": "Desarrollo de Aplicaciones Multiplataforma",
+    "abbreviation": "DAM",
+    "code": "DAM-24"
+  },
+  {
+    "name": "Desarrollo de Aplicaciones Web",
+    "abbreviation": "DAW",
+    "code": "DAW-24"
+  },
+  {
+    "name": "Mecatrónica Industrial",
+    "abbreviation": "MI",
+    "code": "MI-24"
+  }
+]

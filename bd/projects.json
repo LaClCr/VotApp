@@ -1,62 +1,31 @@
-{
-  "projects": [
-    {
-      "name": "projectName1",
-      "degree": "projectDegree1",
-      "description": "description1",
-      "picture": "picture1",
-      "teamMembers": [
-        {
-          "name": "name1"
-        },
-        {
-          "name": "name2"
-        }
-      ],
-      "projectRepresentative": "representative1",
-      "valorations": [
-        {
-          "nie": "123456789A",
-          "originality": 0,
-          "innovation": 0,
-          "ods": 0
-        },
-        {
-          "nie": "123456789B",
-          "originality": 0,
-          "innovation": 0,
-          "ods": 0
-        }
-      ]
-    },
-    {
-      "name": "projectName2",
-      "degree": "projectDegree2",
-      "description": "description2",
-      "picture": "picture2",
-      "teamMembers": [
-        {
-          "name": "name3"
-        },
-        {
-          "name": "name4"
-        }
-      ],
-      "projectRepresentative": "representative2",
-      "valorations": [
-        {
-          "nie": "123456789C",
-          "originality": 0,
-          "innovation": 0,
-          "ods": 0
-        },
-        {
-          "nie": "123456789D",
-          "originality": 0,
-          "innovation": 0,
-          "ods": 0
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "name": "projectName1",
+    "degree": "projectDegree1",
+    "description": "description1",
+    "picture": "picture1",
+    "teamMembers": [
+      {
+        "name": "name1"
+      },
+      {
+        "name": "name2"
+      }
+    ],
+    "projectRepresentative": "representative1",
+    "valorations": [
+      {
+        "nie": "123456789A",
+        "originality": 0,
+        "innovation": 0,
+        "ods": 0
+      },
+      {
+        "nie": "123456789B",
+        "originality": 0,
+        "innovation": 0,
+        "ods": 0
+      }
+    ]
+  }
+]
