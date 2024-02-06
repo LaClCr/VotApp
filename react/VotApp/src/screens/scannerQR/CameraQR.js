@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const inicio = () => {
+const ScannerQR = () => {
   return (
     <View>
-      <Text>inicio</Text>
+      <Text>scannerQR</Text>
     </View>
   )
 }
 
-export default inicio
+export default ScannerQR

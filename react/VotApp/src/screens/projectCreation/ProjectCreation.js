@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const scannerQR = () => {
+const ProjectCreation = () => {
   return (
     <View>
-      <Text>scannerQR</Text>
+      <Text>creacionProyecto</Text>
     </View>
   )
 }
 
-export default scannerQR
+export default ProjectCreation
