@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-
+import { CommonActions } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, BottomNavigation } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default function App() {
