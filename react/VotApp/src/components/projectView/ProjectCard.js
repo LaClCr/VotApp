@@ -1,13 +1,15 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import { Card, Text, Button } from "react-native-paper";
+import { StyleSheet, Touchable, TouchableOpacity } from "react-native";
+import { Card, Text, View } from "react-native-paper";
 
 const ProjectCard = ({ name, degree, logo }) => {
     return (
         <Card style={styles.card} mode="elevated">
-            <Card.Title titleStyle={styles.title} title={name} />
+            <TouchableOpacity style={styles.titleCardContainer}>
+                <Card.Title titleStyle={styles.title} title={name} />
+            </TouchableOpacity>
             <Card.Content style={styles.content}>
-                <Text variant="bodyMedium">{degree}</Text>
+                <Text variant="bodyLarge">{degree}</Text>
             </Card.Content>
             <Card.Cover style={styles.logo} source={logo} />
         </Card>
@@ -32,6 +34,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         textAlign: "center",
+    },
+    titleCardContainer: {
         backgroundColor: "#B58933",
         borderRadius: 8,
     },
