@@ -1,30 +1,155 @@
 [
   {
-    "name": "projectName1",
-    "degree": "projectDegree1",
-    "description": "description1",
-    "picture": "picture1",
+    "name": "Proyecto Innovación Educativa",
+    "degree": "Master's Thesis",
+    "description": "Este proyecto busca mejorar la enseñanza de las matemáticas mediante el uso de tecnologías interactivas.",
+    "picture": "imagen1.jpg",
     "teamMembers": [
       {
-        "name": "name1"
+        "name": "María García"
       },
       {
-        "name": "name2"
+        "name": "Juan Pérez"
+      },
+      {
+        "name": "Laura Martínez"
       }
     ],
-    "projectRepresentative": "representative1",
+    "projectRepresentative": "María García",
     "valorations": [
       {
         "nie": "123456789A",
-        "originality": 0,
-        "innovation": 0,
-        "ods": 0
+        "originality": 8,
+        "innovation": 9,
+        "ods": 7
       },
       {
         "nie": "123456789B",
-        "originality": 0,
-        "innovation": 0,
-        "ods": 0
+        "originality": 7,
+        "innovation": 8,
+        "ods": 6
+      }
+    ]
+  },
+  {
+    "name": "Proyecto Sostenibilidad Ambiental",
+    "degree": "Bachelor's Thesis",
+    "description": "Este proyecto tiene como objetivo desarrollar soluciones innovadoras para reducir la contaminación plástica en los océanos.",
+    "picture": "imagen2.jpg",
+    "teamMembers": [
+      {
+        "name": "Luisa Fernández"
+      },
+      {
+        "name": "Pedro Rodríguez"
+      }
+    ],
+    "projectRepresentative": "Luisa Fernández",
+    "valorations": [
+      {
+        "nie": "123456789C",
+        "originality": 9,
+        "innovation": 10,
+        "ods": 8
+      },
+      {
+        "nie": "123456789D",
+        "originality": 8,
+        "innovation": 9,
+        "ods": 7
+      }
+    ]
+  },
+  {
+    "name": "Proyecto Salud Pública",
+    "degree": "Doctoral Dissertation",
+    "description": "Este proyecto investiga nuevas formas de prevención y tratamiento de enfermedades infecciosas en comunidades vulnerables.",
+    "picture": "imagen3.jpg",
+    "teamMembers": [
+      {
+        "name": "Ana López"
+      },
+      {
+        "name": "Carlos Ramírez"
+      },
+      {
+        "name": "Sofía Díaz"
+      }
+    ],
+    "projectRepresentative": "Ana López",
+    "valorations": [
+      {
+        "nie": "123456789E",
+        "originality": 10,
+        "innovation": 9,
+        "ods": 9
+      },
+      {
+        "nie": "123456789F",
+        "originality": 9,
+        "innovation": 8,
+        "ods": 8
+      }
+    ]
+  },
+  {
+    "name": "Proyecto Tecnológico de Energía Renovable",
+    "degree": "Research Project",
+    "description": "Este proyecto investiga nuevas tecnologías para la generación de energía limpia y renovable.",
+    "picture": "imagen4.jpg",
+    "teamMembers": [
+      {
+        "name": "David Martínez"
+      },
+      {
+        "name": "Elena Ruiz"
+      }
+    ],
+    "projectRepresentative": "David Martínez",
+    "valorations": [
+      {
+        "nie": "123456789G",
+        "originality": 9,
+        "innovation": 10,
+        "ods": 8
+      },
+      {
+        "nie": "123456789H",
+        "originality": 8,
+        "innovation": 9,
+        "ods": 7
+      }
+    ]
+  },
+  {
+    "name": "Proyecto Arte y Cultura en Comunidades Marginadas",
+    "degree": "Artistic Project",
+    "description": "Este proyecto busca promover la inclusión social a través del arte y la cultura en comunidades desfavorecidas.",
+    "picture": "imagen5.jpg",
+    "teamMembers": [
+      {
+        "name": "Rosa Sánchez"
+      },
+      {
+        "name": "Javier Gómez"
+      },
+      {
+        "name": "Lucía González"
+      }
+    ],
+    "projectRepresentative": "Rosa Sánchez",
+    "valorations": [
+      {
+        "nie": "123456789I",
+        "originality": 8,
+        "innovation": 9,
+        "ods": 7
+      },
+      {
+        "nie": "123456789J",
+        "originality": 7,
+        "innovation": 8,
+        "ods": 6
       }
     ]
   }
