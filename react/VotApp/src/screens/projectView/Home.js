@@ -76,6 +76,7 @@ const Home = () => {
                     onIconPress={() => alert("Realizar búsqueda")} // Acción al tocar el icono de búsqueda
                     style={{
                         flex: 1,
+                        height: 60,
                         margin: 10,
                         backgroundColor: "white",
                         borderColor: "white", // Color del borde rojo
@@ -118,16 +119,15 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         flex: 0.2,
+        marginTop: 20,
     },
     logo: {
         width: 400, // Ajusta el ancho según tus necesidades
         height: 100, // Ajusta la altura según tus necesidades
-        justifyContent: "center",
     },
     filterContainer: {
         flex: 0.15,
         flexDirection: "row",
-        justifyContent: "space-between",
         backgroundColor: "#C02830",
         borderRadius: 8,
     },
