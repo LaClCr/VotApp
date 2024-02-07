@@ -59,6 +59,7 @@ const DropdownComponent = ({ data }) => {
 
 const styles = StyleSheet.create({
     dropdown: {
+        flex: 1,
         margin: 16,
         height: 50,
         backgroundColor: "white",

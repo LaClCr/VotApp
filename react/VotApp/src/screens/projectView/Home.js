@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, FlatList } from "react-native";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import ProjectCard from "../../components/projectView/ProjectCard";
 import FloridaLogo from "../../assets/florida.jpg";
 import Image1 from "../../assets/ProyectoImagePrueba.jpg";
+import { Searchbar } from "react-native-paper";
+import { MaterialCommunityIcons } from "react-native-vector-icons"; // Import the MaterialCommunityIcons component
 
 const Home = () => {
     // Datos de ejemplo para las tarjetas de proyecto
@@ -62,6 +64,7 @@ const Home = () => {
         { label: "Item 7", value: "7" },
         { label: "Item 8", value: "8" },
     ];
+    const [searchQuery, setSearchQuery] = useState(null);
 
     return (
         <View style={styles.generalContainer}>
@@ -69,6 +72,23 @@ const Home = () => {
                 <Image source={FloridaLogo} style={styles.logo} />
             </View>
             <View style={styles.filterContainer}>
+                <Searchbar
+                    onIconPress={() => alert("Realizar búsqueda")} // Acción al tocar el icono de búsqueda
+                    style={{
+                        flex: 1,
+                        margin: 10,
+                        backgroundColor: "white",
+                        borderColor: "white", // Color del borde rojo
+                    }}
+                    placeholderTextColor="black"
+                    placeholder="Search..."
+                    onChangeText={(text) => setSearchQuery(text)}
+                    value={searchQuery}
+                    clearIcon={() => (
+                        <MaterialCommunityIcons name="close-circle" size={24} />
+                    )}
+                />
+
                 <DropdownComponent
                     data={exampleDropdownData}
                 ></DropdownComponent>
@@ -106,6 +126,8 @@ const styles = StyleSheet.create({
     },
     filterContainer: {
         flex: 0.15,
+        flexDirection: "row",
+        justifyContent: "space-between",
         backgroundColor: "#C02830",
         borderRadius: 8,
     },
