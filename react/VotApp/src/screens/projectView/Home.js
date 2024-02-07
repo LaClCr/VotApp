@@ -50,6 +50,17 @@ const Home = () => {
             logo: Image1,
         },
     ];
+    //data será = a un useState de la BD con los grados que se presentan
+    const exampleDropdownData = [
+        { label: "DAM", value: "DAM" },
+        { label: "DAW", value: "DAW" },
+        { label: "ASIR", value: "ASIR" },
+        { label: "Item 4", value: "4" },
+        { label: "Item 5", value: "5" },
+        { label: "Item 6", value: "6" },
+        { label: "Item 7", value: "7" },
+        { label: "Item 8", value: "8" },
+    ];
 
     return (
         <View style={styles.generalContainer}>
@@ -57,7 +68,9 @@ const Home = () => {
                 <Text style={{ textAlign: "center" }}>LOGO</Text>
             </View>
             <View style={styles.filterContainer}>
-                <DropdownComponent></DropdownComponent>
+                <DropdownComponent
+                    data={exampleDropdownData}
+                ></DropdownComponent>
             </View>
             <View style={styles.projectCardContainer}>
                 <FlatList

@@ -3,19 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-//data será = a un useState de la BD con los grados que se presentan
-const data = [
-    { label: "Item 1", value: "1" },
-    { label: "Item 2", value: "2" },
-    { label: "Item 3", value: "3" },
-    { label: "Item 4", value: "4" },
-    { label: "Item 5", value: "5" },
-    { label: "Item 6", value: "6" },
-    { label: "Item 7", value: "7" },
-    { label: "Item 8", value: "8" },
-];
-
-const DropdownComponent = () => {
+const DropdownComponent = ({ data }) => {
     const [value, setValue] = useState(null);
 
     const renderItem = (item) => {
@@ -34,6 +22,11 @@ const DropdownComponent = () => {
         );
     };
 
+    const handleSelect = (item) => {
+        if (item.value !== value) {
+            setValue(item.value);
+        }
+    };
     return (
         <Dropdown
             style={styles.dropdown}
@@ -50,9 +43,7 @@ const DropdownComponent = () => {
             placeholder="Select Degree..."
             searchPlaceholder="Search Manually..."
             value={value}
-            onChange={(item) => {
-                setValue(item.value);
-            }}
+            onChange={(item) => handleSelect(item)}
             renderLeftIcon={() => (
                 <AntDesign
                     style={styles.icon}
