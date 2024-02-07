@@ -2,27 +2,27 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import ProjectCard from "../../components/projectView/ProjectCard";
-import Image1 from "../../assets/favicon.png";
+import Image1 from "../../assets/ProyectoImagePrueba.jpg";
 
 const Home = () => {
     // Datos de ejemplo para las tarjetas de proyecto
     const projectData = [
         {
             id: 1,
-            name: "Proyecto A",
-            degree: "Grado 1",
+            name: "HomeAPP",
+            degree: "DAM",
             logo: Image1,
         },
         {
             id: 2,
-            name: "Proyecto B",
-            degree: "Grado 2",
+            name: "Votapp",
+            degree: "ASIR",
             logo: Image1,
         },
         {
             id: 3,
             name: "Proyecto C",
-            degree: "Grado 3",
+            degree: "DAW",
             logo: Image1,
         },
         {
@@ -40,7 +40,7 @@ const Home = () => {
         {
             id: 6,
             name: "Proyecto F",
-            degree: "Grado 6",
+            degree: "DAM",
             logo: Image1,
         },
         {
@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
     },
     projectCardContainer: {
         flex: 0.8,
-        backgroundColor: "grey",
     },
 });
 

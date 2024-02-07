@@ -4,43 +4,60 @@ import { Card, Text, View } from "react-native-paper";
 
 const ProjectCard = ({ name, degree, logo }) => {
     return (
-        <Card style={styles.card} mode="elevated">
-            <TouchableOpacity style={styles.titleCardContainer}>
-                <Card.Title titleStyle={styles.title} title={name} />
-            </TouchableOpacity>
-            <Card.Content style={styles.content}>
-                <Text variant="bodyLarge">{degree}</Text>
-            </Card.Content>
-            <Card.Cover style={styles.logo} source={logo} />
-        </Card>
+        <TouchableOpacity
+            style={styles.card}
+            onPress={() => console.log("hola")}
+        >
+            <Card mode="elevated">
+                <TouchableOpacity style={styles.titleCardContainer}>
+                    <Card.Title titleStyle={styles.title} title={name} />
+                </TouchableOpacity>
+                <Card.Content style={styles.content}>
+                    <Text style={styles.gradeCardContainer}>{degree}</Text>
+                </Card.Content>
+                <Card.Cover
+                    source={logo}
+                    style={styles.logo}
+                    resizeMode="contain"
+                />
+            </Card>
+        </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     card: {
         width: 180,
-        height: 170,
-        marginVertical: 20,
+        height: 200,
+        marginVertical: 10,
         marginHorizontal: 8,
         borderRadius: 8,
-        elevation: 4,
+        elevation: 2,
     },
     logo: {
-        height: 125,
+        //flex: 1,
+        height: 110,
         borderRadius: 8,
     },
-    content: {},
+    content: {
+        margin: 5,
+    },
     title: {
         fontSize: 20,
+        //color: "white",
         fontWeight: "bold",
         textAlign: "center",
     },
     titleCardContainer: {
-        backgroundColor: "#B58933",
+        marginTop: 6, // Margen superior
+        marginHorizontal: 6, // Margen horizontal (izquierda y derecha)
+        marginBottom: 0, // Sin margen inferior
+        backgroundColor: "#DF9E1E",
         borderRadius: 8,
     },
-    grade: {
+    gradeCardContainer: {
         fontSize: 16,
+        textAlign: "center",
     },
 });
 
