@@ -25,23 +25,6 @@ const ProjectCreation = () => {
   const [projectLogo, setProjectLogo] = useState(null);
   const [logoLoaded, setLogoLoaded] = useState(false);
 
-  const [authenticated, setAuthenticated] = useState(false);
-  const [code, setCode] = useState("");
-
-  useEffect(() => {
-    // Asegúrate de que el usuario necesite autenticarse cada vez que se accede a la pantalla.
-    setAuthenticated(false);
-  }, []);
-
-  const checkCode = () => {
-    if (code === "12345") {
-      setAuthenticated(true);
-      setCode("");
-    } else {
-      Alert.alert("Access Denied", "The code you entered is incorrect.");
-    }
-  };
-
   const handleAddParticipant = () => {
     if (participantName) {
       setParticipants([...participants, participantName]);
@@ -96,134 +79,108 @@ const ProjectCreation = () => {
     </TouchableOpacity>
   );
 
-  if (!authenticated) {
-    return (
-      <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
-        <View style={styles.card}>
-          <Text style={styles.header}>Please Enter the Access Code:</Text>
-          <TextInput
-            style={[styles.input, styles.inputMargin]}
-            onChangeText={setCode}
-            value={code}
-            placeholder="Code..."
-            keyboardType="numeric"
-            mode="outlined"
-            secureTextEntry // Opcional: Oculta el texto introducido
-          />
-          <Button
-            mode="contained"
-            onPress={() => checkCode()}
-            style={{ marginTop: 80, backgroundColor: '#B58933'}}
-          >
-            <Text style={styles.textStyle}>Submit</Text>
-          </Button>
-        </View>
-      </View>
-    );
-  }
-  
   // El contenido principal de la pantalla se muestra solo si el usuario está autenticado
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-         <Image
-              source={require("../../assets/florida.jpg")}
-              style={styles.logo}
-            />
-            <Card style={styles.card}>
-              <Card.Content>
-                <Text style={styles.header}>Create a Project:</Text>
-                <View style={styles.logoSection}>
-                  <TouchableOpacity
-                    onPress={handleSelectLogo}
-                    style={styles.logoButton}
-                  >
-                    {projectLogo ? (
-                      <Image source={projectLogo} style={styles.projectLogo} />
-                    ) : (
-                      <IconButton
-                        icon="camera"
-                        color="#C02830"
-                        size={20}
-                        style={styles.iconButton}
-                      />
-                    )}
-                  </TouchableOpacity>
-                  <Text style={styles.logoText}>Project Logo</Text>
-                  {logoLoaded && <Text style={styles.loadedText}>Cargado</Text>}
-                </View>
-                <TextInput
-                  style={[styles.input, styles.inputMargin]}
-                  placeholder="Name"
-                  value={projectName}
-                  onChangeText={(text) => setProjectName(text)}
-                  mode="outlined"
-                  theme={{
-                    colors: {
-                      primary: "#C02830",
-                      underlineColor: "transparent",
-                      background: "#ffffff",
-                    },
-                  }}
-                />
-                <TextInput
-                  style={[
-                    styles.input,
-                    styles.inputMargin,
-                    styles.descriptionInput,
-                  ]}
-                  placeholder="Description"
-                  value={description}
-                  onChangeText={(text) => setDescription(text)}
-                  mode="outlined"
-                  multiline
-                  numberOfLines={4}
-                  theme={{
-                    colors: {
-                      primary: "#C02830",
-                      underlineColor: "transparent",
-                      background: "#ffffff",
-                    },
-                  }}
-                />
-                <View
-                  style={[
-                    styles.participantInputContainer,
-                    styles.participantContainerMargin,
-                  ]}
-                >
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Add participant"
-                    value={participantName}
-                    onChangeText={(text) => setParticipantName(text)}
-                    mode="outlined"
-                    theme={{
-                      colors: {
-                        primary: "#C02830",
-                        underlineColor: "transparent",
-                        background: "#ffffff",
-                      },
-                    }}
+        <Image
+          source={require("../../assets/florida.jpg")}
+          style={styles.logo}
+        />
+        <Card style={styles.card}>
+          <Card.Content>
+            <Text style={styles.header}>Create a Project:</Text>
+            <View style={styles.logoSection}>
+              <TouchableOpacity
+                onPress={handleSelectLogo}
+                style={styles.logoButton}
+              >
+                {projectLogo ? (
+                  <Image source={projectLogo} style={styles.projectLogo} />
+                ) : (
+                  <IconButton
+                    icon="camera"
+                    color="#C02830"
+                    size={20}
+                    style={styles.iconButton}
                   />
-                  <Button
-                    mode="contained"
-                    onPress={handleAddParticipant}
-                    style={styles.addButton}
-                  >
-                    +
-                  </Button>
-                </View>
-                <FlatList
-                  data={participants}
-                  renderItem={renderParticipant}
-                  keyExtractor={(item, index) => index.toString()}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  style={styles.participantList}
-                />
-              </Card.Content>
-            </Card>
+                )}
+              </TouchableOpacity>
+              <Text style={styles.logoText}>Project Logo</Text>
+              {logoLoaded && <Text style={styles.loadedText}>Cargado</Text>}
+            </View>
+            <TextInput
+              style={[styles.input, styles.inputMargin]}
+              placeholder="Name"
+              value={projectName}
+              onChangeText={(text) => setProjectName(text)}
+              mode="outlined"
+              theme={{
+                colors: {
+                  primary: "#C02830",
+                  underlineColor: "transparent",
+                  background: "#ffffff",
+                },
+              }}
+            />
+            <TextInput
+              style={[
+                styles.input,
+                styles.inputMargin,
+                styles.descriptionInput,
+              ]}
+              placeholder="Description"
+              value={description}
+              onChangeText={(text) => setDescription(text)}
+              mode="outlined"
+              multiline
+              numberOfLines={4}
+              theme={{
+                colors: {
+                  primary: "#C02830",
+                  underlineColor: "transparent",
+                  background: "#ffffff",
+                },
+              }}
+            />
+            <View
+              style={[
+                styles.participantInputContainer,
+                styles.participantContainerMargin,
+              ]}
+            >
+              <TextInput
+                style={styles.input}
+                placeholder="Add participant"
+                value={participantName}
+                onChangeText={(text) => setParticipantName(text)}
+                mode="outlined"
+                theme={{
+                  colors: {
+                    primary: "#C02830",
+                    underlineColor: "transparent",
+                    background: "#ffffff",
+                  },
+                }}
+              />
+              <Button
+                mode="contained"
+                onPress={handleAddParticipant}
+                style={styles.addButton}
+              >
+                +
+              </Button>
+            </View>
+            <FlatList
+              data={participants}
+              renderItem={renderParticipant}
+              keyExtractor={(item, index) => index.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.participantList}
+            />
+          </Card.Content>
+        </Card>
       </View>
     </ScrollView>
   );
@@ -290,7 +247,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     padding: 20,
-    paddingTop: 60
+    paddingTop: 60,
   },
   card: {
     width: "90%",
