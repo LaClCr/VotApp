@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Image, StyleSheet, FlatList } from "react-native";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import ProjectCard from "../../components/projectView/ProjectCard";
+import FloridaLogo from "../../assets/florida.jpg";
 import Image1 from "../../assets/ProyectoImagePrueba.jpg";
 
 const Home = () => {
@@ -65,7 +66,7 @@ const Home = () => {
     return (
         <View style={styles.generalContainer}>
             <View style={styles.logoContainer}>
-                <Text style={{ textAlign: "center" }}>LOGO</Text>
+                <Image source={FloridaLogo} style={styles.logo} />
             </View>
             <View style={styles.filterContainer}>
                 <DropdownComponent
@@ -96,7 +97,12 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     logoContainer: {
-        flex: 0.15,
+        flex: 0.2,
+    },
+    logo: {
+        width: 400, // Ajusta el ancho según tus necesidades
+        height: 100, // Ajusta la altura según tus necesidades
+        justifyContent: "center",
     },
     filterContainer: {
         flex: 0.15,
