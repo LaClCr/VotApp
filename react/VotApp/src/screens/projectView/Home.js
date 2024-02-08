@@ -1,12 +1,26 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import "react-native-gesture-handler";
+import React from "react";
+//import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import GeneralProjectsView from "./GeneralProjectsView";
+import ProjectDetails from "./ProjectDetailsView";
 
+const Stack = createStackNavigator();
 const Home = () => {
-  return (
-    <View>
-      <Text>Inicio</Text>
-    </View>
-  )
-}
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="GeneralView"
+                component={GeneralProjectsView}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="ProjectDetails"
+                component={ProjectDetails}
+                options={{ headerShown: false }}
+            />
+        </Stack.Navigator>
+    );
+};
 
-export default Home
+export default Home;
