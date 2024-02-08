@@ -13,7 +13,7 @@ public class CorsConfig {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("votApp/ ** ") // Mapeja el CORS a totes les rutas baix /API
+				registry.addMapping("votApp/**") // Mapeja el CORS a totes les rutas baix /API
 						.allowedOrigins("*")
 						.allowedMethods("GET", "POST", "PUT", "DELETE")
 						.allowedHeaders("*");
