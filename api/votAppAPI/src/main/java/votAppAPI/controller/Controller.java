@@ -133,7 +133,6 @@ public class Controller {
 	public ResponseEntity<String> tornaInfoDegree(@RequestParam(value = "abbreviation") String strVariable) {
 
 		if (strVariable.equals("all")) {
-			System.out.println("Entra en ALL <<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 			List<Degree> listAllDegrees = degreeRepository.findAll();
 			String json = "[";
 
@@ -154,13 +153,10 @@ public class Controller {
 
 			return ResponseEntity.status(HttpStatus.OK).body(json);
 		} else {
-			System.out.println("Entra en ABBREVIATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 			Degree degree = degreeRepository.findByAbbreviation(strVariable);
-			System.out.println(degree);
 			String json = "";
 
 			String name = degree.getName();
-			System.out.println(name);
 			String abbreviation = degree.getAbbreviation();
 			String code = degree.getCode();
 
