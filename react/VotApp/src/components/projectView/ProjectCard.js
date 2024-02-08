@@ -1,15 +1,21 @@
 import React from "react";
 import { StyleSheet, Touchable, TouchableOpacity } from "react-native";
 import { Card, Text, View } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 const ProjectCard = ({ name, degree, logo }) => {
+    const navigation = useNavigation();
+
+    const handleOnPress = () => {
+        navigation.navigate("ProjectDetails", { name });
+    };
     return (
-        <TouchableOpacity
-            style={styles.card}
-            onPress={() => console.log("hola")}
-        >
+        <TouchableOpacity style={styles.card} onPress={handleOnPress}>
             <Card mode="elevated">
-                <TouchableOpacity style={styles.titleCardContainer}>
+                <TouchableOpacity
+                    style={styles.titleCardContainer}
+                    onPress={handleOnPress}
+                >
                     <Card.Title titleStyle={styles.title} title={name} />
                 </TouchableOpacity>
                 <Card.Content style={styles.content}>
