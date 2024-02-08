@@ -14,6 +14,7 @@ public class Project {
     private String degree;
     private String description;
     private String picture;
+    private String creator;
     private List<TeamMember> teamMembers;
     private String projectRepresentative;
     private List<Valoration> valorations;
@@ -23,14 +24,15 @@ public class Project {
 		super();
 	}
 
-
-	public Project(String name, String degree, String description, String picture, List<TeamMember> teamMembers,
-			String projectRepresentative, List<Valoration> valorations) {
+	public Project(String id, String name, String degree, String description, String picture, String creator,
+			List<TeamMember> teamMembers, String projectRepresentative, List<Valoration> valorations) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.degree = degree;
 		this.description = description;
 		this.picture = picture;
+		this.creator = creator;
 		this.teamMembers = teamMembers;
 		this.projectRepresentative = projectRepresentative;
 		this.valorations = valorations;
@@ -76,6 +78,13 @@ public class Project {
 		this.picture = picture;
 	}
 
+	public String getCreator() {
+		return creator;
+	}
+	
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
 
 	public List<TeamMember> getTeamMembers() {
 		return teamMembers;

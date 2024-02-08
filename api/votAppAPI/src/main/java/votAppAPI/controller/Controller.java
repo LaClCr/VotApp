@@ -42,11 +42,12 @@ public class Controller {
 				String degree = project.getDegree();
 				String description = project.getDescription();
 				String picture = project.getPicture();
+				String creator = project.getCreator();
 				List<TeamMember> teamMembers = project.getTeamMembers();
 				List<Valoration> valorations = project.getValorations();
 
 				json += "{\"name\": \"" + name + "\", \"degree\": \"" + degree + "\", \"description\": \"" + description
-						+ "\", \"picture\": \"" + picture + "\",  \"teamMembers\": [";
+						+ "\", \"picture\": \"" + picture + "\", \"creator\": \"" + creator + "\"teamMembers\": [";
 
 				for (TeamMember teamMember : teamMembers) {
 					json += "{\"name\": \"" + teamMember.getName() + "\"},";
@@ -90,11 +91,12 @@ public class Controller {
 				String degree = project.getDegree();
 				String description = project.getDescription();
 				String picture = project.getPicture();
+				String creator = project.getCreator();
 				List<TeamMember> teamMembers = project.getTeamMembers();
 				List<Valoration> valorations = project.getValorations();
 
-				String json = "{\"name\": \"" + name + "\", \"degree\": \"" + degree + "\", \"description\": \""
-						+ description + "\", \"picture\": \"" + picture + "\", \"teamMembers\": [";
+				String json = "{\"name\": \"" + name + "\", \"degree\": \"" + degree + "\", \"description\": \"" + description
+						+ "\", \"picture\": \"" + picture + "\", \"creator\": \"" + creator + "\"teamMembers\": [";
 
 				for (TeamMember teamMember : teamMembers) {
 					json += "{\"name\": \"" + teamMember.getName() + "\"},";
@@ -217,6 +219,8 @@ public class Controller {
 	    }
 		
 	}
+	
+	
 
 
 	public boolean projectExists(String nom) {

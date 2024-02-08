@@ -4,6 +4,7 @@
     "degree": "Master's Thesis",
     "description": "Este proyecto busca mejorar la enseñanza de las matemáticas mediante el uso de tecnologías interactivas.",
     "picture": "imagen1.jpg",
+    "creator": "123456789A",
     "teamMembers": [
       {
         "name": "María García"
@@ -35,6 +36,7 @@
     "degree": "Bachelor's Thesis",
     "description": "Este proyecto tiene como objetivo desarrollar soluciones innovadoras para reducir la contaminación plástica en los océanos.",
     "picture": "imagen2.jpg",
+    "creator": "123456789A",
     "teamMembers": [
       {
         "name": "Luisa Fernández"
@@ -63,6 +65,7 @@
     "degree": "Doctoral Dissertation",
     "description": "Este proyecto investiga nuevas formas de prevención y tratamiento de enfermedades infecciosas en comunidades vulnerables.",
     "picture": "imagen3.jpg",
+    "creator": "123456789A",
     "teamMembers": [
       {
         "name": "Ana López"
@@ -94,6 +97,7 @@
     "degree": "Research Project",
     "description": "Este proyecto investiga nuevas tecnologías para la generación de energía limpia y renovable.",
     "picture": "imagen4.jpg",
+    "creator": "123456789A",
     "teamMembers": [
       {
         "name": "David Martínez"
@@ -122,6 +126,7 @@
     "degree": "Artistic Project",
     "description": "Este proyecto busca promover la inclusión social a través del arte y la cultura en comunidades desfavorecidas.",
     "picture": "imagen5.jpg",
+    "creator": "123456789A",
     "teamMembers": [
       {
         "name": "Rosa Sánchez"
