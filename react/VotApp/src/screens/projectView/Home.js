@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     logoContainer: {
-        flex: 0.2,
-        marginTop: 20,
+        flex: 0.15,
+        marginTop: 10,
     },
     logo: {
         width: 400, // Ajusta el ancho según tus necesidades
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     },
     filterContainer: {
         flex: 0.15,
+        marginTop: 10,
         flexDirection: "row",
         backgroundColor: "#C02830",
         borderRadius: 8,
