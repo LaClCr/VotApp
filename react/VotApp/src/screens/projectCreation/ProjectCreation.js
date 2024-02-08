@@ -11,9 +11,9 @@ import {
   Modal,
 } from "react-native";
 import { TextInput, Button, Card, Chip, IconButton } from "react-native-paper";
-import * as ImagePicker from "react-native-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import { launchImageLibrary } from "react-native-image-picker";
+import * as ImagePicker from "expo-image-picker";
 
 const ProjectCreation = () => {
   const navigation = useNavigation();
@@ -49,27 +49,49 @@ const ProjectCreation = () => {
     );
   };
 
-  const handleSelectLogo = async () => {
-    // Solicitar permisos de acceso a la galería
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (permissionResult.granted === false) {
-      Alert.alert("Permission to access camera roll is required!");
-      return;
-    }
+  const handleCreateProject = () => {
+    // Aquí iría la lógica para crear el proyecto, como validaciones y llamadas a APIs.
+    console.log("Creando proyecto con los siguientes datos:");
+    console.log("Nombre del Proyecto:", projectName);
+    console.log("Descripción:", description);
+    console.log("Participantes:", participants);
+    console.log("Logo del Proyecto URI:", projectLogo?.uri);
+  
+    // Puedes añadir aquí una llamada a tu backend o lógica para guardar los datos del proyecto.
+  };
+  
 
-    // Lanzar el selector de imágenes
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
-    }
+  const handleRequestGalleryPermission = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    // Establecer la imagen seleccionada
-    if (!pickerResult.cancelled) {
-      setProjectLogo({ uri: pickerResult.uri });
-      setLogoLoaded(true); // Actualizar el estado para mostrar el indicador de cargado
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission denied",
+        "You need to grant gallery access to choose an image."
+      );
     }
   };
+
+  const handleSelectLogo = async () => {
+    // Lanzar el selector de imágenes
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images, // Asegura que solo se puedan seleccionar imágenes
+      allowsEditing: true, // Permite al usuario editar la imagen
+      aspect: [4, 3], // Aspecto para el editor de imágenes
+      quality: 1, // Calidad de la imagen seleccionada
+    });
+
+    if (
+      !pickerResult.cancelled &&
+      pickerResult.assets &&
+      pickerResult.assets.length > 0
+    ) {
+      const selectedImage = pickerResult.assets[0];
+      setProjectLogo({ uri: selectedImage.uri });
+      setLogoLoaded(true);
+    }
+  };
+
   // Añadir participante  a la lista de participantes y limpiar el input
   const renderParticipant = ({ item, index }) => (
     <TouchableOpacity onPress={() => confirmDelete(item, index)}>
@@ -96,7 +118,10 @@ const ProjectCreation = () => {
                 style={styles.logoButton}
               >
                 {projectLogo ? (
-                  <Image source={projectLogo} style={styles.projectLogo} />
+                  <Image
+                    source={{ uri: projectLogo.uri }}
+                    style={styles.projectLogo}
+                  />
                 ) : (
                   <IconButton
                     icon="camera"
@@ -179,6 +204,13 @@ const ProjectCreation = () => {
               showsHorizontalScrollIndicator={false}
               style={styles.participantList}
             />
+            <Button
+              mode="contained"
+              onPress={handleCreateProject}
+              style={{ marginTop: 15, backgroundColor: "#B58933" }}
+            >
+              Crear Proyecto
+            </Button>
           </Card.Content>
         </Card>
       </View>
