@@ -2,13 +2,11 @@ package votAppAPI.controller;
 
 import java.util.List;
 
-import org.bson.json.JsonObject;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -180,9 +178,9 @@ public class Controller {
 		if (!projectExists(name)) {
 			if (!creatorExists(creator)) {
 				projectRepository.save(project);
-				return ResponseEntity.status(HttpStatus.OK).build();		
+				return ResponseEntity.status(HttpStatus.CREATED).build();		
 			} else {
-				
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Ya existe un proyecto para el NIE: " + creator);
 			}
 		} else {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("El proyecto con el nombre " + name + " ya existe.");
@@ -214,7 +212,7 @@ public class Controller {
 
 					// Actualizar el proyecto en el repositorio
 					projectRepository.save(project);
-					return ResponseEntity.status(HttpStatus.OK).build();
+					return ResponseEntity.status(HttpStatus.CREATED).build();
 				} else {
 					return ResponseEntity.status(HttpStatus.CONFLICT).body(nie + " ya ha valorado este proyecto.");
 				}
@@ -238,7 +236,8 @@ public class Controller {
 				projectRepository.delete(project);
 				return ResponseEntity.status(HttpStatus.OK).build();
 			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay ningún proyecto asociado a: " + creator);			
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No hay ningún proyecto asociado a: " + creator);
 			}
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
