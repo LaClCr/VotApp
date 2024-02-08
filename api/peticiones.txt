@@ -58,4 +58,4 @@
       }
 
 //    DELETE:
-//    http://107.21.99.46:8080/votApp/deleteProject?creator=123456789A
+//    http://107.21.99.46:8080/votApp/borrarProject?creator=123456789A
