@@ -1,0 +1,58 @@
+//		GET:
+//
+//		http://107.21.99.46:8080/votApp/project?nom=all
+//		http://107.21.99.46:8080/votApp/project?nom=projectName1
+	
+	
+// 		http://107.21.99.46:8080/votApp/degree?abbreviation=all
+//		http://107.21.99.46:8080/votApp/degree?abbreviation=AFI
+	
+//		POST:
+//		http://107.21.99.46:8080/votApp/nouProjecte
+//		BODY DEL POST: 
+
+{
+    "name": "Proyecto Innovación Educativa",
+    "degree": "Master's Thesis",
+    "description": "Este proyecto busca mejorar la enseñanza de las matemáticas mediante el uso de tecnologías interactivas.",
+    "picture": "imagen1.jpg",
+    "teamMembers": [
+      {
+        "name": "María García"
+      },
+      {
+        "name": "Juan Pérez"
+      },
+      {
+        "name": "Laura Martínez"
+      }
+    ],
+    "valorations": [
+      {
+        "nie": "123456789A",
+        "originality": 8,
+        "innovation": 9,
+        "ods": 7
+      },
+      {
+        "nie": "123456789B",
+        "originality": 7,
+        "innovation": 8,
+        "ods": 6
+      }
+    ]
+  }
+
+
+	
+//		PUT:
+//		http://107.21.99.46:8080/votApp/novaRessenya?name=asd
+
+//		BODY DEL PUT:
+
+{
+        "nie": "123456789B",
+        "originality": 7,
+        "innovation": 8,
+        "ods": 6
+      }
