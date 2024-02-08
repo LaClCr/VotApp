@@ -18,7 +18,7 @@
     ],
     "valorations": [
       {
-        "nie": "123456789A",
+        "nie": "23320894K",
         "originality": 8,
         "innovation": 9,
         "ods": 7
@@ -36,7 +36,7 @@
     "degree": "Bachelor's Thesis",
     "description": "Este proyecto tiene como objetivo desarrollar soluciones innovadoras para reducir la contaminación plástica en los océanos.",
     "picture": "imagen2.jpg",
-    "creator": "123456789A",
+    "creator": "123456789C",  
     "teamMembers": [
       {
         "name": "Luisa Fernández"
@@ -47,7 +47,7 @@
     ],
     "valorations": [
       {
-        "nie": "123456789C",
+        "nie": "123456789C",  
         "originality": 9,
         "innovation": 10,
         "ods": 8
@@ -65,7 +65,7 @@
     "degree": "Doctoral Dissertation",
     "description": "Este proyecto investiga nuevas formas de prevención y tratamiento de enfermedades infecciosas en comunidades vulnerables.",
     "picture": "imagen3.jpg",
-    "creator": "123456789A",
+    "creator": "123456789E",  
     "teamMembers": [
       {
         "name": "Ana López"
@@ -79,7 +79,7 @@
     ],
     "valorations": [
       {
-        "nie": "123456789E",
+        "nie": "123456789E",  
         "originality": 10,
         "innovation": 9,
         "ods": 9
@@ -97,7 +97,7 @@
     "degree": "Research Project",
     "description": "Este proyecto investiga nuevas tecnologías para la generación de energía limpia y renovable.",
     "picture": "imagen4.jpg",
-    "creator": "123456789A",
+    "creator": "123456789G",  
     "teamMembers": [
       {
         "name": "David Martínez"
@@ -108,7 +108,7 @@
     ],
     "valorations": [
       {
-        "nie": "123456789G",
+        "nie": "123456789G",  
         "originality": 9,
         "innovation": 10,
         "ods": 8
@@ -126,7 +126,7 @@
     "degree": "Artistic Project",
     "description": "Este proyecto busca promover la inclusión social a través del arte y la cultura en comunidades desfavorecidas.",
     "picture": "imagen5.jpg",
-    "creator": "123456789A",
+    "creator": "123456789I",  
     "teamMembers": [
       {
         "name": "Rosa Sánchez"
@@ -140,7 +140,7 @@
     ],
     "valorations": [
       {
-        "nie": "123456789I",
+        "nie": "123456789I",  
         "originality": 8,
         "innovation": 9,
         "ods": 7

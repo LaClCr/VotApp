@@ -12,4 +12,7 @@ public interface ProjectRepository extends MongoRepository<Project, String> {
     @Query(value = "{ name: ?0 }")
     Project findByName(String name);
     
+    @Query(value = "{ creator: ?0 }")
+    Project findByCreator(String creator);
+    
 }

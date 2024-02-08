@@ -56,3 +56,6 @@
         "innovation": 8,
         "ods": 6
       }
+
+//    DELETE:
+//    http://107.21.99.46:8080/votApp/deleteProject?creator=123456789A
