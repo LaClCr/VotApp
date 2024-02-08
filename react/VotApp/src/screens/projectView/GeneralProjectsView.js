@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import ProjectCard from "../../components/projectView/ProjectCard";
-import FloridaLogo from "../../assets/florida.jpg";
 import Image1 from "../../assets/ProyectoImagePrueba.jpg";
 import { Searchbar } from "react-native-paper";
 import { MaterialCommunityIcons } from "react-native-vector-icons"; // Import the MaterialCommunityIcons component
+import FloridaHeader from "../../components/FloridaHeader";
 
 const GeneralView = () => {
     // Datos de ejemplo para las tarjetas de proyecto
@@ -68,9 +68,7 @@ const GeneralView = () => {
 
     return (
         <View style={styles.generalContainer}>
-            <View style={styles.logoContainer}>
-                <Image source={FloridaLogo} style={styles.logo} />
-            </View>
+            <FloridaHeader />
             <View style={styles.filterContainer}>
                 <Searchbar
                     onIconPress={() => alert("Realizar búsqueda")} // Acción al tocar el icono de búsqueda
