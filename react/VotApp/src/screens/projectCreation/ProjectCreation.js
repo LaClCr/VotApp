@@ -19,6 +19,7 @@ const ProjectCreation = () => {
   const navigation = useNavigation();
   // Estados del proyecto
   const [projectName, setProjectName] = useState("");
+  const [representativeDNI, setRepresentativeDNI] = useState("");
   const [description, setDescription] = useState("");
   const [participantName, setParticipantName] = useState("");
   const [participants, setParticipants] = useState([]);
@@ -160,6 +161,20 @@ const ProjectCreation = () => {
               mode="outlined"
               multiline
               numberOfLines={4}
+              theme={{
+                colors: {
+                  primary: "#C02830",
+                  underlineColor: "transparent",
+                  background: "#ffffff",
+                },
+              }}
+            />
+             <TextInput
+              style={[styles.input, styles.inputMargin]}
+              placeholder="Representative DNI" 
+              value={representativeDNI}
+              onChangeText={(text) => setRepresentativeDNI(text)}
+              mode="outlined"
               theme={{
                 colors: {
                   primary: "#C02830",

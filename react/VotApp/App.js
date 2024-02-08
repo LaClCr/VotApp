@@ -9,6 +9,7 @@ import Home from "./src/screens/projectView/Home";
 import CameraQR from "./src/screens/scannerQR/CameraQR";
 import CodeAccess from "./src/screens/projectCreation/CodeAccess"; // Usamos CodeAccess para la validación
 import ProjectCreation from "./src/screens/projectCreation/ProjectCreation";
+import Settings from "./src/screens/settings/Settings";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -65,6 +66,16 @@ export default function App() {
                   color={color}
                   size={26}
                 />
+              ),
+            }}
+          />
+           <Tab.Screen
+            name="Settings"
+            component={Settings}
+            options={{
+              tabBarLabel: "Settings",
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name='cog' color={color} size={26} />
               ),
             }}
           />
