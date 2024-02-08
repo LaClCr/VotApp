@@ -14,7 +14,11 @@ const Home = () => {
                 component={GeneralProjectsView}
                 options={{ headerShown: false }}
             />
-            <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
+            <Stack.Screen
+                name="ProjectDetails"
+                component={ProjectDetails}
+                options={{ headerShown: false }}
+            />
         </Stack.Navigator>
     );
 };
