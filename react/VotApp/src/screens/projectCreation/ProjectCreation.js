@@ -60,6 +60,8 @@ const ProjectCreation = () => {
   
     // Puedes añadir aquí una llamada a tu backend o lógica para guardar los datos del proyecto.
   };
+
+  // asdasdasdasd
   
 
   const handleRequestGalleryPermission = async () => {
