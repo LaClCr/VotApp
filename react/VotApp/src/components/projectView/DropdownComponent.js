@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-const DropdownComponent = ({ data }) => {
+const DropdownComponent = ({ data, onChange }) => {
     const [value, setValue] = useState(null);
 
     const renderItem = (item) => {
@@ -25,6 +25,7 @@ const DropdownComponent = ({ data }) => {
     const handleSelect = (item) => {
         if (item.value !== value) {
             setValue(item.value);
+            onChange(item.value);
         }
     };
     return (
@@ -35,7 +36,7 @@ const DropdownComponent = ({ data }) => {
             inputSearchStyle={styles.inputSearchStyle}
             iconStyle={styles.iconStyle}
             data={data}
-            search
+            search={false}
             activeColor="#B58933"
             maxHeight={400}
             labelField="label"
