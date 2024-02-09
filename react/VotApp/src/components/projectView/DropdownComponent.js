@@ -40,7 +40,7 @@ const DropdownComponent = ({ data }) => {
             maxHeight={400}
             labelField="label"
             valueField="value"
-            placeholder="Degree..."
+            placeholder="Degree"
             searchPlaceholder="Search"
             value={value}
             onChange={(item) => handleSelect(item)}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     dropdown: {
         flex: 0.5,
         margin: 16,
-        height: 50,
+        height: 60,
         backgroundColor: "white",
         borderRadius: 12,
         padding: 12,
