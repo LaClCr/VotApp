@@ -13,7 +13,7 @@ const ProjectDetails = ({ name }) => {
         name: "Proyecto Innovación Educativa",
         degree: "Master's Thesis",
         description: "Este proyecto busca mejorar la enseñanza de las matemáticas mediante el uso de tecnologías interactivas.",
-        picture: "imagen1.jpg",
+        picture: "https://leinn.floridamkt.florida.es/wp-content/uploads/sites/15/2023/02/florida_NoticiaAmpliada.jpg",
         creator: "123456789A",
         teamMembers: [
             {

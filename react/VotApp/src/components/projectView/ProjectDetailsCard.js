@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { Divider, ProgressBar } from 'react-native-paper';
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { Divider, ProgressBar, Surface, Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+
 
 // Este es el componente que representa la tarjeta del proyecto
 const ProjectDetailsCard = ({ project }) => {
@@ -8,6 +10,9 @@ const ProjectDetailsCard = ({ project }) => {
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
     const [averageOds, setAverageOds] = useState(0);
+
+    const navigation = useNavigation();
+
 
     useEffect(() => {
         calculateAverage();
@@ -47,11 +52,37 @@ const ProjectDetailsCard = ({ project }) => {
                 <Text style={styles.title}>{project.name}</Text>
             </View>
             <View style={styles.sectionInfo}>
+                <Image style={styles.image} source={{ uri: project.picture }} />
+            </View>
+            <Divider />
+            <View style={styles.sectionInfo}>
                 <View style={styles.sectionInfoSmall}>
                     <Text style={styles.textInfoTitle}>TITULACIÓN:</Text>
                 </View>
                 <View style={styles.sectionInfoSmall}>
                     <Text style={styles.textInfoDescription}>{project.degree}</Text>
+                </View>
+            </View>
+            <Divider />
+            <View style={styles.sectionDegreeDescription}>
+                <View style={styles.sectionInfoSmall}>
+                    <Text style={styles.textInfoTitle}>DESCRIPCIÓN:</Text>
+                </View>
+                <View style={styles.sectionInfoSmall}>
+                    <Text>{project.description}</Text>
+                </View>
+            </View>
+            <Divider />
+            <View style={styles.sectionDegreeDescription}>
+                <View style={styles.sectionInfoSmall}>
+                    <Text style={styles.textInfoTitle}>INTEGRANTES:</Text>
+                </View>
+                <View style={styles.sectionInfoSmall}>
+                    {project.teamMembers.map((member, index) => (
+                        <Surface style={styles.memberContainer} key={index} >
+                            <Text>{member.name}</Text>
+                        </Surface>
+                    ))}
                 </View>
             </View>
             <Divider />
@@ -61,14 +92,37 @@ const ProjectDetailsCard = ({ project }) => {
                 </View>
             </View>
             <View style={styles.sectionValorations}>
-                <View style={styles.progressBar}>
+                <View style={styles.valoration}>
                     <Text style={styles.textInfoValorations}>Originalidad:</Text>
+                    <Text style={styles.textInfoValorations}>{averageOriginalidad * 10} / 10</Text>
                 </View>
-                <View style={styles.progressBar}>
+                <View style={styles.progressBarContainer}>
                     <ProgressBar color="#bc9c1c" progress={averageOriginalidad} indeterminate={false} />
-                    <Text>{averageOriginalidad * 10}</Text>
                 </View>
             </View>
+            <View style={styles.sectionValorations}>
+                <View style={styles.valoration}>
+                    <Text style={styles.textInfoValorations}>Innovación:</Text>
+                    <Text style={styles.textInfoValorations}>{averageInnovacion * 10} / 10</Text>
+                </View>
+                <View style={styles.progressBarContainer}>
+                    <ProgressBar color="#bc9c1c" progress={averageInnovacion} indeterminate={false} />
+                </View>
+            </View>
+            <View style={styles.sectionValorations}>
+                <View style={styles.valoration}>
+                    <Text style={styles.textInfoValorations}>ODS:</Text>
+                    <Text style={styles.textInfoValorations}>{averageOds * 10} / 10</Text>
+                </View>
+                <View style={styles.progressBarContainer}>
+                    <ProgressBar color="#bc9c1c" progress={averageOds} indeterminate={false} />
+                </View>
+            </View>
+            <Divider />
+            <View style={styles.sectionButton}>
+                <Button onPress={() => navigation.navigate('ProjectValoration', { project: project })} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
+            </View>
+
         </ScrollView>
     );
 };
@@ -107,8 +161,27 @@ const styles = StyleSheet.create({
         backgroundColor: "#ede5c8",
         elevation: 5,
     },
+    sectionButton: {
+        flex: 1,
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+        elevation: 5,
+        justifyContent: 'center',
+    },
+    sectionDegreeDescription: {
+        flex: 1,
+        flexDirection: "column",
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: "#ede5c8",
+        elevation: 5,
+    },
     sectionInfoSmall: {
         flex: 1,
+        marginTop: 5,
+        marginBottom: 5,
     },
     textInfoTitle: {
         fontSize: 16,
@@ -122,17 +195,35 @@ const styles = StyleSheet.create({
     },
     textInfoValorations: {
         fontSize: 16,
-        textAlign: "left",
+        textAlign: "justify",
     },
     sectionValorations: {
         flex: 1,
+        flexDirection: 'column',
         margin: 5,
+    },
+    valoration: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
         padding: 10,
     },
-    progressBar: {
-        flexDirection: "row",
+    progressBarContainer: {
+        flex: 1,
+        margin: 10,
+    },
+    image: {
+        width: 280,
+        height: 200,
+        resizeMode: "contain",
+        borderRadius: 10,
+    },
+    memberContainer: {
+        margin: 5,
+        backgroundColor: "#bc9c1c",
+        borderRadius: 10,
+        padding: 5,
         alignItems: "center",
-        padding: 3,
     }
 });
 export default ProjectDetailsCard;
