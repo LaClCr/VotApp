@@ -5,6 +5,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import GeneralProjectsView from "./GeneralProjectsView";
 import ProjectDetails from "./ProjectDetailsView";
 import ProjectValoration from "./ProjectValoration";
+import ScannerIDCard from "./ScannerIDCard";
+import ConfirmationScreen from "./ConfirmationScreen";
 import { ScreensProvider } from "./projectViewScreensContext";
 
 const Stack = createStackNavigator();
@@ -26,6 +28,16 @@ const Home = () => {
                 <Stack.Screen
                     name="ProjectValoration"
                     component={ProjectValoration}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="ScannerIDCard"
+                    component={ScannerIDCard}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="ConfirmationScreen"
+                    component={ConfirmationScreen}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>
