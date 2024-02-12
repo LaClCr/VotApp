@@ -11,14 +11,12 @@ export async function putProject(name, valoracion) {
   .then(function (response) {
     if (response.status === 201) {
       console.log("Reseña actualizada exitosamente.");
-      return true;
     } else {
       console.error("Error al actualizar la reseña. Código de estado:", response.status);
-      return false;
     }
   })
   .catch(function (error) {
     console.error("Error al actualizar la reseña:", error);
-    return false;
+
   });
 }

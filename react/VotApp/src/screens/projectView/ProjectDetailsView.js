@@ -50,16 +50,18 @@ const ProjectDetails = () => {
         });
 
         let averageOriginalidad = normalizeValue(sumOriginalidad / cantProjects);
+        console.log(averageOriginalidad);
         let averageInnovacion = normalizeValue(sumInnovacion / cantProjects);
+        console.log(averageInnovacion);
         let averageOds = normalizeValue(sumOds / cantProjects);
-
+        console.log(averageOds);
         setAverageInnovacion(averageInnovacion);
         setAverageOriginalidad(averageOriginalidad);
         setAverageOds(averageOds);
     }
 
     function normalizeValue(value) {
-        return value / 10;
+        return 10 * (value / 10).toFixed(2);
     }
 
     return (
@@ -121,7 +123,7 @@ const ProjectDetails = () => {
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
                                 <Text style={styles.textInfoValorations}>Originalidad:</Text>
-                                <Text style={styles.textInfoValorations}>{averageOriginalidad * 10} / 10</Text>
+                                <Text style={styles.textInfoValorations}>{averageOriginalidad} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar color="#bc9c1c" progress={averageOriginalidad} indeterminate={false} />
@@ -130,7 +132,7 @@ const ProjectDetails = () => {
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
                                 <Text style={styles.textInfoValorations}>Innovación:</Text>
-                                <Text style={styles.textInfoValorations}>{averageInnovacion * 10} / 10</Text>
+                                <Text style={styles.textInfoValorations}>{averageInnovacion} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar color="#bc9c1c" progress={averageInnovacion} indeterminate={false} />
@@ -139,7 +141,7 @@ const ProjectDetails = () => {
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
                                 <Text style={styles.textInfoValorations}>ODS:</Text>
-                                <Text style={styles.textInfoValorations}>{averageOds * 10} / 10</Text>
+                                <Text style={styles.textInfoValorations}>{averageOds} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar color="#bc9c1c" progress={averageOds} indeterminate={false} />

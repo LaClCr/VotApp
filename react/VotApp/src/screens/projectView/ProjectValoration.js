@@ -50,7 +50,8 @@ const ProjectValoration = () => {
             };
             const stringValorationJSON = JSON.stringify(valorationJSON);
             console.log(stringValorationJSON);
-            if (putProject(selectedProject.name, stringValorationJSON) === true) {
+            putProject(selectedProject.name, stringValorationJSON);
+            if (correct === true) {
                 navigation.navigate(ConfirmationScreen);
             } else {
                 alert("No se puede valorar dos veces con el mismo documento de identificación");
