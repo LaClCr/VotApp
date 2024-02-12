@@ -4,6 +4,7 @@ import { Divider, ProgressBar, Surface, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
+import ScannerIDCard from './ScannerIDCard';
 import { getProject } from "../../scripts/getProject";
 
 const ProjectDetails = () => {
@@ -17,23 +18,18 @@ const ProjectDetails = () => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        console.log(projectName);
         fetchData(projectName);
     }, [projectName]);
 
     useEffect(() => {
-        if (!loading) {
-            calculateAverage();
-        }
+        selectedProject !== null && calculateAverage();
     }, [selectedProject]);
 
     const fetchData = async (name) => {
-        console.log("Nombre del proyecto a buscar: " + name);
         setLoading(true);
         try {
             const projectData = await getProject(name);
             setSelectedProject(projectData);
-            console.log(projectData);
         } catch (error) {
             console.error(error);
         }
@@ -151,7 +147,7 @@ const ProjectDetails = () => {
                         </View>
                         <Divider />
                         <View style={styles.sectionButton}>
-                            <Button onPress={() => navigation.navigate('ProjectValoration')} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
+                            <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
                         </View>
                     </View>
                 </View>
