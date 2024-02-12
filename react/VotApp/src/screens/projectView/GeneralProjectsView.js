@@ -66,9 +66,9 @@ const GeneralView = ({ navigation }) => {
         fetchData();
     };
 
-    const handleOnPress = (name) => {
-        console.log(name);
-        setProjectName(name);
+    const handleOnPress = (item) => {
+        setProjectName(item.name);
+        console.log("URI: " + item.picture);
         navigation.navigate("ProjectDetails");
     };
 
@@ -98,10 +98,10 @@ const GeneralView = ({ navigation }) => {
                 style={{ width: '100%' }}
                 data={projectData}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => handleOnPress(item?.name)} style={styles.cardTouch}>
+                    <TouchableOpacity onPress={() => handleOnPress(item)} style={styles.cardTouch}>
                         <Card style={styles.card}>
                             <Card.Title title={item.name} subtitle={item.degree} titleStyle={styles.cardTitle} subtitleStyle={styles.cardSubtitle} />
-                            <Card.Cover source={{ uri: null }} style={styles.cardImage} />
+                            <Card.Cover source={{ uri: item.picture }} style={styles.cardImage} />
                         </Card>
                     </TouchableOpacity>
                 )}
