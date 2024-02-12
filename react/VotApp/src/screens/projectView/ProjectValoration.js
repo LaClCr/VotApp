@@ -6,6 +6,7 @@ import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import { useNavigation } from '@react-navigation/native';
 import ConfirmationScreen from "./ConfirmationScreen";
+import { putProject } from "../../scripts/putProject";
 
 const ProjectValoration = () => {
 
@@ -19,22 +20,41 @@ const ProjectValoration = () => {
 
 
     const handleOriginalityChange = (value) => {
-        setOriginalityValoration(value.toFixed(2));
+        setOriginalityValoration(value.toFixed(0));
     };
 
     const handleInnovationChange = (value) => {
-        setInnovationValoration(value.toFixed(2));
+        setInnovationValoration(value.toFixed(0));
     };
 
     const handleOdsChange = (value) => {
-        setOdsValoration(value.toFixed(2));
+        setOdsValoration(value.toFixed(0));
     };
 
     const handlePressSendValoration = () => {
         if (originalityValoration === 0 && innovationValoration === 0 && odsValoration === 0) {
             alert("Debe asignar al menos una valoración para enviar.");
         } else {
-            navigation.navigate(ConfirmationScreen);
+            const originality = Math.trunc(originalityValoration);
+            console.log(originality);
+            const innovation = Math.trunc(innovationValoration);
+            console.log(innovation);
+            const ods = Math.trunc(odsValoration);
+            console.log(ods);
+
+            const valorationJSON = {
+                nie: nieValoration,
+                originality: originality,
+                innovation: innovation,
+                ods: ods
+            };
+            const stringValorationJSON = JSON.stringify(valorationJSON);
+            console.log(stringValorationJSON);
+            if (putProject(selectedProject.name, stringValorationJSON) === true) {
+                navigation.navigate(ConfirmationScreen);
+            } else {
+                alert("No se puede valorar dos veces con el mismo documento de identificación");
+            }
         }
     };
 

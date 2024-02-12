@@ -151,7 +151,7 @@ const ProjectDetails = () => {
                         </View>
                         <Divider />
                         <View style={styles.sectionButton}>
-                            <Button onPress={() => navigation.navigate('ProjectValoration')} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
+                            <Button onPress={() => navigation.navigate('ScannerIDCard')} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
                         </View>
                     </View>
                 </View>
