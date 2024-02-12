@@ -1,26 +1,33 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   Image,
-  TouchableOpacity,
-  FlatList,
-  Alert,
+  Switch,
 } from "react-native";
 import {
   Card,
-  Switch,
   RadioButton,
-  IconButton,
   Button,
+  IconButton,
 } from "react-native-paper";
+import { useTranslation } from 'react-i18next';
 
 const Settings = () => {
+  const { t, i18n } = useTranslation();
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [language, setLanguage] = useState("English");
+  // Asegúrate de usar los códigos de idioma aquí
+  const [language, setLanguage] = useState(i18n.language);
   const [project, setProject] = useState({ id: "1", name: "Mi Proyecto", logoUri: require("../../assets/logo.png") });
+
+  const handleLanguageChange = (value) => {
+    // Ajusta la lógica para usar códigos de idioma
+    const languageCode = value === 'Español' ? 'es' : 'en';
+    setLanguage(languageCode);
+    i18n.changeLanguage(languageCode);
+  };
 
   const handleDeleteProject = (projectId) => {
     Alert.alert(
@@ -52,20 +59,14 @@ const Settings = () => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Image
-          source={require("../../assets/florida.jpg")}
-          style={styles.logo}
-        />
+        <Image source={require("../../assets/florida.jpg")} style={styles.logo} />
         <Card style={styles.card}>
           <Card.Content>
-            <Text style={styles.header}>Settings</Text>
-
-            {/* Modo Oscuro / Modo Claro con Icono */}
-
+            <Text style={styles.header}>{t('Settings')}</Text>
             <View style={styles.switchContainer}>
-            <Text style={styles.radioButtonLabel}>
-              {isDarkMode ? "Modo Oscuro" : "Modo Claro"}
-            </Text>
+              <Text style={styles.radioButtonLabel}>
+                {isDarkMode ? t("Modo Oscuro") : t("Modo Claro")}
+              </Text>
               <IconButton
                 icon={isDarkMode ? "weather-night" : "white-balance-sunny"}
                 color="#C02830"
@@ -78,28 +79,24 @@ const Settings = () => {
                 color="#C02830"
               />
             </View>
-
-            {/* Selector de Idioma con Botones de Radio */}
-            <Text style={styles.text}>Idioma / Language</Text>
+            <Text style={styles.text}>{t("Idioma / Language")}</Text>
             <RadioButton.Group
-              onValueChange={(newValue) => setLanguage(newValue)}
-              value={language}
+              onValueChange={handleLanguageChange}
+              value={language === 'en' ? 'English' : 'Español'}
             >
               <View style={styles.radioButtonContainer}>
-                <Text style={styles.radioButtonLabel}>Español  🇪🇸</Text>
                 <RadioButton value="Español" color="#C02830" />
-
+                <Text style={styles.radioButtonLabel}>{t("Español")} 🇪🇸</Text>
               </View>
               <View style={styles.radioButtonContainer}>
-                <Text style={styles.radioButtonLabel}>English   🇬🇧</Text>
                 <RadioButton value="English" color="#C02830" />
-
+                <Text style={styles.radioButtonLabel}>{t("English")} 🇬🇧</Text>
               </View>
             </RadioButton.Group>
-            {project && (
+             {project && (
               <View style={styles.projectSection}>
                 <Text style={styles.header}>
-                  Proyecto Actual: {project.name}
+                  {t("Proyecto Actual:")} {project.name}
                 </Text>
                 <View style={{alignItems: "center", justifyContent: "center"}}>
                   <Image
@@ -112,7 +109,7 @@ const Settings = () => {
                     style={{ backgroundColor: "#B58933" }}
                     onPress={handleDeleteProject}
                   >
-                    Eliminar Proyecto
+                    {t("Eliminar Proyecto")}
                   </Button>
                 </View>
               </View>

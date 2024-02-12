@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useTranslation } from "react-i18next";
 
 const DropdownComponent = ({ data, onChange }) => {
     const [value, setValue] = useState(null);
+    const { t } = useTranslation();
 
     const renderItem = (item) => {
         return (
@@ -41,7 +43,7 @@ const DropdownComponent = ({ data, onChange }) => {
             maxHeight={400}
             labelField="label"
             valueField="value"
-            placeholder="Degree"
+            placeholder={t("Grado")}
             searchPlaceholder="Search"
             value={value}
             onChange={(item) => handleSelect(item)}

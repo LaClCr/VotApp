@@ -14,9 +14,11 @@ import { TextInput, Button, Card, Chip, IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
+import { useTranslation } from 'react-i18next';
 
 const ProjectCreation = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   // Estados del proyecto
   const [projectName, setProjectName] = useState("");
   const [representativeDNI, setRepresentativeDNI] = useState("");
@@ -41,11 +43,11 @@ const ProjectCreation = () => {
 
   const confirmDelete = (participant, index) => {
     Alert.alert(
-      "Delete participant",
-      `Are you sure you want to remove ${participant}?`,
+      t('Eliminar Participante'),
+      t('Estás seguro de eliminar a ${participant}?'),
       [
-        { text: "Cancel" },
-        { text: "Yes", onPress: () => handleDeleteParticipant(index) },
+        { text: t('Cancel') },
+        { text: t('Yes'), onPress: () => handleDeleteParticipant(index) },
       ]
     );
   };
@@ -69,8 +71,8 @@ const ProjectCreation = () => {
 
     if (status !== "granted") {
       Alert.alert(
-        "Permission denied",
-        "You need to grant gallery access to choose an image."
+        t('Permiso Denegado'),
+        t('You need to grant gallery access to choose an image.')
       );
     }
   };
@@ -114,7 +116,7 @@ const ProjectCreation = () => {
         />
         <Card style={styles.card}>
           <Card.Content>
-            <Text style={styles.header}>Create a Project:</Text>
+            <Text style={styles.header}>{t('Crear un Proyecto:')}</Text>
             <View style={styles.logoSection}>
               <TouchableOpacity
                 onPress={handleSelectLogo}
@@ -134,12 +136,12 @@ const ProjectCreation = () => {
                   />
                 )}
               </TouchableOpacity>
-              <Text style={styles.logoText}>Project Logo</Text>
-              {logoLoaded && <Text style={styles.loadedText}>Cargado</Text>}
+              <Text style={styles.logoText}>{t('Logo del Proyecto')}</Text>
+              {logoLoaded && <Text style={styles.loadedText}>{t('Cargado')}</Text>}
             </View>
             <TextInput
               style={[styles.input, styles.inputMargin]}
-              placeholder="Name"
+              placeholder={t('Nombre')}
               value={projectName}
               onChangeText={(text) => setProjectName(text)}
               mode="outlined"
@@ -157,7 +159,7 @@ const ProjectCreation = () => {
                 styles.inputMargin,
                 styles.descriptionInput,
               ]}
-              placeholder="Description"
+              placeholder={t('Descripción')}
               value={description}
               onChangeText={(text) => setDescription(text)}
               mode="outlined"
@@ -173,7 +175,7 @@ const ProjectCreation = () => {
             />
              <TextInput
               style={[styles.input, styles.inputMargin]}
-              placeholder="Representative DNI" 
+              placeholder={t('DNI del Representante')} 
               value={representativeDNI}
               onChangeText={(text) => setRepresentativeDNI(text)}
               mode="outlined"
@@ -193,7 +195,7 @@ const ProjectCreation = () => {
             >
               <TextInput
                 style={styles.input}
-                placeholder="Add participant"
+                placeholder={t('Añadir Participante')} 
                 value={participantName}
                 onChangeText={(text) => setParticipantName(text)}
                 mode="outlined"
@@ -226,7 +228,7 @@ const ProjectCreation = () => {
               onPress={handleCreateProject}
               style={{ marginTop: 15, backgroundColor: "#B58933" }}
             >
-              Crear Proyecto
+              {t('Crear Proyecto')}
             </Button>
           </Card.Content>
         </Card>

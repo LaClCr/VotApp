@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TextInput, Button } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
 import ProjectCreation from "./ProjectCreation";
+import { useTranslation } from 'react-i18next';
 
 const CodeAccess = () => {
+  const { t } = useTranslation();
   const [code, setCode] = useState('');
   const navigation = useNavigation();
 
@@ -13,7 +15,7 @@ const CodeAccess = () => {
       // Navegar a ProjectCreation si el código es correcto
       navigation.navigate('ProjectCreation'); // Asegúrate de que 'Create' es el nombre correcto de la ruta en tu navigator
     } else {
-      Alert.alert('Access Denied', 'The code you entered is incorrect.');
+      Alert.alert(t('Acceso denegado'), t('El código introducido no es correcto.'));
     }
   };
 
@@ -25,12 +27,12 @@ const CodeAccess = () => {
       ]}
     >
       <View style={styles.card}>
-        <Text style={styles.header}>Please Enter the Access Code:</Text>
+        <Text style={styles.header}>{t('Introduce el código de acceso:')}</Text>
         <TextInput
           style={[styles.input, styles.inputMargin]}
           onChangeText={setCode}
           value={code}
-          placeholder="Code..."
+          placeholder={t('Código...')}
           keyboardType="numeric"
           mode="outlined"
           secureTextEntry // Opcional: Oculta el texto introducido
@@ -40,7 +42,7 @@ const CodeAccess = () => {
           onPress={() => checkCode()}
           style={{ marginTop: 80, backgroundColor: "#B58933" }}
         >
-          <Text style={styles.textStyle}>Submit</Text>
+          <Text style={styles.textStyle}>{t('Acceder')}</Text>
         </Button>
       </View>
     </View>
