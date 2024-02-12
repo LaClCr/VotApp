@@ -7,7 +7,7 @@ export async function getProject(name) {
     const response = await axios.get(apiUrl);
     if (response.status === 200) {
       var data = response.data;
-      if (data && Array.isArray(data) && data.length > 0) {
+      if (data) {
         console.log("Proyectos encontrados");
         return data;
       } else {

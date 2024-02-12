@@ -4,9 +4,10 @@ const ScreensContext = createContext();
 export const ScreensProvider = ({ children }) => {
   const [selectedProject , setSelectedProject] = useState('');
   const [nieValoration , setNieValoration] = useState('');
+  const [projectName, setProjectName] = useState('');
 
   return (
-    <ScreensContext.Provider value={{ selectedProject , setSelectedProject, nieValoration , setNieValoration }}>
+    <ScreensContext.Provider value={{ selectedProject , setSelectedProject, nieValoration, setNieValoration, projectName, setProjectName }}>
       {children}
     </ScreensContext.Provider>
   );
