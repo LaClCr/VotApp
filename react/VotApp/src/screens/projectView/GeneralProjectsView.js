@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import { Searchbar, Card, Text, Drawer } from "react-native-paper";
-import { MaterialCommunityIcons } from "@expo/vector-icons"; // Asegúrate de importar desde @expo/vector-icons si estás utilizando Expo
+import { View, StyleSheet, FlatList, TouchableOpacity, Keyboard } from "react-native";
+import { Searchbar, Card } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import FloridaHeader from "../../components/FloridaHeader";
-import Image1 from "../../assets/ProyectoImagePrueba.jpg";
-import { getProjectFilter } from "../../scripts/getProject";
+import { getProject, getProjectFilter } from "../../scripts/getProject";
 import { getDegree } from "../../scripts/getDegree";
 
 const GeneralView = ({ navigation }) => {
-
-    const [degreeData, setDegreeData] = useState([]); // Estado para almacenar los datos de los grados
-    const [projectData, setProjectData] = useState([]); // Estado para almacenar los datos de los proyectos
-    const [searchQuery, setSearchQuery] = useState(""); // Estado para la consulta de búsqueda
-    const [selectedDegree, setSelectedDegree] = useState("all"); // Estado para el filtro de grado seleccionado
+    const [degreeData, setDegreeData] = useState([]);
+    const [projectData, setProjectData] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedDegree, setSelectedDegree] = useState("all");
 
     useEffect(() => {
         const fetchDegrees = async () => {
@@ -34,24 +32,41 @@ const GeneralView = ({ navigation }) => {
         fetchDegrees();
     }, []);
 
-
     useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const projects = await getProjectFilter(selectedDegree);
-                setProjectData(projects);
-            } catch (error) {
-                console.error("Error al obtener proyectos", error);
+        fetchData();
+    }, [selectedDegree]); // Esto actualizará la lista de proyectos cuando cambies la selección en la dropdown list
+    
+    const fetchData = async () => {
+        try {
+            let projects = [];
+            if (searchQuery.trim() !== '') {
+                projects = await getProject(searchQuery.trim());
+                if (projects) {
+                    setProjectData([projects]); // Actualiza el estado con el proyecto por el nombre de la searchbar
+                } else {
+                    setProjectData([]);
+                    alert("No se ha encontrado ningún proyecto con el nombre: " + searchQuery.trim());
+                }
+            } else {
+                projects = await getProjectFilter(selectedDegree);
+                setProjectData(projects); // Actualiza el estado con los proyectos filtrados
             }
-        };
+        } catch (error) {
+            console.error("Error al obtener proyectos", error);
+        }
+    };
+    
 
-        fetchProjects();
-    }, [selectedDegree]);
+    const handleSearch = () => {
+        // Oculta el teclado
+        Keyboard.dismiss();
+        // Realiza la búsqueda
+        fetchData();
+    };
 
     const handleOnPress = (name) => {
         navigation.navigate("ProjectDetails", { name });
     };
-
 
     return (
         <View style={styles.generalContainer}>
@@ -67,6 +82,7 @@ const GeneralView = ({ navigation }) => {
                     clearIcon={() => (
                         <MaterialCommunityIcons name="close-circle" size={24} color="#C02830" />
                     )}
+                    onSubmitEditing={handleSearch}
                 />
                 <DropdownComponent
                     data={degreeData}
@@ -128,8 +144,8 @@ const styles = StyleSheet.create({
     },
     card: {
         borderRadius: 8,
-        elevation: 5, // Sombra para Android
-        shadowColor: "#000", // Sombra para iOS
+        elevation: 5,
+        shadowColor: "#000",
         backgroundColor: '#B58933',
         shadowOffset: {
             width: 0,
