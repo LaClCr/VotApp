@@ -56,6 +56,7 @@ const ProjectValoration = () => {
                             />
                         </View>
                     </View>
+                    <Divider />
                     <View style={styles.sectionValorations}>
                         <View style={styles.valoration}>
                             <Text style={styles.textInfoValorations}>Innovación:</Text>
@@ -72,6 +73,7 @@ const ProjectValoration = () => {
                             />
                         </View>
                     </View>
+                    <Divider />
                     <View style={styles.sectionValorations}>
                         <View style={styles.valoration}>
                             <Text style={styles.textInfoValorations}>ODS:</Text>
