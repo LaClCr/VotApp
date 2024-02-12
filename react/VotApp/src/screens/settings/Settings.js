@@ -18,6 +18,7 @@ import {
     useTheme,
 } from "react-native-paper";
 import { ThemeContext } from "../../context/ThemeContext";
+import FloridaHeader from "../../components/FloridaHeader";
 
 const Settings = () => {
     const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -63,10 +64,7 @@ const Settings = () => {
             ]}
         >
             <View style={styles.container}>
-                <Image
-                    source={require("../../assets/florida.jpg")}
-                    style={styles.logo}
-                />
+                <FloridaHeader />
                 <Card style={styles.card}>
                     <Card.Content>
                         <Text style={[styles.header, { color: "#C02830" }]}>
