@@ -24,7 +24,7 @@
     "expo-image-picker": "^14.7.1",
     "expo-localization": "^14.8.3",
     "expo-status-bar": "~1.11.1",
-    "i18next": "^23.8.2",
+    "lottie-react-native": "^6.6.0",
     "react": "18.2.0",
     "react-i18next": "^14.0.5",
     "react-native": "0.73.2",

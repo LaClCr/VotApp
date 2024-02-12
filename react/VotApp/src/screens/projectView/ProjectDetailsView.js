@@ -4,71 +4,51 @@ import { Divider, ProgressBar, Surface, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
+import ScannerIDCard from './ScannerIDCard';
 import { getProject } from "../../scripts/getProject";
 import { useTranslation } from "react-i18next";
 
-const ProjectDetails = ({ name }) => {
-  const { selectedProject, setSelectedProject } = useContext(ScreensContext);
-  const [averageOriginalidad, setAverageOriginalidad] = useState(0);
-  const [averageInnovacion, setAverageInnovacion] = useState(0);
-  const [averageOds, setAverageOds] = useState(0);
-  const { t } = useTranslation();
+const ProjectDetails = () => {
 
-  const navigation = useNavigation();
+    const { selectedProject, setSelectedProject } = useContext(ScreensContext);
+    const { projectName, setProjectName } = useContext(ScreensContext);
+    const [averageOriginalidad, setAverageOriginalidad] = useState(0);
+    const [averageInnovacion, setAverageInnovacion] = useState(0);
+    const [averageOds, setAverageOds] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const navigation = useNavigation();
 
-  const projectExample = {
-    //BORRAR ESTA CONSTANTE CUANDO ESTÉN LISTOS LOS SCRIPTS
+    useEffect(() => {
+        fetchData(projectName);
+    }, [projectName]);
 
-    name: "Proyecto Innovación Educativa",
-    degree: "Master's Thesis",
-    description:
-      "Este proyecto busca mejorar la enseñanza de las matemáticas mediante el uso de tecnologías interactivas.",
-    picture:
-      "https://leinn.floridamkt.florida.es/wp-content/uploads/sites/15/2023/02/florida_NoticiaAmpliada.jpg",
-    creator: "123456789A",
-    teamMembers: [
-      { name: "María García" },
-      { name: "Juan Pérez" },
-      { name: "Laura Martínez" },
-    ],
-    valorations: [
-      { nie: "23320894K", originality: 8, innovation: 9, ods: 7 },
-      { nie: "123456789B", originality: 7, innovation: 8, ods: 6 },
-    ],
-  };
+    useEffect(() => {
+        selectedProject !== null && calculateAverage();
+    }, [selectedProject]);
 
-  useEffect(() => {
-    fetchData(name);
-  }, [name]);
-
-  useEffect(() => {
-    calculateAverage();
-  }, [selectedProject]);
-
-  const fetchData = async (name) => {
-    //DESCOMENTAR ESTO CUANDO ESTÉN LISTOS LOS SCRIPTS
-    /* try {
+    const fetchData = async (name) => {
+        setLoading(true);
+        try {
             const projectData = await getProject(name);
             setSelectedProject(projectData);
         } catch (error) {
             console.error(error);
-        } */
+        }
+        setLoading(false);
+    };
+    
 
-    //BORRAR ESTO CUANDO ESTÉN LOS SCRIPTS
-    setSelectedProject(projectExample);
-  };
+    const calculateAverage = () => {
+        let sumOriginalidad = 0;
+        let sumInnovacion = 0;
+        let sumOds = 0;
+        let cantProjects = selectedProject.valorations.length;
 
-  const calculateAverage = () => {
-    let sumOriginalidad = 0;
-    let sumInnovacion = 0;
-    let sumOds = 0;
-    let cantProjects = projectExample.valorations.length;
-
-    projectExample.valorations.forEach((valoracion) => {
-      sumOriginalidad += valoracion.originality;
-      sumInnovacion += valoracion.innovation;
-      sumOds += valoracion.ods;
-    });
+        selectedProject.valorations.forEach((valoracion) => {
+            sumOriginalidad += valoracion.originality;
+            sumInnovacion += valoracion.innovation;
+            sumOds += valoracion.ods;
+        });
 
     let averageOriginalidad = normalizeValue(sumOriginalidad / cantProjects);
     let averageInnovacion = normalizeValue(sumInnovacion / cantProjects);
@@ -83,123 +63,98 @@ const ProjectDetails = ({ name }) => {
     return value / 10;
   }
 
-  return (
-    <ScrollView style={styles.generalContainer}>
-      <View style={styles.logoContainer}>
-        <FloridaHeader />
-      </View>
-      <View style={styles.cardContainer}>
-        <View style={styles.card}>
-          <View style={styles.sectionTitle}>
-            <Text style={styles.title}>{projectExample.name}</Text>
-          </View>
-          <View style={styles.sectionInfo}>
-            <Image
-              style={styles.image}
-              source={{ uri: projectExample.picture }}
-            />
-          </View>
-          <Divider />
-          <View style={styles.sectionInfo}>
-            <View style={styles.sectionInfoSmall}>
-              <Text style={styles.textInfoTitle}>{t('TITULACIÓN')}:</Text>
+    return (
+        <ScrollView style={styles.generalContainer}>
+            <View style={styles.logoContainer}>
+                <FloridaHeader />
             </View>
-            <View style={styles.sectionInfoSmall}>
-              <Text style={styles.textInfoDescription}>
-                {projectExample.degree}
-              </Text>
-            </View>
-          </View>
-          <Divider />
-          <View style={styles.sectionDegreeDescription}>
-            <View style={styles.sectionInfoSmall}>
-              <Text style={styles.textInfoTitle}>{t('DESCRIPCIÓN')}:</Text>
-            </View>
-            <View style={styles.sectionInfoSmall}>
-              <Text>{projectExample.description}</Text>
-            </View>
-          </View>
-          <Divider />
-          <View style={styles.sectionDegreeDescription}>
-            <View style={styles.sectionInfoSmall}>
-              <Text style={styles.textInfoTitle}>{t('INTEGRANTES')}:</Text>
-            </View>
-            <View style={styles.sectionInfoSmall}>
-              {projectExample.teamMembers.map((member, index) => (
-                <Surface style={styles.memberContainer} key={index}>
-                  <Text>{member.name}</Text>
-                </Surface>
-              ))}
-            </View>
-          </View>
-          <Divider />
-          <View style={styles.sectionInfo}>
-            <View style={styles.sectionInfoSmall}>
-              <Text style={styles.textInfoTitle}>{t('VALORACIONES')}</Text>
-            </View>
-          </View>
-          <View style={styles.sectionValorations}>
-            <View style={styles.valoration}>
-              <Text style={styles.textInfoValorations}>
-                {t("Originalidad")}:
-              </Text>
-              <Text style={styles.textInfoValorations}>
-                {averageOriginalidad * 10} / 10
-              </Text>
-            </View>
-            <View style={styles.progressBarContainer}>
-              <ProgressBar
-                color="#bc9c1c"
-                progress={averageOriginalidad}
-                indeterminate={false}   
-              />
-            </View>
-          </View>
-          <View style={styles.sectionValorations}>
-            <View style={styles.valoration}>
-              <Text style={styles.textInfoValorations}>{t('Innovación')}:</Text>
-              <Text style={styles.textInfoValorations}>
-                {averageInnovacion * 10} / 10
-              </Text>
-            </View>
-            <View style={styles.progressBarContainer}>
-              <ProgressBar
-                color="#bc9c1c"
-                progress={averageInnovacion}
-                indeterminate={false}
-              />
-            </View>
-          </View>
-          <View style={styles.sectionValorations}>
-            <View style={styles.valoration}>
-              <Text style={styles.textInfoValorations}>ODS:</Text>
-              <Text style={styles.textInfoValorations}>
-                {averageOds * 10} / 10
-              </Text>
-            </View>
-            <View style={styles.progressBarContainer}>
-              <ProgressBar
-                color="#bc9c1c"
-                progress={averageOds}
-                indeterminate={false}
-              />
-            </View>
-          </View>
-          <Divider />
-          <View style={styles.sectionButton}>
-            <Button
-              onPress={() => navigation.navigate("ProjectValoration")}
-              icon="star"
-              mode="contained"
-              buttonColor="#C02830"
-            >
-              {t('VALORAR')}
-            </Button>
-          </View>
-        </View>
-      </View>
-    </ScrollView>
-  );
+            {loading ? (
+                // Aquí animación de carga
+                <Text>Loading...</Text>
+            ) : (
+                <View style={styles.cardContainer}>
+                    <View style={styles.card}>
+                        <View style={styles.sectionTitle}>
+                            <Text style={styles.title}>{selectedProject.name}</Text>
+                        </View>
+                        <View style={styles.sectionInfo}>
+                            <Image style={styles.image} source={{ uri: selectedProject.picture }} />
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionInfo}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoTitle}>TITULACIÓN:</Text>
+                            </View>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoDescription}>{selectedProject.degree}</Text>
+                            </View>
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionDegreeDescription}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoTitle}>DESCRIPCIÓN:</Text>
+                            </View>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text>{selectedProject.description}</Text>
+                            </View>
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionDegreeDescription}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoTitle}>INTEGRANTES:</Text>
+                            </View>
+                            {!loading &&
+                                <View style={styles.sectionInfoSmall}>
+                                    {selectedProject.teamMembers.map((member, index) => (
+                                        <Surface style={styles.memberContainer} key={index} >
+                                            <Text>{member.name}</Text>
+                                        </Surface>
+                                    ))}
+                                </View>
+                            }
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionInfo}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoTitle}>VALORACIONES:</Text>
+                            </View>
+                        </View>
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>Originalidad:</Text>
+                                <Text style={styles.textInfoValorations}>{averageOriginalidad * 10} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <ProgressBar color="#bc9c1c" progress={averageOriginalidad} indeterminate={false} />
+                            </View>
+                        </View>
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>Innovación:</Text>
+                                <Text style={styles.textInfoValorations}>{averageInnovacion * 10} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <ProgressBar color="#bc9c1c" progress={averageInnovacion} indeterminate={false} />
+                            </View>
+                        </View>
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>ODS:</Text>
+                                <Text style={styles.textInfoValorations}>{averageOds * 10} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <ProgressBar color="#bc9c1c" progress={averageOds} indeterminate={false} />
+                            </View>
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionButton}>
+                            <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
+                        </View>
+                    </View>
+                </View>
+            )}
+        </ScrollView>
+    );
 };
 
 const styles = StyleSheet.create({
