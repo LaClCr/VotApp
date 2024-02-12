@@ -56,7 +56,12 @@ const Settings = () => {
     const theme = useTheme();
 
     return (
-        <ScrollView style={styles.scrollView}>
+        <ScrollView
+            style={[
+                styles.scrollView,
+                { backgroundColor: theme.colors.background },
+            ]}
+        >
             <View style={styles.container}>
                 <Image
                     source={require("../../assets/florida.jpg")}
@@ -64,12 +69,17 @@ const Settings = () => {
                 />
                 <Card style={styles.card}>
                     <Card.Content>
-                        <Text style={styles.header}>Settings</Text>
-
-                        {/* Modo Oscuro / Modo Claro con Icono */}
+                        <Text style={[styles.header, { color: "#C02830" }]}>
+                            Settings
+                        </Text>
 
                         <View style={styles.switchContainer}>
-                            <Text style={styles.radioButtonLabel}>
+                            <Text
+                                style={[
+                                    styles.radioButtonLabel,
+                                    { color: theme.colors.text },
+                                ]}
+                            >
                                 {isDarkMode ? "Modo Oscuro" : "Modo Claro"}
                             </Text>
                             <IconButton
@@ -88,20 +98,31 @@ const Settings = () => {
                             />
                         </View>
 
-                        {/* Selector de Idioma con Botones de Radio */}
-                        <Text style={styles.text}>Idioma / Language</Text>
+                        <Text style={[styles.text, { color: "#C02830" }]}>
+                            Idioma / Language
+                        </Text>
                         <RadioButton.Group
                             onValueChange={(newValue) => setLanguage(newValue)}
                             value={language}
                         >
                             <View style={styles.radioButtonContainer}>
-                                <Text style={styles.radioButtonLabel}>
+                                <Text
+                                    style={[
+                                        styles.radioButtonLabel,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
                                     Español 🇪🇸
                                 </Text>
                                 <RadioButton value="Español" color="#C02830" />
                             </View>
                             <View style={styles.radioButtonContainer}>
-                                <Text style={styles.radioButtonLabel}>
+                                <Text
+                                    style={[
+                                        styles.radioButtonLabel,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
                                     English 🇬🇧
                                 </Text>
                                 <RadioButton value="English" color="#C02830" />
@@ -109,7 +130,12 @@ const Settings = () => {
                         </RadioButton.Group>
                         {project && (
                             <View style={styles.projectSection}>
-                                <Text style={styles.header}>
+                                <Text
+                                    style={[
+                                        styles.header,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
                                     Proyecto Actual: {project.name}
                                 </Text>
                                 <View
@@ -123,6 +149,7 @@ const Settings = () => {
                                         style={styles.projectLogo}
                                     />
                                     <Button
+                                        textColor={theme.colors.text}
                                         icon="delete"
                                         mode="contained"
                                         style={{ backgroundColor: "#B58933" }}
@@ -142,11 +169,10 @@ const Settings = () => {
 
 const styles = StyleSheet.create({
     scrollView: {
-        backgroundColor: "#fff",
+        flex: 1,
     },
     container: {
         flex: 1,
-        backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20,
@@ -174,13 +200,11 @@ const styles = StyleSheet.create({
     },
     header: {
         fontSize: 20,
-        color: "#000",
         marginBottom: 20,
         marginTop: 10,
     },
     text: {
         fontSize: 16,
-        color: "#000",
         marginBottom: 10,
     },
     switchContainer: {
