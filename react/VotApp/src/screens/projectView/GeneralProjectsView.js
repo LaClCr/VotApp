@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, StyleSheet, FlatList, TouchableOpacity, Keyboard } from "react-native";
 import { Searchbar, Card } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import FloridaHeader from "../../components/FloridaHeader";
+import ScreensContext from "./projectViewScreensContext";
 import { getProject, getProjectFilter } from "../../scripts/getProject";
 import { getDegree } from "../../scripts/getDegree";
 
 const GeneralView = ({ navigation }) => {
+    const { projectName, setProjectName } = useContext(ScreensContext);
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -35,7 +37,7 @@ const GeneralView = ({ navigation }) => {
     useEffect(() => {
         fetchData();
     }, [selectedDegree]); // Esto actualizará la lista de proyectos cuando cambies la selección en la dropdown list
-    
+
     const fetchData = async () => {
         try {
             let projects = [];
@@ -55,7 +57,7 @@ const GeneralView = ({ navigation }) => {
             console.error("Error al obtener proyectos", error);
         }
     };
-    
+
 
     const handleSearch = () => {
         // Oculta el teclado
@@ -65,7 +67,9 @@ const GeneralView = ({ navigation }) => {
     };
 
     const handleOnPress = (name) => {
-        navigation.navigate("ProjectDetails", { name });
+        console.log(name);
+        setProjectName(name);
+        navigation.navigate("ProjectDetails");
     };
 
     return (
@@ -94,10 +98,10 @@ const GeneralView = ({ navigation }) => {
                 style={{ width: '100%' }}
                 data={projectData}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => handleOnPress(item.name)} style={styles.cardTouch}>
+                    <TouchableOpacity onPress={() => handleOnPress(item?.name)} style={styles.cardTouch}>
                         <Card style={styles.card}>
                             <Card.Title title={item.name} subtitle={item.degree} titleStyle={styles.cardTitle} subtitleStyle={styles.cardSubtitle} />
-                            <Card.Cover source={{ uri: null}} style={styles.cardImage} />
+                            <Card.Cover source={{ uri: null }} style={styles.cardImage} />
                         </Card>
                     </TouchableOpacity>
                 )}

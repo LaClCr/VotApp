@@ -6,63 +6,48 @@ import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import { getProject } from "../../scripts/getProject";
 
-const ProjectDetails = ({ name }) => {
+const ProjectDetails = () => {
 
-    const { selectedProject , setSelectedProject } = useContext(ScreensContext);
+    const { selectedProject, setSelectedProject } = useContext(ScreensContext);
+    const { projectName, setProjectName } = useContext(ScreensContext);
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
     const [averageOds, setAverageOds] = useState(0);
-
+    const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
 
-    const projectExample = {
-        //BORRAR ESTA CONSTANTE CUANDO ESTÉN LISTOS LOS SCRIPTS
-
-        name: "Proyecto Innovación Educativa",
-        degree: "Master's Thesis",
-        description: "Este proyecto busca mejorar la enseñanza de las matemáticas mediante el uso de tecnologías interactivas.",
-        picture: "https://leinn.floridamkt.florida.es/wp-content/uploads/sites/15/2023/02/florida_NoticiaAmpliada.jpg",
-        creator: "123456789A",
-        teamMembers: [
-            { name: "María García" },
-            { name: "Juan Pérez" },
-            { name: "Laura Martínez" }
-        ],
-        valorations: [
-            { nie: "23320894K", originality: 8, innovation: 9, ods: 7 },
-            { nie: "123456789B", originality: 7, innovation: 8, ods: 6 }
-        ]
-    };
+    useEffect(() => {
+        console.log(projectName);
+        fetchData(projectName);
+    }, [projectName]);
 
     useEffect(() => {
-        fetchData(name);
-    }, [name]); 
-
-    useEffect(() => {
-        calculateAverage();
+        if (!loading) {
+            calculateAverage();
+        }
     }, [selectedProject]);
 
     const fetchData = async (name) => {
-        //DESCOMENTAR ESTO CUANDO ESTÉN LISTOS LOS SCRIPTS
-        /* try {
+        console.log("Nombre del proyecto a buscar: " + name);
+        setLoading(true);
+        try {
             const projectData = await getProject(name);
             setSelectedProject(projectData);
+            console.log(projectData);
         } catch (error) {
             console.error(error);
-        } */
-
-
-        //BORRAR ESTO CUANDO ESTÉN LOS SCRIPTS
-        setSelectedProject(projectExample);
+        }
+        setLoading(false);
     };
+    
 
     const calculateAverage = () => {
         let sumOriginalidad = 0;
         let sumInnovacion = 0;
         let sumOds = 0;
-        let cantProjects = projectExample.valorations.length;
+        let cantProjects = selectedProject.valorations.length;
 
-        projectExample.valorations.forEach((valoracion) => {
+        selectedProject.valorations.forEach((valoracion) => {
             sumOriginalidad += valoracion.originality;
             sumInnovacion += valoracion.innovation;
             sumOds += valoracion.ods;
@@ -86,84 +71,91 @@ const ProjectDetails = ({ name }) => {
             <View style={styles.logoContainer}>
                 <FloridaHeader />
             </View>
-            <View style={styles.cardContainer}>
-                <View style={styles.card}>
-                    <View style={styles.sectionTitle}>
-                        <Text style={styles.title}>{projectExample.name}</Text>
-                    </View>
-                    <View style={styles.sectionInfo}>
-                        <Image style={styles.image} source={{ uri: projectExample.picture }} />
-                    </View>
-                    <Divider />
-                    <View style={styles.sectionInfo}>
-                        <View style={styles.sectionInfoSmall}>
-                            <Text style={styles.textInfoTitle}>TITULACIÓN:</Text>
+            {loading ? (
+                // Aquí animación de carga
+                <Text>Loading...</Text>
+            ) : (
+                <View style={styles.cardContainer}>
+                    <View style={styles.card}>
+                        <View style={styles.sectionTitle}>
+                            <Text style={styles.title}>{selectedProject.name}</Text>
                         </View>
-                        <View style={styles.sectionInfoSmall}>
-                            <Text style={styles.textInfoDescription}>{projectExample.degree}</Text>
+                        <View style={styles.sectionInfo}>
+                            <Image style={styles.image} source={{ uri: selectedProject.picture }} />
                         </View>
-                    </View>
-                    <Divider />
-                    <View style={styles.sectionDegreeDescription}>
-                        <View style={styles.sectionInfoSmall}>
-                            <Text style={styles.textInfoTitle}>DESCRIPCIÓN:</Text>
+                        <Divider />
+                        <View style={styles.sectionInfo}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoTitle}>TITULACIÓN:</Text>
+                            </View>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoDescription}>{selectedProject.degree}</Text>
+                            </View>
                         </View>
-                        <View style={styles.sectionInfoSmall}>
-                            <Text>{projectExample.description}</Text>
+                        <Divider />
+                        <View style={styles.sectionDegreeDescription}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoTitle}>DESCRIPCIÓN:</Text>
+                            </View>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text>{selectedProject.description}</Text>
+                            </View>
                         </View>
-                    </View>
-                    <Divider />
-                    <View style={styles.sectionDegreeDescription}>
-                        <View style={styles.sectionInfoSmall}>
-                            <Text style={styles.textInfoTitle}>INTEGRANTES:</Text>
+                        <Divider />
+                        <View style={styles.sectionDegreeDescription}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoTitle}>INTEGRANTES:</Text>
+                            </View>
+                            {!loading &&
+                                <View style={styles.sectionInfoSmall}>
+                                    {selectedProject.teamMembers.map((member, index) => (
+                                        <Surface style={styles.memberContainer} key={index} >
+                                            <Text>{member.name}</Text>
+                                        </Surface>
+                                    ))}
+                                </View>
+                            }
                         </View>
-                        <View style={styles.sectionInfoSmall}>
-                            {projectExample.teamMembers.map((member, index) => (
-                                <Surface style={styles.memberContainer} key={index} >
-                                    <Text>{member.name}</Text>
-                                </Surface>
-                            ))}
+                        <Divider />
+                        <View style={styles.sectionInfo}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.textInfoTitle}>VALORACIONES:</Text>
+                            </View>
                         </View>
-                    </View>
-                    <Divider />
-                    <View style={styles.sectionInfo}>
-                        <View style={styles.sectionInfoSmall}>
-                            <Text style={styles.textInfoTitle}>VALORACIONES:</Text>
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>Originalidad:</Text>
+                                <Text style={styles.textInfoValorations}>{averageOriginalidad * 10} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <ProgressBar color="#bc9c1c" progress={averageOriginalidad} indeterminate={false} />
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.sectionValorations}>
-                        <View style={styles.valoration}>
-                            <Text style={styles.textInfoValorations}>Originalidad:</Text>
-                            <Text style={styles.textInfoValorations}>{averageOriginalidad * 10} / 10</Text>
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>Innovación:</Text>
+                                <Text style={styles.textInfoValorations}>{averageInnovacion * 10} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <ProgressBar color="#bc9c1c" progress={averageInnovacion} indeterminate={false} />
+                            </View>
                         </View>
-                        <View style={styles.progressBarContainer}>
-                            <ProgressBar color="#bc9c1c" progress={averageOriginalidad} indeterminate={false} />
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>ODS:</Text>
+                                <Text style={styles.textInfoValorations}>{averageOds * 10} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <ProgressBar color="#bc9c1c" progress={averageOds} indeterminate={false} />
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.sectionValorations}>
-                        <View style={styles.valoration}>
-                            <Text style={styles.textInfoValorations}>Innovación:</Text>
-                            <Text style={styles.textInfoValorations}>{averageInnovacion * 10} / 10</Text>
+                        <Divider />
+                        <View style={styles.sectionButton}>
+                            <Button onPress={() => navigation.navigate('ProjectValoration')} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
                         </View>
-                        <View style={styles.progressBarContainer}>
-                            <ProgressBar color="#bc9c1c" progress={averageInnovacion} indeterminate={false} />
-                        </View>
-                    </View>
-                    <View style={styles.sectionValorations}>
-                        <View style={styles.valoration}>
-                            <Text style={styles.textInfoValorations}>ODS:</Text>
-                            <Text style={styles.textInfoValorations}>{averageOds * 10} / 10</Text>
-                        </View>
-                        <View style={styles.progressBarContainer}>
-                            <ProgressBar color="#bc9c1c" progress={averageOds} indeterminate={false} />
-                        </View>
-                    </View>
-                    <Divider />
-                    <View style={styles.sectionButton}>
-                        <Button onPress={() => navigation.navigate('ProjectValoration')} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
                     </View>
                 </View>
-            </View>
+            )}
         </ScrollView>
     );
 };
