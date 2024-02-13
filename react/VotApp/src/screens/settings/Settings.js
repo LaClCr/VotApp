@@ -22,7 +22,8 @@ import FloridaHeader from "../../components/FloridaHeader";
 
 const Settings = () => {
     const theme = useTheme();
-    const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+    const { isDarkMode, toggleDarkMode, customBackgroundColor } =
+        useContext(ThemeContext);
     const [language, setLanguage] = useState("English");
     const [project, setProject] = useState({
         id: "1",
@@ -57,15 +58,15 @@ const Settings = () => {
     );
 
     return (
-        <ScrollView
-            style={[
-                styles.scrollView,
-                { backgroundColor: theme.colors.background },
-            ]}
-        >
+        <ScrollView style={[styles.scrollView]}>
             <View style={styles.container}>
                 <FloridaHeader />
-                <Card style={styles.card}>
+                <Card
+                    style={[
+                        styles.card,
+                        { backgroundColor: customBackgroundColor },
+                    ]}
+                >
                     <Card.Content>
                         <Text style={[styles.header, { color: "#C02830" }]}>
                             Settings
@@ -147,10 +148,10 @@ const Settings = () => {
                                         style={styles.projectLogo}
                                     />
                                     <Button
-                                        textColor={theme.colors.text}
+                                        textColor="#fff"
                                         icon="delete"
                                         mode="contained"
-                                        style={{ backgroundColor: "#B58933" }}
+                                        style={{ backgroundColor: "#C02830" }}
                                         onPress={handleDeleteProject}
                                     >
                                         Eliminar Proyecto
