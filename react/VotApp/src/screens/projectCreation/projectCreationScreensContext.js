@@ -2,12 +2,10 @@ import { createContext, useState } from 'react';
 const ScreensContext = createContext();
 
 export const ScreensProvider = ({ children }) => {
-  const [selectedProject , setSelectedProject] = useState(null);
-  const [nieValoration , setNieValoration] = useState('');
-  const [projectName, setProjectName] = useState('');
+  const [selectedDegree , setSelectedDegree] = useState(null);
 
   return (
-    <ScreensContext.Provider value={{ selectedProject , setSelectedProject, nieValoration, setNieValoration, projectName, setProjectName }}>
+    <ScreensContext.Provider value={{ selectedDegree , setSelectedDegree }}>
       {children}
     </ScreensContext.Provider>
   );

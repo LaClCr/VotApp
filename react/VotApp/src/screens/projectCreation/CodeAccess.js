@@ -1,17 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Divider, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
-
+import { getDegree } from "../../scripts/getDegree";
+import ScreensContext from "./projectCreationScreensContext";
 
 const CodeAccess = () => {
 
+    const { selectedDegree, setSelectedDegree } = useContext(ScreensContext);
     const navigation = useNavigation();
     const [code, setCode] = useState(''); 
+    const [degreeData, setDegreeData] = useState([]);
+
+
+    useEffect(() => {
+        fetchDegrees();
+    }, []);
+
+    const fetchDegrees = async () => {
+        try {
+            const degrees = await getDegree("all");
+            setDegreeData(degrees);
+        } catch (error) {
+            console.error("Error al obtener grados", error);
+        }
+    };
 
     const handleButtonPress = () => {
-        // Validr el código de ciclo
+       
+        let equals = false;
+
+        degreeData.forEach(degree => {
+            if (degree.code === code) {
+                setSelectedDegree(degree);
+                equals = true;
+                navigation.navigate("ProjectCreation"); 
+            }
+        });
+
+        if (!equals) {
+            alert("Código de ciclo incorrecto");
+        }
     };
 
     return (
