@@ -17,6 +17,7 @@ const ProjectDetails = () => {
     const [averageOds, setAverageOds] = useState(0);
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetchData(projectName);
@@ -83,7 +84,7 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionInfo}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoTitle}>TITULACIÓN:</Text>
+                                <Text style={styles.textInfoTitle}>{t("TITULACIÓN")}:</Text>
                             </View>
                             <View style={styles.sectionInfoSmall}>
                                 <Text style={styles.textInfoDescription}>{selectedProject.degree}</Text>
@@ -92,7 +93,7 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionDegreeDescription}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoTitle}>DESCRIPCIÓN:</Text>
+                                <Text style={styles.textInfoTitle}>{t("DESCRIPCIÓN")}:</Text>
                             </View>
                             <View style={styles.sectionInfoSmall}>
                                 <Text>{selectedProject.description}</Text>
@@ -101,7 +102,7 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionDegreeDescription}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoTitle}>INTEGRANTES:</Text>
+                                <Text style={styles.textInfoTitle}>{t("INTEGRANTES")}:</Text>
                             </View>
                             {!loading &&
                                 <View style={styles.sectionInfoSmall}>
@@ -116,12 +117,12 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionInfo}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoTitle}>VALORACIONES:</Text>
+                                <Text style={styles.textInfoTitle}>{t("VALORACIONES")}:</Text>
                             </View>
                         </View>
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>Originalidad:</Text>
+                                <Text style={styles.textInfoValorations}>{t("Originalidad")}:</Text>
                                 <Text style={styles.textInfoValorations}>{averageOriginalidad * 10} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
@@ -130,7 +131,7 @@ const ProjectDetails = () => {
                         </View>
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>Innovación:</Text>
+                                <Text style={styles.textInfoValorations}>{t("Innovación")}:</Text>
                                 <Text style={styles.textInfoValorations}>{averageInnovacion * 10} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
@@ -148,7 +149,7 @@ const ProjectDetails = () => {
                         </View>
                         <Divider />
                         <View style={styles.sectionButton}>
-                            <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
+                            <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">{t("VALORAR")}</Button>
                         </View>
                     </View>
                 </View>

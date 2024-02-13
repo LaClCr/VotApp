@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useTransition } from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Animated } from "react-native";
 import { Divider, Button, Modal } from 'react-native-paper';
 import Slider from '@react-native-community/slider';
@@ -7,6 +7,7 @@ import ScreensContext from "./projectViewScreensContext";
 import { useNavigation } from '@react-navigation/native';
 import ConfirmationScreen from "./ConfirmationScreen";
 import { putProject } from "../../scripts/putProject";
+import { useTranslation } from "react-i18next";
 
 const ProjectValoration = () => {
 
@@ -15,7 +16,7 @@ const ProjectValoration = () => {
     const [innovationValoration, setInnovationValoration] = useState(0);
     const [originalityValoration, setOriginalityValoration] = useState(0);
     const [odsValoration, setOdsValoration] = useState(0);
-
+    const { t } = useTranslation();
     const navigation = useNavigation();
 
 
@@ -72,13 +73,13 @@ const ProjectValoration = () => {
                         <View style={styles.sectionInfo}>
                             <View style={styles.sectionInfoSmall}>
                                 <Text style={styles.subtitle}>{nieValoration}</Text>
-                                <Text style={styles.subtitle}>VALORA ESTE PROYECTO:</Text>
+                                <Text style={styles.subtitle}>{t("VALORA ESTE PROYECTO")}:</Text>
                             </View>
                         </View>
                         <Divider />
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>Originalidad:</Text>
+                                <Text style={styles.textInfoValorations}>{t("Originalidad")}:</Text>
                                 <Text style={styles.textInfoValorations}>{originalityValoration} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
@@ -95,7 +96,7 @@ const ProjectValoration = () => {
                         <Divider />
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>Innovación:</Text>
+                                <Text style={styles.textInfoValorations}>{t("Innovación")}:</Text>
                                 <Text style={styles.textInfoValorations}>{innovationValoration} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
@@ -127,7 +128,7 @@ const ProjectValoration = () => {
                             </View>
                         </View>
                         <View style={styles.sectionButton}>
-                            <Button onPress={handlePressSendValoration} icon="star" mode="contained" buttonColor="#C02830">ENVIAR VALORACIÓN</Button>
+                            <Button onPress={handlePressSendValoration} icon="star" mode="contained" buttonColor="#C02830">{t("ENVIAR VALORACIÓN")}</Button>
                         </View>
                     </View>
                 </View>

@@ -49,6 +49,9 @@ const resources = {
       "Inicio" : "Home",
       "Scanner" : "Scanner",
       "Crear" : "Create",
+      "Solicitando permiso para acceder a la cámara..." : "Requesting permission to access the chamber...",
+      "No se ha concedido acceso a la cámara" : "Access to the chamber has not been granted",
+      "Escanear de nuevo" : "Scan again",
       // Añade más traducciones aquí
     }
   },
@@ -97,6 +100,9 @@ const resources = {
       "Inicio" : "Inicio",
       "Scanner" : "Scanner",
       "Crear" : "Crear",
+      "Solicitando permiso para acceder a la cámara..." : "Solicitando permiso para acceder a la cámara...",
+      "No se ha concedido acceso a la cámara" :  "No se ha concedido acceso a la cámara",
+      "Escanear de nuevo" : "Escanear de nuevo",
       // Añade más traducciones aquí
     }
   },

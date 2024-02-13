@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 
 const GeneralView = ({ navigation }) => {
     const { projectName, setProjectName } = useContext(ScreensContext);
+    const { t } = useTranslation();
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -78,7 +79,7 @@ const GeneralView = ({ navigation }) => {
             <FloridaHeader />
             <View style={styles.searchAndFilterContainer}>
                 <Searchbar
-                    placeholder="Buscar..."
+                    placeholder={t("Buscar...")}
                     onChangeText={setSearchQuery}
                     value={searchQuery}
                     style={styles.searchbar}
