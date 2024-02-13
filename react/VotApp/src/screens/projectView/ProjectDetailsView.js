@@ -1,21 +1,31 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { Divider, ProgressBar, Surface, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import ScannerIDCard from './ScannerIDCard';
+import LottieView from 'lottie-react-native';
 import { getProject } from "../../scripts/getProject";
 
 const ProjectDetails = () => {
 
     const { selectedProject, setSelectedProject } = useContext(ScreensContext);
-    const { projectName, setProjectName } = useContext(ScreensContext);
+    const { projectName, setProjectName } = useContext(ScreensContext); 
+
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
     const [averageOds, setAverageOds] = useState(0);
     const [loading, setLoading] = useState(true);
+
     const navigation = useNavigation();
+    const lottieAnimationRef = useRef(null);
+
+    useEffect(() => {
+        if (loading) {
+            lottieAnimationRef.current.play();
+        }
+    }, []);
 
     useEffect(() => {
         fetchData(projectName);
@@ -35,33 +45,37 @@ const ProjectDetails = () => {
         }
         setLoading(false);
     };
-    
+
 
     const calculateAverage = () => {
         let sumOriginalidad = 0;
         let sumInnovacion = 0;
         let sumOds = 0;
         let cantProjects = selectedProject.valorations.length;
-
-        selectedProject.valorations.forEach((valoracion) => {
-            sumOriginalidad += valoracion.originality;
-            sumInnovacion += valoracion.innovation;
-            sumOds += valoracion.ods;
-        });
-
-        let averageOriginalidad = normalizeValue(sumOriginalidad / cantProjects);
-        console.log(averageOriginalidad);
-        let averageInnovacion = normalizeValue(sumInnovacion / cantProjects);
-        console.log(averageInnovacion);
-        let averageOds = normalizeValue(sumOds / cantProjects);
-        console.log(averageOds);
-        setAverageInnovacion(averageInnovacion);
-        setAverageOriginalidad(averageOriginalidad);
-        setAverageOds(averageOds);
+    
+        if (cantProjects > 0) {
+            selectedProject.valorations.forEach((valoracion) => {
+                sumOriginalidad += valoracion.originality;
+                sumInnovacion += valoracion.innovation;
+                sumOds += valoracion.ods;
+            });
+    
+            let averageOriginalidad = normalizeValue(sumOriginalidad / cantProjects);
+            let averageInnovacion = normalizeValue(sumInnovacion / cantProjects);
+            let averageOds = normalizeValue(sumOds / cantProjects);
+            setAverageInnovacion(averageInnovacion);
+            setAverageOriginalidad(averageOriginalidad);
+            setAverageOds(averageOds);
+        } else {
+            // Handle the case where there are no valorations
+            setAverageInnovacion(0);
+            setAverageOriginalidad(0);
+            setAverageOds(0);
+        }
     }
 
     function normalizeValue(value) {
-        return 10 * (value / 10).toFixed(2);
+        return parseFloat((10 * value / 10).toFixed(2));
     }
 
     return (
@@ -70,8 +84,16 @@ const ProjectDetails = () => {
                 <FloridaHeader />
             </View>
             {loading ? (
-                // Aquí animación de carga
-                <Text>Loading...</Text>
+                <View style={styles.loadingContainer}>
+                    <LottieView
+                        ref={lottieAnimationRef}
+                        style={{
+                            width: 200,
+                            height: 200,
+                        }}
+                        source={require('../../assets/animations/LoadingAnimation.json')}
+                    />
+                </View>
             ) : (
                 <View style={styles.cardContainer}>
                     <View style={styles.card}>
@@ -163,6 +185,11 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: 10,
         backgroundColor: 'white',
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     logoContainer: {
         flex: 0.15,

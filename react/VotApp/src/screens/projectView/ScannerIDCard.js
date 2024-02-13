@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 import { Camera } from 'expo-camera';
 import ScreensContext from "./projectViewScreensContext";
 
@@ -53,10 +54,20 @@ const ScannerIDCard = () => {
             </Camera>
             {scanned && (
                 <Button
-                    title={'Escanear de nuevo'}
                     onPress={() => setScanned(false)}
-                />
+                    icon="star"
+                    mode="contained"
+                    buttonColor="#C02830">Escanear de nuevo</Button>
             )}
+            <View style={styles.sectionButton}>
+                <Button
+                    onPress={() => navigation.navigate('NIEManual')}
+                    icon="pen"
+                    mode="contained"
+                    buttonColor='white'
+                    textColor='#C02830'
+                    >Introducir manualmente</Button>    
+            </View>
         </View>
     );
 };
@@ -76,5 +87,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 2,
         backgroundColor: 'red',
+    },
+    sectionButton: {
+        padding: 20,
+        elevation: 5,
+        justifyContent: 'center',
+        backgroundColor: '#C02830',
     },
 });
