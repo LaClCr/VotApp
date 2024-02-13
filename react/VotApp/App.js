@@ -3,16 +3,14 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { createStackNavigator } from "@react-navigation/stack";
-// Importa tus pantallas
+
 import Home from "./src/screens/projectView/Home";
 import CameraQR from "./src/screens/scannerQR/CameraQR";
-import CodeAccess from "./src/screens/projectCreation/CodeAccess"; // Usamos CodeAccess para la validación
-import ProjectCreation from "./src/screens/projectCreation/ProjectCreation";
+import HomeProjCreation from "./src/screens/projectCreation/HomeProjCreation";
 import Settings from "./src/screens/settings/Settings";
 
 const Tab = createMaterialBottomTabNavigator();
-const Stack = createStackNavigator();
+
 export default function App() {
 
     return (
@@ -54,7 +52,7 @@ export default function App() {
                     />
                     <Tab.Screen
                         name="Create"
-                        component={CreateStack} // Cambiado de CreateScreen a CreateStack
+                        component={HomeProjCreation} 
                         options={{
                             tabBarLabel: "Create",
                             tabBarIcon: ({ color }) => (
