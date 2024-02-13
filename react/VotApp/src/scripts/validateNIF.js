@@ -1,23 +1,22 @@
-// Función para validar el NIF/NIE, en principio sirve para ambos tipos de documento.
 export const validateNIF = (nif) => {
-
     nif = nif.trim().toUpperCase();
-    // Patrón para NIFs españoles (8 dígitos y una letra) y NIEs (letra X, Y o Z seguida de 7 dígitos y una letra)
-    const nifPattern = /^([XYZ]|\d{1})\d{7}[TRWAGMYFPDXBNJZSQVHLCKET]$/;
+    const nifPattern = /^[XYZ]?\d{7,8}[TRWAGMYFPDXBNJZSQVHLCKE]$/;
 
     if (!nifPattern.test(nif)) {
         return false; // Formato inválido
     }
 
-    // Extraer el tipo de documento (NIF o NIE) y el número (sin la letra de control)
+    // Si es un NIE, cambia la letra inicial por un 0
+    if (nif.charAt(0) === 'X' || nif.charAt(0) === 'Y' || nif.charAt(0) === 'Z') {
+        nif = '0' + nif.substr(1);
+    }
+
     const documentType = nif.charAt(0);
     const documentNumber = parseInt(nif.substr(0, nif.length - 1), 10);
 
-    // Array con las letras de control según el documento
-    const controlLetters = 'TRWAGMYFPDXBNJZSQVHLCKET';
+    const controlLetters = 'TRWAGMYFPDXBNJZSQVHLCKE';
     let expectedLetter;
 
-    // Calcular la letra de control esperada
     if (documentType === 'X') {
         expectedLetter = controlLetters.charAt(documentNumber % 23);
     } else if (documentType === 'Y') {
@@ -28,7 +27,6 @@ export const validateNIF = (nif) => {
         expectedLetter = controlLetters.charAt(documentNumber % 23);
     }
 
-    // Comprobar si la letra de control es correcta
     if (nif.charAt(nif.length - 1) !== expectedLetter) {
         return false; // Letra de control incorrecta
     }
