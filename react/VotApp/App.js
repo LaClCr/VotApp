@@ -3,7 +3,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
 import Home from "./src/screens/projectView/Home";
 import CameraQR from "./src/screens/scannerQR/CameraQR";
 import HomeProjCreation from "./src/screens/projectCreation/HomeProjCreation";

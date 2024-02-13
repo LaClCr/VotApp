@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Divider, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
-import { validateNIF } from "../../scripts/validateNIF";
 
 
 const CodeAccess = () => {
 
     const navigation = useNavigation();
+    const [code, setCode] = useState(''); 
 
     const handleButtonPress = () => {
         // Validr el código de ciclo
@@ -27,8 +27,8 @@ const CodeAccess = () => {
                         <View style={styles.sectionInfo}>
                             <TextInput
                                 label="Código de ciclo"	
-                                value={nieValoration}
-                                onChangeText={text => setNieValoration(text)}
+                                value={code}
+                                onChangeText={text => setCode(text)}
                                 mode="outlined"
                                 outlineColor="#C02830"
                                 activeOutlineColor="#C02830"
