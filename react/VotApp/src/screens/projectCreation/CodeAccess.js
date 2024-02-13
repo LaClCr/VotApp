@@ -1,168 +1,115 @@
-import { View, Text, StyleSheet, Alert } from "react-native";
-import React, { useState, useEffect } from "react";
-import { TextInput, Button } from "react-native-paper";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Divider, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import ProjectCreation from "./ProjectCreation";
+import FloridaHeader from "../../components/FloridaHeader";
+import ScreensContext from "./projectViewScreensContext";
+import { validateNIF } from "../../scripts/validateNIF";
 
-const CodeAccess = () => {
-  const [code, setCode] = useState('');
-  const navigation = useNavigation();
 
-  const checkCode = () => {
-    if (code === '12345') {
-      // Navegar a ProjectCreation si el código es correcto
-      navigation.navigate('ProjectCreation'); // Asegúrate de que 'Create' es el nombre correcto de la ruta en tu navigator
-    } else {
-      Alert.alert('Access Denied', 'The code you entered is incorrect.');
-    }
-  };
+const NIEManual = () => {
 
-  return (
-    <View
-      style={[
-        styles.container,
-        { alignItems: "center", justifyContent: "center" },
-      ]}
-    >
-      <View style={styles.card}>
-        <Text style={styles.header}>Please Enter the Access Code:</Text>
-        <TextInput
-          style={[styles.input, styles.inputMargin]}
-          onChangeText={setCode}
-          value={code}
-          placeholder="Code..."
-          keyboardType="numeric"
-          mode="outlined"
-          secureTextEntry // Opcional: Oculta el texto introducido
-        />
-        <Button
-          mode="contained"
-          onPress={() => checkCode()}
-          style={{ marginTop: 80, backgroundColor: "#B58933" }}
-        >
-          <Text style={styles.textStyle}>Submit</Text>
-        </Button>
-      </View>
-    </View>
-  );
+    const { nieValoration, setNieValoration } = useContext(ScreensContext);
+    const navigation = useNavigation();
+
+    const handleButtonPress = () => {
+        if (validateNIF(nieValoration)) {
+            navigation.navigate("ProjectValoration");
+        } else {
+            alert("NIF/NIE inválido. Por favor, ingresa un NIF/NIE válido.");
+        }
+    };
+
+    return (
+        <ScrollView style={styles.generalContainer}>
+            <View style={styles.logoContainer}>
+                <FloridaHeader />
+            </View>
+                <View style={styles.cardContainer}>
+                    <View style={styles.card}>
+                        <View style={styles.sectionTitle}>
+                            <Text style={styles.title}>Introduce tu NIF/NIE</Text>
+                        </View>
+                        <View style={styles.sectionInfo}>
+                            <TextInput
+                                label="NIF/NIE"
+                                value={nieValoration}
+                                onChangeText={text => setNieValoration(text)}
+                                mode="outlined"
+                                outlineColor="#C02830"
+                                activeOutlineColor="#C02830"
+                                style={{ flex: 1 }}
+                            />
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionButton}>
+                            <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">Continuar</Button>
+                        </View>
+                    </View>
+                </View>
+        </ScrollView>
+    );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: "#fff",
-  },
-  electLogoButton: {
-    padding: 10, // Añadir padding para el área táctil
-    borderRadius: 5, // Bordes redondeados
-    backgroundColor: "#E1E1E1", // Color de fondo
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logoSection: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  logoButton: {
-    marginRight: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  projectLogo: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-  },
-  logoText: {
-    flex: 1,
-    fontSize: 16,
-    color: "#C02830",
-  },
-  iconButton: {
-    backgroundColor: "#E8E8E8", // Un color de fondo claro
-    borderRadius: 50, // Hacer el botón completamente redondo
-  },
-  logoContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  loadedText: {
-    marginLeft: 10, // Espaciado desde el logo
-    fontSize: 16, // Tamaño del texto
-    color: "green", // Color del texto
-  },
-  descriptionInput: {
-    textAlignVertical: "top",
-    height: 100,
-  },
-  inputMargin: {
-    marginBottom: 15,
-  },
-  participantContainerMargin: {
-    marginBottom: 12,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    padding: 20,
-    paddingTop: 60,
-  },
-  card: {
-    width: "90%",
-    padding: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    generalContainer: {
+        flex: 1,
+        margin: 10,
+        backgroundColor: 'white',
     },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-  },
-  logo: {
-    width: 500, // Ajusta el ancho según tus necesidades
-    height: 100, // Ajusta la altura según tus necesidades
-    marginBottom: 20,
-    // Añade resizeMode si es necesario, por ejemplo: resizeMode: 'contain'
-  },
-  header: {
-    fontSize: 20,
-    marginVertical: 10,
-  },
-  input: {
-    backgroundColor: "white",
-    fontSize: 18,
-    flex: 1,
-  },
-  logoPlaceholder: {
-    width: 100,
-    height: 100,
-    backgroundColor: "#e1e1e1", // Un color de fondo gris claro
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 20,
-  },
-  addButton: {
-    backgroundColor: "#B58933",
-    marginLeft: 10,
-  },
-  participantInputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  participantList: {
-    marginTop: 10,
-  },
-  chip: {
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  chipText: {
-    fontSize: 14,
-  },
+    logoContainer: {
+        flex: 0.15,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        padding: 20,
+        paddingTop: 60,
+    },
+    cardContainer: {
+        flex: 1,
+    },
+    card: {
+        margin: 20,
+        borderRadius: 10,
+        backgroundColor: "#ede5c8",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    sectionTitle: {
+        margin: 5,
+        padding: 20,
+        borderRadius: 10,
+        backgroundColor: "#C02830",
+        justifyContent: "center",
+        elevation: 5,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 10,
+        textAlign: "center",
+        color: 'white',
+    },
+    sectionInfo: {
+        flex: 1,
+        flexDirection: "row",
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: "#ede5c8",
+        elevation: 5,
+    },
+    sectionButton: {
+        flex: 1,
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+        elevation: 5,
+        justifyContent: 'center',
+    },
 });
-export default CodeAccess;
+
+export default NIEManual;

@@ -11,7 +11,7 @@ import { getProject } from "../../scripts/getProject";
 const ProjectDetails = () => {
 
     const { selectedProject, setSelectedProject } = useContext(ScreensContext);
-    const { projectName, setProjectName } = useContext(ScreensContext); 
+    const { projectName } = useContext(ScreensContext); 
 
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);

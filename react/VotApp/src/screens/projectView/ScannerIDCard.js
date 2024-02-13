@@ -7,7 +7,7 @@ import ScreensContext from "./projectViewScreensContext";
 
 const ScannerIDCard = () => {
 
-    const { nieValoration, setNieValoration } = useContext(ScreensContext);
+    const { setNieValoration } = useContext(ScreensContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const navigation = useNavigation();
@@ -53,11 +53,12 @@ const ScannerIDCard = () => {
                 <View style={styles.scanBar} />
             </Camera>
             {scanned && (
-                <Button
-                    onPress={() => setScanned(false)}
-                    icon="star"
-                    mode="contained"
-                    buttonColor="#C02830">Escanear de nuevo</Button>
+                <View style={styles.sectionButton}>
+                    <Button
+                        onPress={() => setScanned(false)}
+                        mode="contained"
+                        buttonColor="#C02830">Escanear de nuevo</Button>
+                </View>
             )}
             <View style={styles.sectionButton}>
                 <Button
@@ -66,7 +67,7 @@ const ScannerIDCard = () => {
                     mode="contained"
                     buttonColor='white'
                     textColor='#C02830'
-                    >Introducir manualmente</Button>    
+                >Introducir manualmente</Button>
             </View>
         </View>
     );

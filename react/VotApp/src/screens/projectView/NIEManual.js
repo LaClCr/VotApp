@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Divider, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
@@ -7,11 +7,9 @@ import ScreensContext from "./projectViewScreensContext";
 import { validateNIF } from "../../scripts/validateNIF";
 
 
-const ProjectDetails = () => {
+const NIEManual = () => {
 
     const { nieValoration, setNieValoration } = useContext(ScreensContext);
-    const [loading, setLoading] = useState(true);
-
     const navigation = useNavigation();
 
     const handleButtonPress = () => {
@@ -58,11 +56,6 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: 10,
         backgroundColor: 'white',
-    },
-    loadingContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     logoContainer: {
         flex: 0.15,
@@ -117,62 +110,6 @@ const styles = StyleSheet.create({
         elevation: 5,
         justifyContent: 'center',
     },
-    sectionDegreeDescription: {
-        flex: 1,
-        flexDirection: "column",
-        margin: 5,
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: "#ede5c8",
-        elevation: 5,
-    },
-    sectionInfoSmall: {
-        flex: 1,
-        marginTop: 5,
-        marginBottom: 5,
-    },
-    textInfoTitle: {
-        fontSize: 16,
-        fontWeight: "bold",
-        textAlign: "left",
-    },
-    textInfoDescription: {
-        fontSize: 16,
-        textAlign: "right",
-        marginLeft: 10,
-    },
-    textInfoValorations: {
-        fontSize: 16,
-        textAlign: "justify",
-    },
-    sectionValorations: {
-        flex: 1,
-        flexDirection: 'column',
-        margin: 5,
-    },
-    valoration: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        padding: 10,
-    },
-    progressBarContainer: {
-        flex: 1,
-        margin: 10,
-    },
-    image: {
-        width: 280,
-        height: 200,
-        resizeMode: "contain",
-        borderRadius: 10,
-    },
-    memberContainer: {
-        margin: 5,
-        backgroundColor: "#bc9c1c",
-        borderRadius: 10,
-        padding: 5,
-        alignItems: "center",
-    }
 });
 
-export default ProjectDetails;
+export default NIEManual;
