@@ -14,7 +14,6 @@ const Stack = createStackNavigator();
 const Home = () => {
     return (
         <ScreensProvider>
-
             <Stack.Navigator>
                 <Stack.Screen
                     name="GeneralView"

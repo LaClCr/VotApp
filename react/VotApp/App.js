@@ -14,18 +14,6 @@ import Settings from "./src/screens/settings/Settings";
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 export default function App() {
-    // Componente intermedio que decide qué mostrar en el tab "Create"
-    function CreateStack() {
-        return (
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="CodeAccess" component={CodeAccess} />
-                <Stack.Screen
-                    name="ProjectCreation"
-                    component={ProjectCreation}
-                />
-            </Stack.Navigator>
-        );
-    }
 
     return (
         <SafeAreaProvider>

@@ -3,21 +3,15 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Divider, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
-import ScreensContext from "./projectViewScreensContext";
 import { validateNIF } from "../../scripts/validateNIF";
 
 
-const NIEManual = () => {
+const CodeAccess = () => {
 
-    const { nieValoration, setNieValoration } = useContext(ScreensContext);
     const navigation = useNavigation();
 
     const handleButtonPress = () => {
-        if (validateNIF(nieValoration)) {
-            navigation.navigate("ProjectValoration");
-        } else {
-            alert("NIF/NIE inválido. Por favor, ingresa un NIF/NIE válido.");
-        }
+        // Validr el código de ciclo
     };
 
     return (
@@ -28,11 +22,11 @@ const NIEManual = () => {
                 <View style={styles.cardContainer}>
                     <View style={styles.card}>
                         <View style={styles.sectionTitle}>
-                            <Text style={styles.title}>Introduce tu NIF/NIE</Text>
+                            <Text style={styles.title}>Introduce código de ciclo:</Text>
                         </View>
                         <View style={styles.sectionInfo}>
                             <TextInput
-                                label="NIF/NIE"
+                                label="Código de ciclo"	
                                 value={nieValoration}
                                 onChangeText={text => setNieValoration(text)}
                                 mode="outlined"
@@ -112,4 +106,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NIEManual;
+export default CodeAccess;
