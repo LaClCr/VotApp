@@ -21,6 +21,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import FloridaHeader from "../../components/FloridaHeader";
 
 const Settings = () => {
+    const theme = useTheme();
     const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
     const [language, setLanguage] = useState("English");
     const [project, setProject] = useState({
@@ -54,7 +55,6 @@ const Settings = () => {
             />
         </View>
     );
-    const theme = useTheme();
 
     return (
         <ScrollView
