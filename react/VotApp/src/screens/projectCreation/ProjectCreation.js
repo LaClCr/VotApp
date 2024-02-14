@@ -12,12 +12,11 @@ import {
 } from "react-native";
 import { TextInput, Button, Chip, Divider } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
 import ScreensContext from "./projectCreationScreensContext";
 import FloridaHeader from "../../components/FloridaHeader";
 import { postProject } from "../../scripts/postProject";
-import validateNIF from "../../scripts/validateNIF";
+import { validateNIF } from "../../scripts/validateNIF";
 
 const ProjectCreation = () => {
     const navigation = useNavigation();
@@ -75,11 +74,11 @@ const ProjectCreation = () => {
                 alert("El DNI/NIE del representante debe tener 9 caracteres.");
                 return;
             }
-            //DESCOMENTAR ESTO CUANDO ESTÉ LA FUNCION DE VALIDAR NIF
-            /* if (!validateNIF(representativeDNI)) {
-        alert("El DNI/NIE del representante no es válido.");
-        return;
-      } */
+
+            if (!validateNIF(representativeDNI)) {
+                alert("El DNI/NIE del representante no es válido.");
+                return;
+            }
         }
 
         const project = {
@@ -136,7 +135,7 @@ const ProjectCreation = () => {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 1,
+            quality: 0.2,
         });
 
         if (
