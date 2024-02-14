@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -8,16 +8,22 @@ import {
   Image,
   TouchableOpacity,
   Alert,
-  Modal,
 } from "react-native";
-import { TextInput, Button, Card, Chip, IconButton } from "react-native-paper";
+import { TextInput, Button, Chip, Divider } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
+import ScreensContext from "./projectCreationScreensContext";
+import FloridaHeader from "../../components/FloridaHeader";
+import { postProject } from "../../scripts/postProject";
+import { validateNIF } from "../../scripts/validateNIF";
+
 
 const ProjectCreation = () => {
   const navigation = useNavigation();
-  // Estados del proyecto
+
+  const { selectedDegree, setSelectedDegree } = useContext(ScreensContext);
+
   const [projectName, setProjectName] = useState("");
   const [representativeDNI, setRepresentativeDNI] = useState("");
   const [description, setDescription] = useState("");
@@ -41,47 +47,76 @@ const ProjectCreation = () => {
 
   const confirmDelete = (participant, index) => {
     Alert.alert(
-      "Delete participant",
-      `Are you sure you want to remove ${participant}?`,
+      "Borrar miembro",
+      `¿Estás seguro de que deseas borrar el miembro ${participant}?`,
       [
-        { text: "Cancel" },
-        { text: "Yes", onPress: () => handleDeleteParticipant(index) },
+        { text: "Cancelar" },
+        { text: "Continuar", onPress: () => handleDeleteParticipant(index) },
       ]
     );
   };
 
-  const handleCreateProject = () => {
-    // Aquí iría la lógica para crear el proyecto, como validaciones y llamadas a APIs.
-    console.log("Creando proyecto con los siguientes datos:");
-    console.log("Nombre del Proyecto:", projectName);
-    console.log("Descripción:", description);
-    console.log("Participantes:", participants);
-    console.log("Logo del Proyecto URI:", projectLogo?.uri);
-  
-    // Puedes añadir aquí una llamada a tu backend o lógica para guardar los datos del proyecto.
+
+  const handleCreateProject = async () => {
+    if (!projectName || !selectedDegree || !description || !projectLogo || !representativeDNI || participants.length === 0) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    } else {
+      if (representativeDNI.length !== 9) {
+        alert("El DNI/NIE del representante debe tener 9 caracteres.");
+        return;
+      }
+
+      if (!validateNIF(representativeDNI)) {
+        alert("El DNI/NIE del representante no es válido.");
+        return;
+      }
+    }
+
+    const project = {
+      name: projectName,
+      degree: selectedDegree.abbreviation,
+      description: description,
+      picture: projectLogo.uri,
+      creator: representativeDNI,
+      teamMembers: participants.map(name => ({ name })),
+      valorations: []
+    };
+
+    console.log(project);
+
+    try {
+      let response = await postProject(project);
+      if (response.status === 201) {
+        navigation.navigate('ConfirmationScreenCreation');
+      } else {
+        alert("No se pudo crear el proyecto. Por favor, inténtalo de nuevo.");
+      }
+    } catch (error) {
+      console.error("Error al crear el proyecto", error);
+      alert("No se pudo crear el proyecto. Por favor, inténtalo de nuevo.");
+    }
   };
 
-  // asdasdasdasd
-  
 
   const handleRequestGalleryPermission = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== "granted") {
       Alert.alert(
-        "Permission denied",
-        "You need to grant gallery access to choose an image."
+        "Sin permisos de galería",
+        "Necesitamos permisos para acceder a tu galería para seleccionar una imagen."
       );
     }
   };
 
   const handleSelectLogo = async () => {
-    // Lanzar el selector de imágenes
+
     const pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images, // Asegura que solo se puedan seleccionar imágenes
-      allowsEditing: true, // Permite al usuario editar la imagen
-      aspect: [4, 3], // Aspecto para el editor de imágenes
-      quality: 1, // Calidad de la imagen seleccionada
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
 
     if (
@@ -95,7 +130,7 @@ const ProjectCreation = () => {
     }
   };
 
-  // Añadir participante  a la lista de participantes y limpiar el input
+
   const renderParticipant = ({ item, index }) => (
     <TouchableOpacity onPress={() => confirmDelete(item, index)}>
       <Chip style={styles.chip} textStyle={styles.chipText} mode="outlined">
@@ -104,18 +139,22 @@ const ProjectCreation = () => {
     </TouchableOpacity>
   );
 
-  // El contenido principal de la pantalla se muestra solo si el usuario está autenticado
+
   return (
-    <ScrollView style={styles.scrollView}>
-      <View style={styles.container}>
-        <Image
-          source={require("../../assets/florida.jpg")}
-          style={styles.logo}
-        />
-        <Card style={styles.card}>
-          <Card.Content>
-            <Text style={styles.header}>Create a Project:</Text>
-            <View style={styles.logoSection}>
+    <ScrollView style={styles.generalContainer}>
+      <View style={styles.logoContainer}>
+        <FloridaHeader />
+      </View>
+      <View style={styles.cardContainer}>
+        <View style={styles.card}>
+          <View style={styles.sectionTitle}>
+            <Text style={styles.title}>Crear proyecto</Text>
+          </View>
+          <View style={styles.sectionInfoSmall}>
+            <Text style={styles.textInfoTitle}>Imagen:</Text>
+          </View>
+          <View style={styles.sectionInfo}>
+            <View style={styles.sectionInfoSmall}>
               <TouchableOpacity
                 onPress={handleSelectLogo}
                 style={styles.logoButton}
@@ -126,23 +165,30 @@ const ProjectCreation = () => {
                     style={styles.projectLogo}
                   />
                 ) : (
-                  <IconButton
-                    icon="camera"
-                    color="#C02830"
-                    size={20}
-                    style={styles.iconButton}
+                  <Image
+                    source={require("../../assets/addImage.png")}
+                    style={styles.projectLogo}
                   />
                 )}
               </TouchableOpacity>
-              <Text style={styles.logoText}>Project Logo</Text>
-              {logoLoaded && <Text style={styles.loadedText}>Cargado</Text>}
             </View>
+            {/* <View style={styles.sectionInfoSmall}>
+              {logoLoaded ? (<Text style={styles.logoText}>Imagen cargada correctamente</Text>) : (<Text style={{ ...styles.logoText, color: 'black' }}>Selecciona una imagen</Text>)}
+            </View> */}
+          </View>
+          <Divider />
+          <View style={styles.sectionInfoSmall}>
+            <Text style={styles.textInfoTitle}>Nombre del proyecto:</Text>
+          </View>
+          <View style={styles.sectionInfo}>
             <TextInput
               style={[styles.input, styles.inputMargin]}
-              placeholder="Name"
+              placeholder="Introduce nombre..."
               value={projectName}
               onChangeText={(text) => setProjectName(text)}
               mode="outlined"
+              outlineColor="#C02830"
+              activeOutlineColor="#C02830"
               theme={{
                 colors: {
                   primary: "#C02830",
@@ -151,13 +197,19 @@ const ProjectCreation = () => {
                 },
               }}
             />
+          </View>
+          <Divider />
+          <View style={styles.sectionInfoSmall}>
+            <Text style={styles.textInfoTitle}>Descripción:</Text>
+          </View>
+          <View style={styles.sectionInfo}>
             <TextInput
               style={[
                 styles.input,
                 styles.inputMargin,
                 styles.descriptionInput,
               ]}
-              placeholder="Description"
+              placeholder="Describe tu proyecto..."
               value={description}
               onChangeText={(text) => setDescription(text)}
               mode="outlined"
@@ -171,9 +223,56 @@ const ProjectCreation = () => {
                 },
               }}
             />
-             <TextInput
+          </View>
+          <Divider />
+          <View style={styles.sectionInfoSmall}>
+            <Text style={styles.textInfoTitle}>Miembros del equipo:</Text>
+          </View>
+          <View style={styles.sectionInfo}>
+            <TextInput
+              style={styles.input}
+              placeholder="Añadir miembro..."
+              value={participantName}
+              onChangeText={(text) => setParticipantName(text)}
+              mode="outlined"
+              theme={{
+                colors: {
+                  primary: "#C02830",
+                  underlineColor: "transparent",
+                  background: "#ffffff",
+                },
+              }}
+            />
+            <Button
+              mode="contained"
+              onPress={handleAddParticipant}
+              labelStyle={{ fontSize: 20, textAlign: "center" }}
+              contentStyle={{ justifyContent: "center", alignContent: "center" }}
+              style={styles.addButton}
+            >
+              +
+            </Button>
+          </View>
+          <View style={styles.sectionInfo}>
+            <Text>Presiona sobre un miembro para eliminarlo</Text>
+          </View>
+          <View style={styles.sectionParticipants}>
+            <FlatList
+              data={participants}
+              renderItem={renderParticipant}
+              keyExtractor={(item, index) => index.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{ flex: 1, flexWrap: "wrap" }}
+            />
+          </View>
+          <View style={styles.sectionInfoSmall}>
+            <Text style={styles.textInfoTitle}>NIF/NIE del representante:</Text>
+          </View>
+          <View style={styles.sectionInfo}>
+            <TextInput
               style={[styles.input, styles.inputMargin]}
-              placeholder="Representative DNI" 
+              placeholder="Representative DNI"
               value={representativeDNI}
               onChangeText={(text) => setRepresentativeDNI(text)}
               mode="outlined"
@@ -185,51 +284,11 @@ const ProjectCreation = () => {
                 },
               }}
             />
-            <View
-              style={[
-                styles.participantInputContainer,
-                styles.participantContainerMargin,
-              ]}
-            >
-              <TextInput
-                style={styles.input}
-                placeholder="Add participant"
-                value={participantName}
-                onChangeText={(text) => setParticipantName(text)}
-                mode="outlined"
-                theme={{
-                  colors: {
-                    primary: "#C02830",
-                    underlineColor: "transparent",
-                    background: "#ffffff",
-                  },
-                }}
-              />
-              <Button
-                mode="contained"
-                onPress={handleAddParticipant}
-                style={styles.addButton}
-              >
-                +
-              </Button>
-            </View>
-            <FlatList
-              data={participants}
-              renderItem={renderParticipant}
-              keyExtractor={(item, index) => index.toString()}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.participantList}
-            />
-            <Button
-              mode="contained"
-              onPress={handleCreateProject}
-              style={{ marginTop: 15, backgroundColor: "#B58933" }}
-            >
-              Crear Proyecto
-            </Button>
-          </Card.Content>
-        </Card>
+          </View>
+          <View style={styles.sectionButton}>
+            <Button onPress={handleCreateProject} icon="plus" mode="contained" buttonColor="#C02830">CREAR PROYECTO</Button>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
@@ -249,6 +308,8 @@ const styles = StyleSheet.create({
   logoSection: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
     marginBottom: 20,
   },
   logoButton: {
@@ -263,8 +324,10 @@ const styles = StyleSheet.create({
   },
   logoText: {
     flex: 1,
+    fontWeight: "bold",
     fontSize: 16,
-    color: "#C02830",
+    color: "green",
+    textAlign: "center",
   },
   iconButton: {
     backgroundColor: "#E8E8E8", // Un color de fondo claro
@@ -274,11 +337,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
-  },
-  loadedText: {
-    marginLeft: 10, // Espaciado desde el logo
-    fontSize: 16, // Tamaño del texto
-    color: "green", // Color del texto
   },
   descriptionInput: {
     textAlignVertical: "top",
@@ -336,14 +394,15 @@ const styles = StyleSheet.create({
   addButton: {
     backgroundColor: "#B58933",
     marginLeft: 10,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
   participantInputContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 12,
-  },
-  participantList: {
-    marginTop: 10,
   },
   chip: {
     marginRight: 8,
@@ -352,6 +411,138 @@ const styles = StyleSheet.create({
   chipText: {
     fontSize: 14,
   },
+  generalContainer: {
+    flex: 1,
+    margin: 10,
+    backgroundColor: 'white',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoContainer: {
+    flex: 0.15,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 20,
+    paddingTop: 60,
+  },
+  cardContainer: {
+    flex: 1,
+  },
+  card: {
+    margin: 20,
+    borderRadius: 10,
+    backgroundColor: "#ede5c8",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  sectionTitle: {
+    margin: 5,
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: "#C02830",
+    justifyContent: "center",
+    elevation: 5,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+    color: 'white',
+  },
+  sectionInfo: {
+    flex: 1,
+    flexDirection: "row",
+    margin: 5,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "#ede5c8",
+    elevation: 5,
+  },
+  sectionParticipants: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    margin: 5,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "#ede5c8",
+    elevation: 5,
+  },
+  sectionButton: {
+    flex: 1,
+    margin: 5,
+    padding: 10,
+    borderRadius: 10,
+    elevation: 5,
+    justifyContent: 'center',
+  },
+  sectionDegreeDescription: {
+    flex: 1,
+    flexDirection: "column",
+    margin: 5,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "#ede5c8",
+    elevation: 5,
+  },
+  sectionInfoSmall: {
+    flex: 1,
+    marginTop: 5,
+    marginBottom: 5,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  textInfoTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "left",
+  },
+  textInfoDescription: {
+    fontSize: 16,
+    textAlign: "right",
+    marginLeft: 10,
+  },
+  textInfoValorations: {
+    fontSize: 16,
+    textAlign: "justify",
+  },
+  sectionValorations: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 5,
+  },
+  valoration: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  progressBarContainer: {
+    flex: 1,
+    margin: 10,
+  },
+  image: {
+    width: 280,
+    height: 200,
+    resizeMode: "contain",
+    borderRadius: 10,
+  },
+  memberContainer: {
+    margin: 5,
+    backgroundColor: "#bc9c1c",
+    borderRadius: 10,
+    padding: 5,
+    alignItems: "center",
+  }
 });
 
 export default ProjectCreation;

@@ -44,7 +44,7 @@ const GeneralView = ({ navigation }) => {
             if (searchQuery.trim() !== '') {
                 projects = await getProject(searchQuery.trim());
                 if (projects) {
-                    setProjectData([projects]); // Actualiza el estado con el proyecto por el nombre de la searchbar
+                    setProjectData(projects); // Actualiza el estado con el proyecto por el nombre de la searchbar
                 } else {
                     setProjectData([]);
                     alert("No se ha encontrado ningún proyecto con el nombre: " + searchQuery.trim());
@@ -58,6 +58,15 @@ const GeneralView = ({ navigation }) => {
         }
     };
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            // Realiza la búsqueda cada vez que la pantalla recibe el enfoque
+            fetchData();
+        });
+
+        // Devuelve una función de limpieza para cancelar la suscripción al evento 'focus'
+        return unsubscribe;
+    }, [navigation]);
 
     const handleSearch = () => {
         // Oculta el teclado
