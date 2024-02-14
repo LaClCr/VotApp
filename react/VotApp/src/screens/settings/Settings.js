@@ -19,10 +19,12 @@ import {
 } from "react-native-paper";
 import { ThemeContext } from "../../context/ThemeContext";
 import FloridaHeader from "../../components/FloridaHeader";
+import { useTranslation } from "react-i18next";
 
 const Settings = () => {
     const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
     const [language, setLanguage] = useState("English");
+    const { t, i18n } = useTranslation();
     const [project, setProject] = useState({
         id: "1",
         name: "Mi Proyecto",
@@ -42,6 +44,13 @@ const Settings = () => {
             ]
         );
     };
+
+    const handleLanguageChange = (value) => {
+        // Ajusta la lógica para usar códigos de idioma
+        const languageCode = value === 'Español' ? 'es' : 'en';
+        setLanguage(languageCode);
+        i18n.changeLanguage(languageCode);
+      };
 
     const renderProject = ({ item }) => (
         <View style={styles.projectItem}>
@@ -97,11 +106,11 @@ const Settings = () => {
                         </View>
 
                         <Text style={[styles.text, { color: "#C02830" }]}>
-                            Idioma / Language
+                            {t("Idioma")}
                         </Text>
                         <RadioButton.Group
-                            onValueChange={(newValue) => setLanguage(newValue)}
-                            value={language}
+                            onValueChange={handleLanguageChange}
+                            value={language === 'en' ? 'English' : 'Español'}
                         >
                             <View style={styles.radioButtonContainer}>
                                 <Text
@@ -161,8 +170,8 @@ const Settings = () => {
                     </Card.Content>
                 </Card>
             </View>
-        </ScrollView>
-    );
+            </ScrollView>
+    )
 };
 
 const styles = StyleSheet.create({

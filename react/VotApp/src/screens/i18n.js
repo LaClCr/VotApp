@@ -47,12 +47,10 @@ const resources = {
       "ENVIAR VALORACIÓN" : "SEND RATING",
       "Configuración" : "Settings",
       "Inicio" : "Home",
-      "Scanner" : "Scanner",
       "Crear" : "Create",
       "Solicitando permiso para acceder a la cámara..." : "Requesting permission to access the chamber...",
       "No se ha concedido acceso a la cámara" : "Access to the chamber has not been granted",
       "Escanear de nuevo" : "Scan again",
-      // Añade más traducciones aquí
     }
   },
   es: {
@@ -98,12 +96,10 @@ const resources = {
       "ENVIAR VALORACIÓN" : "ENVIAR VALORACIÓN", 
       "Configuración" : "Configuración",
       "Inicio" : "Inicio",
-      "Scanner" : "Scanner",
       "Crear" : "Crear",
       "Solicitando permiso para acceder a la cámara..." : "Solicitando permiso para acceder a la cámara...",
       "No se ha concedido acceso a la cámara" :  "No se ha concedido acceso a la cámara",
       "Escanear de nuevo" : "Escanear de nuevo",
-      // Añade más traducciones aquí
     }
   },
 
@@ -149,13 +145,11 @@ const resources = {
       "ENVIAR VALORACIÓN" : "ENVIAR VALORACIÓ", 
       "Configuración" : "Configuració",
       "Inicio" : "Inici",
-      "Scanner" : "Escàner",
       "Crear" : "Crear",
       "Solicitando permiso para acceder a la cámara..." : "Sol·licitant permís per a accedir a la cambra...",
       "No se ha concedido acceso a la cámara" :  "No s'ha concedit accés a la cambra",
       "Escanear de nuevo" : "Escanejar de nou",
   }
-  // Añade otros idiomas aquí
 };
 
 i18n
