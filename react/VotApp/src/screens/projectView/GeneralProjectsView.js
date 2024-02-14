@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, StyleSheet, FlatList, TouchableOpacity, Keyboard } from "react-native";
-import { Searchbar, Card } from "react-native-paper";
+import {
+    View,
+    StyleSheet,
+    FlatList,
+    TouchableOpacity,
+    Keyboard,
+} from "react-native";
+import { Searchbar, Card, useTheme } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import FloridaHeader from "../../components/FloridaHeader";
@@ -9,6 +15,7 @@ import { getProject, getProjectFilter } from "../../scripts/getProject";
 import { getDegree } from "../../scripts/getDegree";
 
 const GeneralView = ({ navigation }) => {
+    const theme = useTheme();
     const { projectName, setProjectName } = useContext(ScreensContext);
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
@@ -19,11 +26,13 @@ const GeneralView = ({ navigation }) => {
         const fetchDegrees = async () => {
             try {
                 const degrees = await getDegree("all");
-                let degreeDropdownData = degrees.map(degree => ({
+                let degreeDropdownData = degrees.map((degree) => ({
                     label: degree.abbreviation,
-                    value: degree.abbreviation
+                    value: degree.abbreviation,
                 }));
-                degreeDropdownData.sort((a, b) => a.label.localeCompare(b.label));
+                degreeDropdownData.sort((a, b) =>
+                    a.label.localeCompare(b.label)
+                );
                 degreeDropdownData.unshift({ label: "Todos", value: "all" });
                 setDegreeData(degreeDropdownData);
             } catch (error) {
@@ -41,13 +50,16 @@ const GeneralView = ({ navigation }) => {
     const fetchData = async () => {
         try {
             let projects = [];
-            if (searchQuery.trim() !== '') {
+            if (searchQuery.trim() !== "") {
                 projects = await getProject(searchQuery.trim());
                 if (projects) {
                     setProjectData(projects); // Actualiza el estado con el proyecto por el nombre de la searchbar
                 } else {
                     setProjectData([]);
-                    alert("No se ha encontrado ningún proyecto con el nombre: " + searchQuery.trim());
+                    alert(
+                        "No se ha encontrado ningún proyecto con el nombre: " +
+                            searchQuery.trim()
+                    );
                 }
             } else {
                 projects = await getProjectFilter(selectedDegree);
@@ -59,7 +71,7 @@ const GeneralView = ({ navigation }) => {
     };
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
+        const unsubscribe = navigation.addListener("focus", () => {
             // Realiza la búsqueda cada vez que la pantalla recibe el enfoque
             fetchData();
         });
@@ -86,14 +98,27 @@ const GeneralView = ({ navigation }) => {
             <FloridaHeader />
             <View style={styles.searchAndFilterContainer}>
                 <Searchbar
+                    theme={{
+                        colors: {
+                            primary: "#C02830", // Color del borde y del texto
+                            text: "#C02830", // Color del texto
+                        },
+                    }}
                     placeholder="Buscar..."
                     onChangeText={setSearchQuery}
                     value={searchQuery}
-                    style={styles.searchbar}
+                    style={[
+                        styles.searchbar,
+                        { backgroundColor: theme.colors.background },
+                    ]}
                     inputStyle={styles.searchbarInput}
                     iconColor={"#C02830"}
                     clearIcon={() => (
-                        <MaterialCommunityIcons name="close-circle" size={24} color="#C02830" />
+                        <MaterialCommunityIcons
+                            name="close-circle"
+                            size={24}
+                            color="#C02830"
+                        />
                     )}
                     onSubmitEditing={handleSearch}
                 />
@@ -104,13 +129,24 @@ const GeneralView = ({ navigation }) => {
                 />
             </View>
             <FlatList
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 data={projectData}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => handleOnPress(item)} style={styles.cardTouch}>
+                    <TouchableOpacity
+                        onPress={() => handleOnPress(item)}
+                        style={styles.cardTouch}
+                    >
                         <Card style={styles.card}>
-                            <Card.Title title={item.name} subtitle={item.degree} titleStyle={styles.cardTitle} subtitleStyle={styles.cardSubtitle} />
-                            <Card.Cover source={{ uri: item.picture }} style={styles.cardImage} />
+                            <Card.Title
+                                title={item.name}
+                                subtitle={item.degree}
+                                titleStyle={styles.cardTitle}
+                                subtitleStyle={styles.cardSubtitle}
+                            />
+                            <Card.Cover
+                                source={{ uri: item.picture }}
+                                style={styles.cardImage}
+                            />
                         </Card>
                     </TouchableOpacity>
                 )}
@@ -131,18 +167,17 @@ const styles = StyleSheet.create({
     },
     searchAndFilterContainer: {
         flexDirection: "row",
-        backgroundColor: '#C02830',
-        width: '130%',
+        backgroundColor: "#C02830",
+        width: "130%",
         paddingHorizontal: 40,
-        alignItems: 'center',
-        marginLeft: 15
+        alignItems: "center",
+        marginLeft: 15,
     },
     searchbar: {
         height: 60,
         flex: 1,
         marginRight: 10,
         borderRadius: 10,
-        backgroundColor: '#fff'
     },
     searchbarInput: {
         fontSize: 16,
@@ -158,7 +193,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         elevation: 5,
         shadowColor: "#000",
-        backgroundColor: '#B58933',
+        backgroundColor: "#B58933",
         shadowOffset: {
             width: 0,
             height: 2,
