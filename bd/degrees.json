@@ -6,8 +6,8 @@
   },
   {
     "name": "Animación 3D, Juegos y Entornos Interactivos Online",
-    "abbreviation": "3D",
-    "code": "3D-24"
+    "abbreviation": "A3D",
+    "code": "A3D-24"
   },
   {
     "name": "Automatización y Robótica Industrial",
@@ -16,8 +16,8 @@
   },
   {
     "name": "Educación Infantil",
-    "abbreviation": "EI",
-    "code": "EI-24"
+    "abbreviation": "EDI",
+    "code": "EDI-24"
   },
   {
     "name": "Desarrollo de Aplicaciones Multiplataforma",
@@ -31,7 +31,16 @@
   },
   {
     "name": "Mecatrónica Industrial",
-    "abbreviation": "MI",
+    "abbreviation": "MEI",
     "code": "MI-24"
+  },{
+    "name": "Marketing y Publicidad",
+    "abbreviation": "MK",
+    "code": "MK-24"
+  },
+  {
+    "name": "Transporte y Logística",
+    "abbreviation": "TYL",
+    "code": "TYL-24"
   }
 ]
