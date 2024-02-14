@@ -6,10 +6,12 @@ import ConfirmationScreenCreation from "./ConfirmationScreenCreation";
 import { ScreensProvider } from "./projectCreationScreensContext";
 
 const Stack = createStackNavigator();
+//initialRouteName="ProjectCreation"
 const HomeProjCreation = () => {
     return (
         <ScreensProvider>
-            <Stack.Navigator>
+            
+            <Stack.Navigator >
                 <Stack.Screen
                     name="CodeAccess"
                     component={CodeAccess}
