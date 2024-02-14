@@ -16,7 +16,7 @@ import * as ImagePicker from "expo-image-picker";
 import ScreensContext from "./projectCreationScreensContext";
 import FloridaHeader from "../../components/FloridaHeader";
 import { postProject } from "../../scripts/postProject";
-import validateNIF from "../../scripts/validateNIF";
+import { validateNIF } from "../../scripts/validateNIF";
 
 
 const ProjectCreation = () => {
@@ -48,7 +48,7 @@ const ProjectCreation = () => {
   const confirmDelete = (participant, index) => {
     Alert.alert(
       "Borrar miembro",
-      `Estás seguro de que deseas borrar el miembro ${participant}?`,
+      `¿Estás seguro de que deseas borrar el miembro ${participant}?`,
       [
         { text: "Cancelar" },
         { text: "Continuar", onPress: () => handleDeleteParticipant(index) },
@@ -66,12 +66,11 @@ const ProjectCreation = () => {
         alert("El DNI/NIE del representante debe tener 9 caracteres.");
         return;
       }
-      //DESCOMENTAR ESTO CUANDO ESTÉ LA FUNCION DE VALIDAR NIF
-       /* if (!validateNIF(representativeDNI)) {
+
+      if (!validateNIF(representativeDNI)) {
         alert("El DNI/NIE del representante no es válido.");
         return;
-      } */
-
+      }
     }
 
     const project = {

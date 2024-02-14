@@ -58,6 +58,15 @@ const GeneralView = ({ navigation }) => {
         }
     };
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            // Realiza la búsqueda cada vez que la pantalla recibe el enfoque
+            fetchData();
+        });
+
+        // Devuelve una función de limpieza para cancelar la suscripción al evento 'focus'
+        return unsubscribe;
+    }, [navigation]);
 
     const handleSearch = () => {
         // Oculta el teclado
@@ -105,7 +114,7 @@ const GeneralView = ({ navigation }) => {
                         </Card>
                     </TouchableOpacity>
                 )}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(item) => item.name}
                 contentContainerStyle={styles.listContentContainer}
             />
         </View>
