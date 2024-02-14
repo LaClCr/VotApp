@@ -105,7 +105,7 @@ const GeneralView = ({ navigation }) => {
                         </Card>
                     </TouchableOpacity>
                 )}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(item) => item.name}
                 contentContainerStyle={styles.listContentContainer}
             />
         </View>
