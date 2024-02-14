@@ -17,9 +17,8 @@ import merge from "deepmerge";
 import { ThemeProvider, ThemeContext } from "./src/context/ThemeContext";
 // Importa tus pantallas
 import Home from "./src/screens/projectView/Home";
-import CameraQR from "./src/screens/scannerQR/CameraQR";
 import HomeProjCreation from "./src/screens/projectCreation/HomeProjCreation";
-import Settings from "./src/screens/settings/Settings";
+import HomeSettings from "./src/screens/settingsView/HomeSettings";
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
     reactNavigationLight: NavigationDefaultTheme,
@@ -49,7 +48,7 @@ const App = () => {
                             name="Home"
                             component={Home}
                             options={{
-                                tabBarLabel: "Home",
+                                tabBarLabel: "Proyectos",
                                 tabBarIcon: ({ color }) => (
                                     <MaterialCommunityIcons
                                         name="home"
@@ -59,25 +58,12 @@ const App = () => {
                                 ),
                             }}
                         />
-                        <Tab.Screen
-                            name="CameraQR"
-                            component={CameraQR}
-                            options={{
-                                tabBarLabel: "Cámara",
-                                tabBarIcon: ({ color }) => (
-                                    <MaterialCommunityIcons
-                                        name="camera"
-                                        color={color}
-                                        size={26}
-                                    />
-                                ),
-                            }}
-                        />
+                
                         <Tab.Screen
                             name="Create"
                             component={HomeProjCreation}
                             options={{
-                                tabBarLabel: "Create",
+                                tabBarLabel: "Crear",
                                 tabBarIcon: ({ color }) => (
                                     <MaterialCommunityIcons
                                         name="plus-box"
@@ -89,9 +75,9 @@ const App = () => {
                         />
                         <Tab.Screen
                             name="Settings"
-                            component={Settings}
+                            component={HomeSettings}
                             options={{
-                                tabBarLabel: "Settings",
+                                tabBarLabel: "Configuración",
                                 tabBarIcon: ({ color }) => (
                                     <MaterialCommunityIcons
                                         name="cog"

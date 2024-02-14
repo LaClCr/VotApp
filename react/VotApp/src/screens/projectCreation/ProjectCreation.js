@@ -66,11 +66,11 @@ const ProjectCreation = () => {
         alert("El DNI/NIE del representante debe tener 9 caracteres.");
         return;
       }
-
-      if (!validateNIF(representativeDNI)) {
+      if(!validateNIF(representativeDNI)) {
         alert("El DNI/NIE del representante no es válido.");
         return;
       }
+
     }
 
     const project = {
@@ -89,7 +89,9 @@ const ProjectCreation = () => {
       let response = await postProject(project);
       if (response.status === 201) {
         navigation.navigate('ConfirmationScreenCreation');
-      } else {
+      } else if (response.status === 403) {
+        alert("No puedes crear un proyecto si ya tienes uno en curso.");
+      }else{
         alert("No se pudo crear el proyecto. Por favor, inténtalo de nuevo.");
       }
     } catch (error) {
