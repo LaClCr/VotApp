@@ -8,7 +8,6 @@ export async function getProject(name) {
     if (response.status === 200) {
       var data = response.data;
       if (data) {
-        console.log("Proyectos encontrados");
         return data;
       } else {
         console.error("El array de proyectos está vacío");

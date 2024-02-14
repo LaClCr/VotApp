@@ -1,47 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Divider, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
-import { getDegree } from "../../scripts/getDegree";
-import ScreensContext from "./projectCreationScreensContext";
-import { useTranslation } from 'react-i18next';
+import ScreensContext from "./projectViewScreensContext";
+import { validateNIF } from "../../scripts/validateNIF";
 
-const CodeAccess = () => {
 
-    const { selectedDegree, setSelectedDegree } = useContext(ScreensContext);
+const NIEManual = () => {
+
+    const { nieValoration, setNieValoration } = useContext(ScreensContext);
     const navigation = useNavigation();
-    const [code, setCode] = useState(''); 
-    const [degreeData, setDegreeData] = useState([]);
-
-
-    useEffect(() => {
-        fetchDegrees();
-    }, []);
-
-    const fetchDegrees = async () => {
-        try {
-            const degrees = await getDegree("all");
-            setDegreeData(degrees);
-        } catch (error) {
-            console.error("Error al obtener grados", error);
-        }
-    };
 
     const handleButtonPress = () => {
-       
-        let equals = false;
-
-        degreeData.forEach(degree => {
-            if (degree.code === code) {
-                setSelectedDegree(degree);
-                equals = true;
-                navigation.navigate("ProjectCreation"); 
-            }
-        });
-
-        if (!equals) {
-            alert("Código de ciclo incorrecto");
+        if (validateNIF(nieValoration)) {
+            navigation.navigate("ProjectValoration");
+        } else {
+            alert("NIF/NIE inválido. Por favor, ingresa un NIF/NIE válido.");
         }
     };
 
@@ -53,13 +28,13 @@ const CodeAccess = () => {
                 <View style={styles.cardContainer}>
                     <View style={styles.card}>
                         <View style={styles.sectionTitle}>
-                            <Text style={styles.title}>Introduce código de ciclo:</Text>
+                            <Text style={styles.title}>Introduce tu NIF/NIE</Text>
                         </View>
                         <View style={styles.sectionInfo}>
                             <TextInput
-                                label="Código de ciclo"	
-                                value={code}
-                                onChangeText={text => setCode(text)}
+                                label="NIF/NIE"
+                                value={nieValoration}
+                                onChangeText={text => setNieValoration(text)}
                                 mode="outlined"
                                 outlineColor="#C02830"
                                 activeOutlineColor="#C02830"
@@ -137,4 +112,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CodeAccess;
+export default NIEManual;

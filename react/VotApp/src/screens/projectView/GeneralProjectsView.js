@@ -46,7 +46,7 @@ const GeneralView = ({ navigation }) => {
             if (searchQuery.trim() !== '') {
                 projects = await getProject(searchQuery.trim());
                 if (projects) {
-                    setProjectData([projects]); // Actualiza el estado con el proyecto por el nombre de la searchbar
+                    setProjectData(projects); // Actualiza el estado con el proyecto por el nombre de la searchbar
                 } else {
                     setProjectData([]);
                     alert("No se ha encontrado ningún proyecto con el nombre: " + searchQuery.trim());
@@ -107,7 +107,7 @@ const GeneralView = ({ navigation }) => {
                         </Card>
                     </TouchableOpacity>
                 )}
-                keyExtractor={(item) => item.name}
+                keyExtractor={(item) => item._id}
                 contentContainerStyle={styles.listContentContainer}
             />
         </View>

@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 import { Camera } from 'expo-camera';
 import ScreensContext from "./projectViewScreensContext";
 import { useTranslation } from 'react-i18next';
 
 const ScannerIDCard = () => {
 
-    const { nieValoration, setNieValoration } = useContext(ScreensContext);
+    const { setNieValoration } = useContext(ScreensContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const navigation = useNavigation();
@@ -54,11 +55,22 @@ const ScannerIDCard = () => {
                 <View style={styles.scanBar} />
             </Camera>
             {scanned && (
-                <Button
-                    title={t('Escanear de nuevo')}
-                    onPress={() => setScanned(false)}
-                />
+                <View style={styles.sectionButton}>
+                    <Button
+                        onPress={() => setScanned(false)}
+                        mode="contained"
+                        buttonColor="#C02830">Escanear de nuevo</Button>
+                </View>
             )}
+            <View style={styles.sectionButton}>
+                <Button
+                    onPress={() => navigation.navigate('NIEManual')}
+                    icon="pen"
+                    mode="contained"
+                    buttonColor='white'
+                    textColor='#C02830'
+                >Introducir manualmente</Button>
+            </View>
         </View>
     );
 };
@@ -78,5 +90,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 2,
         backgroundColor: 'red',
+    },
+    sectionButton: {
+        padding: 20,
+        elevation: 5,
+        justifyContent: 'center',
+        backgroundColor: '#C02830',
     },
 });

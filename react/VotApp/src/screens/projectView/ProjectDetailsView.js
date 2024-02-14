@@ -1,23 +1,32 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { Divider, ProgressBar, Surface, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import ScannerIDCard from './ScannerIDCard';
+import LottieView from 'lottie-react-native';
 import { getProject } from "../../scripts/getProject";
 import { useTranslation } from "react-i18next";
 
 const ProjectDetails = () => {
 
     const { selectedProject, setSelectedProject } = useContext(ScreensContext);
-    const { projectName, setProjectName } = useContext(ScreensContext);
+    const { projectName } = useContext(ScreensContext); 
+
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
     const [averageOds, setAverageOds] = useState(0);
     const [loading, setLoading] = useState(true);
+
     const navigation = useNavigation();
-    const { t } = useTranslation();
+    const lottieAnimationRef = useRef(null);
+
+    useEffect(() => {
+        if (loading) {
+            lottieAnimationRef.current.play();
+        }
+    }, []);
 
     useEffect(() => {
         fetchData(projectName);
@@ -37,32 +46,38 @@ const ProjectDetails = () => {
         }
         setLoading(false);
     };
-    
+
 
     const calculateAverage = () => {
         let sumOriginalidad = 0;
         let sumInnovacion = 0;
         let sumOds = 0;
         let cantProjects = selectedProject.valorations.length;
+    
+        if (cantProjects > 0) {
+            selectedProject.valorations.forEach((valoracion) => {
+                sumOriginalidad += valoracion.originality;
+                sumInnovacion += valoracion.innovation;
+                sumOds += valoracion.ods;
+            });
+    
+            let averageOriginalidad = normalizeValue(sumOriginalidad / cantProjects);
+            let averageInnovacion = normalizeValue(sumInnovacion / cantProjects);
+            let averageOds = normalizeValue(sumOds / cantProjects);
+            setAverageInnovacion(averageInnovacion);
+            setAverageOriginalidad(averageOriginalidad);
+            setAverageOds(averageOds);
+        } else {
+            // Handle the case where there are no valorations
+            setAverageInnovacion(0);
+            setAverageOriginalidad(0);
+            setAverageOds(0);
+        }
+    }
 
-        selectedProject.valorations.forEach((valoracion) => {
-            sumOriginalidad += valoracion.originality;
-            sumInnovacion += valoracion.innovation;
-            sumOds += valoracion.ods;
-        });
-
-    let averageOriginalidad = normalizeValue(sumOriginalidad / cantProjects);
-    let averageInnovacion = normalizeValue(sumInnovacion / cantProjects);
-    let averageOds = normalizeValue(sumOds / cantProjects);
-
-    setAverageInnovacion(averageInnovacion);
-    setAverageOriginalidad(averageOriginalidad);
-    setAverageOds(averageOds);
-  };
-
-  function normalizeValue(value) {
-    return value / 10;
-  }
+    function normalizeValue(value) {
+        return parseFloat((10 * value / 10).toFixed(2));
+    }
 
     return (
         <ScrollView style={styles.generalContainer}>
@@ -70,8 +85,16 @@ const ProjectDetails = () => {
                 <FloridaHeader />
             </View>
             {loading ? (
-                // Aquí animación de carga
-                <Text>Loading...</Text>
+                <View style={styles.loadingContainer}>
+                    <LottieView
+                        ref={lottieAnimationRef}
+                        style={{
+                            width: 200,
+                            height: 200,
+                        }}
+                        source={require('../../assets/animations/LoadingAnimation.json')}
+                    />
+                </View>
             ) : (
                 <View style={styles.cardContainer}>
                     <View style={styles.card}>
@@ -122,8 +145,8 @@ const ProjectDetails = () => {
                         </View>
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>{t("Originalidad")}:</Text>
-                                <Text style={styles.textInfoValorations}>{averageOriginalidad * 10} / 10</Text>
+                                <Text style={styles.textInfoValorations}>Originalidad:</Text>
+                                <Text style={styles.textInfoValorations}>{averageOriginalidad} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar color="#bc9c1c" progress={averageOriginalidad} indeterminate={false} />
@@ -131,8 +154,8 @@ const ProjectDetails = () => {
                         </View>
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>{t("Innovación")}:</Text>
-                                <Text style={styles.textInfoValorations}>{averageInnovacion * 10} / 10</Text>
+                                <Text style={styles.textInfoValorations}>Innovación:</Text>
+                                <Text style={styles.textInfoValorations}>{averageInnovacion} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar color="#bc9c1c" progress={averageInnovacion} indeterminate={false} />
@@ -141,7 +164,7 @@ const ProjectDetails = () => {
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
                                 <Text style={styles.textInfoValorations}>ODS:</Text>
-                                <Text style={styles.textInfoValorations}>{averageOds * 10} / 10</Text>
+                                <Text style={styles.textInfoValorations}>{averageOds} / 10</Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar color="#bc9c1c" progress={averageOds} indeterminate={false} />
@@ -159,120 +182,125 @@ const ProjectDetails = () => {
 };
 
 const styles = StyleSheet.create({
-  generalContainer: {
-    flex: 1,
-    margin: 10,
-    backgroundColor: "white",
-  },
-  logoContainer: {
-    flex: 0.15,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    padding: 20,
-    paddingTop: 60,
-  },
-  cardContainer: {
-    flex: 1,
-  },
-  card: {
-    margin: 20,
-    borderRadius: 10,
-    backgroundColor: "#ede5c8",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  sectionTitle: {
-    margin: 5,
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: "#C02830",
-    justifyContent: "center",
-    elevation: 5,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
-    color: "white",
-  },
-  sectionInfo: {
-    flex: 1,
-    flexDirection: "row",
-    margin: 5,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "#ede5c8",
-    elevation: 5,
-  },
-  sectionButton: {
-    flex: 1,
-    margin: 5,
-    padding: 10,
-    borderRadius: 10,
-    elevation: 5,
-    justifyContent: "center",
-  },
-  sectionDegreeDescription: {
-    flex: 1,
-    flexDirection: "column",
-    margin: 5,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "#ede5c8",
-    elevation: 5,
-  },
-  sectionInfoSmall: {
-    flex: 1,
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  textInfoTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "left",
-  },
-  textInfoDescription: {
-    fontSize: 16,
-    textAlign: "right",
-    marginLeft: 10,
-  },
-  textInfoValorations: {
-    fontSize: 16,
-    textAlign: "justify",
-  },
-  sectionValorations: {
-    flex: 1,
-    flexDirection: "column",
-    margin: 5,
-  },
-  valoration: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-  },
-  progressBarContainer: {
-    flex: 1,
-    margin: 10,
-  },
-  image: {
-    width: 280,
-    height: 200,
-    resizeMode: "contain",
-    borderRadius: 10,
-  },
-  memberContainer: {
-    margin: 5,
-    backgroundColor: "#bc9c1c",
-    borderRadius: 10,
-    padding: 5,
-    alignItems: "center",
-  },
+    generalContainer: {
+        flex: 1,
+        margin: 10,
+        backgroundColor: 'white',
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    logoContainer: {
+        flex: 0.15,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        padding: 20,
+        paddingTop: 60,
+    },
+    cardContainer: {
+        flex: 1,
+    },
+    card: {
+        margin: 20,
+        borderRadius: 10,
+        backgroundColor: "#ede5c8",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    sectionTitle: {
+        margin: 5,
+        padding: 20,
+        borderRadius: 10,
+        backgroundColor: "#C02830",
+        justifyContent: "center",
+        elevation: 5,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 10,
+        textAlign: "center",
+        color: 'white',
+    },
+    sectionInfo: {
+        flex: 1,
+        flexDirection: "row",
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: "#ede5c8",
+        elevation: 5,
+    },
+    sectionButton: {
+        flex: 1,
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+        elevation: 5,
+        justifyContent: 'center',
+    },
+    sectionDegreeDescription: {
+        flex: 1,
+        flexDirection: "column",
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: "#ede5c8",
+        elevation: 5,
+    },
+    sectionInfoSmall: {
+        flex: 1,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    textInfoTitle: {
+        fontSize: 16,
+        fontWeight: "bold",
+        textAlign: "left",
+    },
+    textInfoDescription: {
+        fontSize: 16,
+        textAlign: "right",
+        marginLeft: 10,
+    },
+    textInfoValorations: {
+        fontSize: 16,
+        textAlign: "justify",
+    },
+    sectionValorations: {
+        flex: 1,
+        flexDirection: 'column',
+        margin: 5,
+    },
+    valoration: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 10,
+    },
+    progressBarContainer: {
+        flex: 1,
+        margin: 10,
+    },
+    image: {
+        width: 280,
+        height: 200,
+        resizeMode: "contain",
+        borderRadius: 10,
+    },
+    memberContainer: {
+        margin: 5,
+        backgroundColor: "#bc9c1c",
+        borderRadius: 10,
+        padding: 5,
+        alignItems: "center",
+    }
 });
 
 export default ProjectDetails;

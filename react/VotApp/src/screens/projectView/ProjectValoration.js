@@ -32,7 +32,7 @@ const ProjectValoration = () => {
         setOdsValoration(value.toFixed(0));
     };
 
-    const handlePressSendValoration = () => {
+    const handlePressSendValoration = async () => {
         if (originalityValoration === 0 && innovationValoration === 0 && odsValoration === 0) {
             alert("Debe asignar al menos una valoración para enviar.");
         } else {
@@ -42,7 +42,7 @@ const ProjectValoration = () => {
             console.log(innovation);
             const ods = Math.trunc(odsValoration);
             console.log(ods);
-
+    
             const valorationJSON = {
                 nie: nieValoration,
                 originality: originality,
@@ -51,13 +51,22 @@ const ProjectValoration = () => {
             };
             const stringValorationJSON = JSON.stringify(valorationJSON);
             console.log(stringValorationJSON);
-            if (putProject(selectedProject.name, stringValorationJSON) === true) {
-                navigation.navigate(ConfirmationScreen);
-            } else {
-                alert("No se puede valorar dos veces con el mismo documento de identificación");
+            
+            try {
+                let response = await putProject(selectedProject.name, stringValorationJSON);
+                if (response.status === 201) {
+                    navigation.navigate(ConfirmationScreen);
+                } else {
+                    alert("No se puede valorar dos veces con el mismo documento de identificación");
+                }
+            } catch (error) {
+                console.error("Error al enviar la valoración:", error);
+                alert("Hubo un error al enviar la valoración. Por favor, inténtalo de nuevo.");
             }
         }
     };
+    
+    
 
     return (
         <ScrollView style={styles.generalContainer}>

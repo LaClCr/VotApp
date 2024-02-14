@@ -3,22 +3,22 @@ import axios from 'axios';
 export async function putProject(name, valoracion) {
   var apiUrl = 'http://107.21.99.46:8080/votApp/novaRessenya?name=' + name;
 
-  return axios.put(apiUrl, valoracion, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(function (response) {
+  try {
+    const response = await axios.put(apiUrl, valoracion, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
     if (response.status === 201) {
       console.log("Reseña actualizada exitosamente.");
-      return true;
     } else {
       console.error("Error al actualizar la reseña. Código de estado:", response.status);
-      return false;
     }
-  })
-  .catch(function (error) {
+
+    return response; // Devuelve la respuesta de la solicitud HTTP
+  } catch (error) {
     console.error("Error al actualizar la reseña:", error);
-    return false;
-  });
+    throw error; // Lanza el error para que sea capturado por el bloque catch
+  }
 }

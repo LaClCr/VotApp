@@ -7,13 +7,13 @@ import ProjectDetails from "./ProjectDetailsView";
 import ProjectValoration from "./ProjectValoration";
 import ScannerIDCard from "./ScannerIDCard";
 import ConfirmationScreen from "./ConfirmationScreen";
+import NIEManual from "./NIEManual";
 import { ScreensProvider } from "./projectViewScreensContext";
 
 const Stack = createStackNavigator();
 const Home = () => {
     return (
         <ScreensProvider>
-
             <Stack.Navigator>
                 <Stack.Screen
                     name="GeneralView"
@@ -38,6 +38,11 @@ const Home = () => {
                 <Stack.Screen
                     name="ConfirmationScreen"
                     component={ConfirmationScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="NIEManual"
+                    component={NIEManual}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>

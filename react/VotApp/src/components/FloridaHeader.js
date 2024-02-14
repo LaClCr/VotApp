@@ -1,20 +1,27 @@
-import { View, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import React from "react";
-import FloridaLogo from "../assets/florida.jpg";
+import FloridaStandardLogo from "../assets/floridaLogoTransparenteV2.png";
+import FloridaDarkLogo from "../assets/floridaLogoNegro.png";
 
 const FloridaHeader = () => {
+    const { isDarkMode } = useContext(ThemeContext);
+
     return (
-            <Image source={FloridaLogo} style={styles.logo} />
+        <Image
+            source={isDarkMode ? FloridaDarkLogo : FloridaStandardLogo}
+            style={styles.standardLogo}
+        />
     );
 };
 
 export default FloridaHeader;
 
 const styles = StyleSheet.create({
-    logo: {
-        width: 500, // Ajusta el ancho según tus necesidades
-        height: 100, // Ajusta la altura según tus necesidades
+    standardLogo: {
+        resizeMode: "contain",
+        height: 50,
         marginBottom: 20,
-        // Añade resizeMode si es necesario, por ejemplo: resizeMode: 'contain'
-      }
+    },
 });
