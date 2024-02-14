@@ -174,9 +174,6 @@ const ProjectCreation = () => {
                 )}
               </TouchableOpacity>
             </View>
-            {/* <View style={styles.sectionInfoSmall}>
-              {logoLoaded ? (<Text style={styles.logoText}>Imagen cargada correctamente</Text>) : (<Text style={{ ...styles.logoText, color: 'black' }}>Selecciona una imagen</Text>)}
-            </View> */}
           </View>
           <Divider />
           <View style={styles.sectionInfoSmall}>
