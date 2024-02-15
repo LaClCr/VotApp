@@ -7,7 +7,7 @@ import {
     Keyboard,
     Image,
 } from "react-native";
-import { Searchbar, Card } from "react-native-paper";
+import { Searchbar, Card, useTheme } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import ScreensContext from "./projectViewScreensContext";
@@ -17,6 +17,7 @@ import { getDegree } from "../../scripts/getDegree";
 import FloridaHeader from "../../components/FloridaHeader";
 
 const GeneralView = ({ navigation }) => {
+    const theme = useTheme();
     const { projectName, setProjectName } = useContext(ScreensContext);
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
@@ -91,6 +92,16 @@ const GeneralView = ({ navigation }) => {
         }
     };
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener("focus", () => {
+            // Realiza la búsqueda cada vez que la pantalla recibe el enfoque
+            fetchData();
+        });
+
+        // Devuelve una función de limpieza para cancelar la suscripción al evento 'focus'
+        return unsubscribe;
+    }, [navigation]);
+
     const handleSearch = () => {
         // Oculta el teclado
         Keyboard.dismiss();
@@ -111,10 +122,19 @@ const GeneralView = ({ navigation }) => {
             </View>
             <View style={styles.searchAndFilterContainer}>
                 <Searchbar
+                    theme={{
+                        colors: {
+                            primary: "#C02830", // Color del borde y del texto
+                            text: "#C02830", // Color del texto
+                        },
+                    }}
                     placeholder="Buscar..."
                     onChangeText={setSearchQuery}
                     value={searchQuery}
-                    style={styles.searchbar}
+                    style={[
+                        styles.searchbar,
+                        { backgroundColor: theme.colors.background },
+                    ]}
                     inputStyle={styles.searchbarInput}
                     iconColor={"#C02830"}
                     clearIcon={() => (
@@ -205,7 +225,6 @@ const styles = StyleSheet.create({
         flex: 1,
         marginRight: 10,
         borderRadius: 10,
-        backgroundColor: "#fff",
     },
     searchbarInput: {
         fontSize: 16,

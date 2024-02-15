@@ -4,14 +4,16 @@ import { Divider, ProgressBar, Surface, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
-import ScannerIDCard from './ScannerIDCard';
-import LottieView from 'lottie-react-native';
+import ScannerIDCard from "./ScannerIDCard";
+import LottieView from "lottie-react-native";
 import { getProject } from "../../scripts/getProject";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const ProjectDetails = () => {
-
+    const theme = useTheme();
     const { selectedProject, setSelectedProject } = useContext(ScreensContext);
     const { projectName } = useContext(ScreensContext);
+    const { customBackgroundColor } = useContext(ThemeContext);
 
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
@@ -46,7 +48,6 @@ const ProjectDetails = () => {
         setLoading(false);
     };
 
-
     const calculateAverage = () => {
         let sumOriginalidad = 0;
         let sumInnovacion = 0;
@@ -72,17 +73,18 @@ const ProjectDetails = () => {
             setAverageOriginalidad(0);
             setAverageOds(0);
         }
-    }
+    };
 
     function normalizeValue(value) {
-        return parseFloat((10 * value / 10).toFixed(2));
+        return parseFloat(((10 * value) / 10).toFixed(2));
     }
 
     return (
-        <ScrollView style={styles.generalContainer}>
+        <View style={styles.generalContainer}>
             <View style={styles.logoContainer}>
                 <FloridaHeader />
             </View>
+
             {loading ? (
                 <View style={styles.loadingContainer}>
                     <LottieView
@@ -91,14 +93,21 @@ const ProjectDetails = () => {
                             width: 200,
                             height: 200,
                         }}
-                        source={require('../../assets/animations/LoadingAnimation.json')}
+                        source={require("../../assets/animations/LoadingAnimation.json")}
                     />
                 </View>
             ) : (
-                <View style={styles.cardContainer}>
-                    <View style={styles.card}>
+                <ScrollView style={{ flex: 1 }}>
+                    <Card
+                        style={[
+                            styles.card,
+                            { backgroundColor: customBackgroundColor },
+                        ]}
+                    >
                         <View style={styles.sectionTitle}>
-                            <Text style={styles.title}>{selectedProject.name}</Text>
+                            <Text style={styles.title}>
+                                {selectedProject.name}
+                            </Text>
                         </View>
                         <View style={{ ...styles.sectionInfo, justifyContent: 'center' }}>
                             <Image style={styles.image} source={{ uri: selectedProject.picture }} />
@@ -106,67 +115,174 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionInfo}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoTitle}>TITULACIÓN:</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoTitle,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    TITULACIÓN:
+                                </Text>
                             </View>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoDescription}>{selectedProject.degree}</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoDescription,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    {selectedProject.degree}
+                                </Text>
                             </View>
                         </View>
                         <Divider />
                         <View style={styles.sectionDegreeDescription}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoTitle}>DESCRIPCIÓN:</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoTitle,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    DESCRIPCIÓN:
+                                </Text>
                             </View>
                             <View style={styles.sectionInfoSmall}>
-                                <Text>{selectedProject.description}</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoDescription,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    {selectedProject.description}
+                                </Text>
                             </View>
                         </View>
                         <Divider />
                         <View style={styles.sectionDegreeDescription}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoTitle}>INTEGRANTES:</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoTitle,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    INTEGRANTES:
+                                </Text>
                             </View>
-                            {!loading &&
+                            {!loading && (
                                 <View style={styles.sectionInfoSmall}>
-                                    {selectedProject.teamMembers.map((member, index) => (
-                                        <Surface style={styles.memberContainer} key={index} >
-                                            <Text>{member.name}</Text>
-                                        </Surface>
-                                    ))}
+                                    {selectedProject.teamMembers.map(
+                                        (member, index) => (
+                                            <Surface
+                                                style={styles.memberContainer}
+                                                key={index}
+                                            >
+                                                <Text
+                                                    style={{
+                                                        color: "#fff",
+                                                    }}
+                                                >
+                                                    {member.name}
+                                                </Text>
+                                            </Surface>
+                                        )
+                                    )}
                                 </View>
-                            }
+                            )}
                         </View>
                         <Divider />
                         <View style={styles.sectionInfo}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.textInfoTitle}>VALORACIONES:</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoTitle,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    VALORACIONES:
+                                </Text>
                             </View>
                         </View>
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>Originalidad:</Text>
-                                <Text style={styles.textInfoValorations}>{averageOriginalidad} / 10</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoValorations,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    Originalidad:
+                                </Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoValorations,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    {averageOriginalidad} / 10
+                                </Text>
                             </View>
                             <View style={styles.progressBarContainer}>
-                                <ProgressBar color="#bc9c1c" progress={averageOriginalidad} indeterminate={false} />
+                                <ProgressBar
+                                    color="#C02830"
+                                    progress={averageOriginalidad}
+                                    indeterminate={false}
+                                />
                             </View>
                         </View>
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>Innovación:</Text>
-                                <Text style={styles.textInfoValorations}>{averageInnovacion} / 10</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoValorations,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    Innovación:
+                                </Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoValorations,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    {averageInnovacion} / 10
+                                </Text>
                             </View>
                             <View style={styles.progressBarContainer}>
-                                <ProgressBar color="#bc9c1c" progress={averageInnovacion} indeterminate={false} />
+                                <ProgressBar
+                                    color="#C02830"
+                                    progress={averageInnovacion}
+                                    indeterminate={false}
+                                />
                             </View>
                         </View>
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>ODS:</Text>
-                                <Text style={styles.textInfoValorations}>{averageOds} / 10</Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoValorations,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    ODS:
+                                </Text>
+                                <Text
+                                    style={[
+                                        styles.textInfoValorations,
+                                        { color: theme.colors.text },
+                                    ]}
+                                >
+                                    {averageOds} / 10
+                                </Text>
                             </View>
                             <View style={styles.progressBarContainer}>
-                                <ProgressBar color="#bc9c1c" progress={averageOds} indeterminate={false} />
+                                <ProgressBar
+                                    color="#C02830"
+                                    progress={averageOds}
+                                    indeterminate={false}
+                                />
                             </View>
                         </View>
                         <Divider />
@@ -180,10 +296,10 @@ const ProjectDetails = () => {
                             </View>
 
                         </View>
-                    </View>
-                </View>
+                    </Card>
+                </ScrollView>
             )}
-        </ScrollView>
+        </View>
     );
 };
 
@@ -206,23 +322,23 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         flex: 0.15,
-        backgroundColor: "#C02830",
+        backgroundColor: "#fff",
         alignItems: "center",
-        justifyContent: "flex-start",
         padding: 20,
         paddingTop: 60,
     },
-    cardContainer: {
-        flex: 1,
+    logoContainer: {
+        flex: 0.1,
+        alignItems: "center",
+        justifyContent: "flex-start",
     },
     card: {
-        margin: 5,
+        margin: 20,
         borderRadius: 10,
-        backgroundColor: "#ede5c8",
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
         elevation: 5,
     },
     sectionTitle: {
@@ -234,11 +350,11 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     title: {
+        color: "#fff",
         fontSize: 20,
         fontWeight: "bold",
         marginBottom: 10,
         textAlign: "center",
-        color: 'white',
     },
     sectionInfo: {
         flex: 1,
@@ -246,7 +362,6 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: "#ede5c8",
         elevation: 5,
     },
     sectionButton: {
@@ -255,7 +370,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         elevation: 5,
-        justifyContent: 'center',
+        justifyContent: "center",
     },
     sectionDegreeDescription: {
         flex: 1,
@@ -263,7 +378,6 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: "#ede5c8",
         elevation: 5,
     },
     sectionInfoSmall: {
@@ -278,8 +392,7 @@ const styles = StyleSheet.create({
     },
     textInfoDescription: {
         fontSize: 16,
-        textAlign: "right",
-        marginLeft: 10,
+        textAlign: "auto",
     },
     textInfoValorations: {
         fontSize: 16,
@@ -287,7 +400,7 @@ const styles = StyleSheet.create({
     },
     sectionValorations: {
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: "column",
         margin: 5,
     },
     valoration: {
@@ -301,6 +414,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     image: {
+        flex: 1,
         width: 280,
         height: 200,
         alignSelf: "center",
@@ -309,11 +423,11 @@ const styles = StyleSheet.create({
     },
     memberContainer: {
         margin: 5,
-        backgroundColor: "#bc9c1c",
+        backgroundColor: "#C02830",
         borderRadius: 10,
         padding: 5,
         alignItems: "center",
-    }
+    },
 });
 
 export default ProjectDetails;

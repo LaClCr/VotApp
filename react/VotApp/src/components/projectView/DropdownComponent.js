@@ -1,19 +1,28 @@
 import React, { useState } from "react";
+import { useTheme } from "react-native-paper";
 import { StyleSheet, View, Text } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 const DropdownComponent = ({ data, onChange }) => {
+    const theme = useTheme();
     const [value, setValue] = useState(null);
 
     const renderItem = (item) => {
         return (
-            <View style={styles.item}>
-                <Text style={styles.textItem}>{item.label}</Text>
+            <View
+                style={[
+                    styles.item,
+                    { backgroundColor: theme.colors.background },
+                ]}
+            >
+                <Text style={[styles.textItem, { color: theme.colors.text }]}>
+                    {item.label}
+                </Text>
                 {item.value === value && (
                     <AntDesign
                         style={styles.icon}
-                        color="black"
+                        color={theme.colors.text}
                         name="checkcircle"
                         size={20}
                     />
@@ -30,10 +39,24 @@ const DropdownComponent = ({ data, onChange }) => {
     };
     return (
         <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
+            style={[
+                styles.dropdown,
+                {
+                    backgroundColor: theme.colors.background,
+                },
+            ]}
+            placeholderStyle={[
+                styles.placeholderStyle,
+                { color: theme.colors.text },
+            ]}
+            selectedTextStyle={[
+                styles.selectedTextStyle,
+                { color: theme.colors.text },
+            ]}
+            inputSearchStyle={[
+                styles.inputSearchStyle,
+                { color: theme.colors.text },
+            ]}
             iconStyle={styles.iconStyle}
             data={data}
             search={false}
@@ -48,7 +71,7 @@ const DropdownComponent = ({ data, onChange }) => {
             renderLeftIcon={() => (
                 <AntDesign
                     style={styles.icon}
-                    color="black"
+                    color={theme.colors.text}
                     name="book"
                     size={20}
                 />
@@ -63,7 +86,6 @@ const styles = StyleSheet.create({
         flex: 0.5,
         margin: 16,
         height: 60,
-        backgroundColor: "white",
         borderRadius: 12,
         padding: 12,
         shadowColor: "#000",

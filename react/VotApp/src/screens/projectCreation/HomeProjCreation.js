@@ -7,6 +7,7 @@ import ConfirmationScreenCreation from "./ConfirmationScreenCreation";
 import { ScreensProvider } from "./projectCreationScreensContext";
 
 const Stack = createStackNavigator();
+
 const HomeProjCreation = () => {
     return (
         <ScreensProvider>
@@ -33,7 +34,6 @@ const HomeProjCreation = () => {
                 />
             </Stack.Navigator>
         </ScreensProvider>
-
     );
 };
 
