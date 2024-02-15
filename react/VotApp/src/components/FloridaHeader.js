@@ -1,8 +1,8 @@
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import React from "react";
-import FloridaStandardLogo from "../assets/floridaLogoTransparenteV2.png";
+import FloridaStandardLogo from "../assets/floridaLogoBlanco.png";
 import FloridaDarkLogo from "../assets/floridaLogoNegro.png";
 
 const FloridaHeader = () => {
@@ -21,7 +21,8 @@ export default FloridaHeader;
 const styles = StyleSheet.create({
     standardLogo: {
         resizeMode: "contain",
-        height: 50,
+        height: 60,
         marginBottom: 20,
     },
+
 });

@@ -1,18 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import {
     View,
     StyleSheet,
     FlatList,
     TouchableOpacity,
     Keyboard,
+    Image,
 } from "react-native";
 import { Searchbar, Card } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
-import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
+import LottieView from 'lottie-react-native';
 import { getProject, getProjectFilter } from "../../scripts/getProject";
 import { getDegree } from "../../scripts/getDegree";
+import FloridaHeader from "../../components/FloridaHeader";
 
 const GeneralView = ({ navigation }) => {
     const { projectName, setProjectName } = useContext(ScreensContext);
@@ -20,31 +22,50 @@ const GeneralView = ({ navigation }) => {
     const [projectData, setProjectData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedDegree, setSelectedDegree] = useState("all");
+    const [loading, setLoading] = useState(true);
+
+    const lottieAnimationRef = useRef(null);
+
 
     useEffect(() => {
-        const fetchDegrees = async () => {
-            try {
-                const degrees = await getDegree("all");
-                let degreeDropdownData = degrees.map((degree) => ({
-                    label: degree.abbreviation,
-                    value: degree.abbreviation,
-                }));
-                degreeDropdownData.sort((a, b) =>
-                    a.label.localeCompare(b.label)
-                );
-                degreeDropdownData.unshift({ label: "Todos", value: "all" });
-                setDegreeData(degreeDropdownData);
-            } catch (error) {
-                console.error("Error al obtener grados", error);
-            }
-        };
+        if (loading) {
+            lottieAnimationRef.current.play();
+        }
+    }, []);
 
+
+    useEffect(() => {
         fetchDegrees();
     }, []);
 
     useEffect(() => {
         fetchData();
-    }, [selectedDegree]); // Esto actualizará la lista de proyectos cuando cambies la selección en la dropdown list
+    }, [selectedDegree]);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    const fetchDegrees = async () => {
+        try {
+            const degrees = await getDegree("all");
+            let degreeDropdownData = degrees.map((degree) => ({
+                label: degree.abbreviation,
+                value: degree.abbreviation,
+            }));
+            degreeDropdownData.sort((a, b) =>
+                a.label.localeCompare(b.label)
+            );
+            degreeDropdownData.unshift({ label: "Todos", value: "all" });
+            setDegreeData(degreeDropdownData);
+        } catch (error) {
+            console.error("Error al obtener grados", error);
+        }
+    };
 
     const fetchData = async () => {
         try {
@@ -52,32 +73,23 @@ const GeneralView = ({ navigation }) => {
             if (searchQuery.trim() !== "") {
                 projects = await getProject(searchQuery.trim());
                 if (projects) {
-                    setProjectData(projects); // Actualiza el estado con el proyecto por el nombre de la searchbar
+                    setProjectData(projects);
                 } else {
                     setProjectData([]);
                     alert(
                         "No se ha encontrado ningún proyecto con el nombre: " +
-                            searchQuery.trim()
+                        searchQuery.trim()
                     );
                 }
             } else {
                 projects = await getProjectFilter(selectedDegree);
-                setProjectData(projects); // Actualiza el estado con los proyectos filtrados
+                setProjectData(projects);
             }
+            setLoading(false);
         } catch (error) {
             console.error("Error al obtener proyectos", error);
         }
     };
-
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            // Realiza la búsqueda cada vez que la pantalla recibe el enfoque
-            fetchData();
-        });
-
-        // Devuelve una función de limpieza para cancelar la suscripción al evento 'focus'
-        return unsubscribe;
-    }, [navigation]);
 
     const handleSearch = () => {
         // Oculta el teclado
@@ -94,7 +106,9 @@ const GeneralView = ({ navigation }) => {
 
     return (
         <View style={styles.generalContainer}>
-            <FloridaHeader />
+            <View style={styles.logoContainer}>
+                <FloridaHeader/>
+            </View>
             <View style={styles.searchAndFilterContainer}>
                 <Searchbar
                     placeholder="Buscar..."
@@ -118,32 +132,43 @@ const GeneralView = ({ navigation }) => {
                     onChange={(value) => setSelectedDegree(value)}
                 />
             </View>
-            <FlatList
-                style={{ width: "100%" }}
-                data={projectData}
-                renderItem={({ item }) => (
-                    <TouchableOpacity
-                        onPress={() => handleOnPress(item)}
-                        style={styles.cardTouch}
-                    >
-                        <Card style={styles.card}>
-                            <Card.Title
-                                title={item.name}
-                                subtitle={item.degree}
-                                titleStyle={styles.cardTitle}
-                                subtitleStyle={styles.cardSubtitle}
-                            />
-                            <Card.Cover
-                                source={{ uri: item.picture }}
-                                style={styles.cardImage}
-                                resizeMode="contain"
-                            />
-                        </Card>
-                    </TouchableOpacity>
-                )}
-                keyExtractor={(item) => item.name}
-                contentContainerStyle={styles.listContentContainer}
-            />
+            {loading ? (
+                <View style={styles.loadingContainer}>
+                    <LottieView
+                        ref={lottieAnimationRef}
+                        style={{
+                            width: 200,
+                            height: 200,
+                        }}
+                        source={require('../../assets/animations/LoadingAnimation.json')}
+                    />
+                </View>
+            ) : (
+                <FlatList
+                    style={styles.flatListContainer}
+                    data={projectData}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() => handleOnPress(item)}
+                            style={styles.cardTouch}
+                        >
+                            <Card style={styles.card}>
+                                <Card.Title
+                                    title={item.name}
+                                    subtitle={item.degree}
+                                    titleStyle={styles.cardTitle}
+                                    subtitleStyle={styles.cardSubtitle}
+                                />
+                                <Card.Cover
+                                    source={{ uri: item.picture }}
+                                    style={styles.cardImage}
+                                />
+                            </Card>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item.name}
+                    contentContainerStyle={styles.listContentContainer}
+                />)}
         </View>
     );
 };
@@ -151,16 +176,26 @@ const GeneralView = ({ navigation }) => {
 const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "#C02830",
         alignItems: "center",
         justifyContent: "flex-start",
-        padding: 20,
         paddingTop: 60,
+    },
+    flatListContainer: {
+        width: "100%", backgroundColor: "white", margin: 0, padding: 10,
+    },
+    standardLogo: {
+        resizeMode: "contain",
+        height: 60,
+        marginBottom: 20,
+    },
+    logoContainer: {
+        backgroundColor: "#C02830",
     },
     searchAndFilterContainer: {
         flexDirection: "row",
         backgroundColor: "#C02830",
-        width: "130%",
+        width: "120%",
         paddingHorizontal: 40,
         alignItems: "center",
         marginLeft: 15,
@@ -186,7 +221,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         elevation: 5,
         shadowColor: "#000",
-        backgroundColor: "#B58933",
+        backgroundColor: "#bc9c1c",
         shadowOffset: {
             width: 0,
             height: 2,
@@ -195,12 +230,16 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
     },
     cardTitle: {
-        fontSize: 18,
+        fontSize: 22,
+        fontWeight: "bold",
+        textAlign: "center",
         color: "#000",
+        textTransform: "uppercase",
     },
     cardSubtitle: {
         fontSize: 14,
-        color: "#fff",
+        color: "#000",
+        textAlign: "center",
     },
     cardImage: {
         height: 150,

@@ -60,7 +60,7 @@ const ProjectValoration = () => {
                 }
             } catch (error) {
                 console.error("Error al enviar la valoración:", error);
-                alert("Hubo un error al enviar la valoración. Por favor, inténtalo de nuevo.");
+                alert("No se puede valorar dos veces con el mismo documento de identificación");
             }
         }
     };
@@ -150,12 +150,11 @@ export default ProjectValoration;
 const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
-        margin: 10,
-        backgroundColor: 'white',
+        backgroundColor: "#C02830",
     },
     logoContainer: {
         flex: 0.15,
-        backgroundColor: "#fff",
+        backgroundColor: "#C02830",
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20,
@@ -165,7 +164,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     card: {
-        margin: 20,
+        margin: 5,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
         shadowColor: "#000",

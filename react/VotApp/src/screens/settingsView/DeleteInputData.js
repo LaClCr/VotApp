@@ -28,7 +28,7 @@ const DeleteInputData = () => {
             console.error("Error al obtener grados", error);
         }
     };
-    
+
     const fetchProjects = async () => {
         try {
             const projects = await getProject("all");
@@ -40,11 +40,11 @@ const DeleteInputData = () => {
             console.error("Error al obtener proyectos", error);
         }
     };
-    
+
     const handleButtonPress = async () => {
         let equalsDegreeCode = false;
         let equalsCreatorNIE = false;
-    
+
         degreeData.forEach(degree => {
             if (degree.code === code) {
                 console.log(degree.code);
@@ -52,7 +52,7 @@ const DeleteInputData = () => {
                 equalsDegreeCode = true;
             }
         });
-    
+
         projectData.forEach(project => {
             if (project.creator === nie) {
                 console.log(project.creator);
@@ -60,10 +60,10 @@ const DeleteInputData = () => {
                 equalsCreatorNIE = true;
             }
         });
-    
+
         !equalsDegreeCode && alert("Código de ciclo incorrecto");
         !equalsCreatorNIE && alert("NIE/NIF no corresponde a ningún representante de proyecto");
-    
+
         if (equalsDegreeCode && equalsCreatorNIE) {
             try {
                 const response = await deleteProject(nie);
@@ -78,10 +78,10 @@ const DeleteInputData = () => {
             }
         }
     };
-    
+
 
     return (
-        <ScrollView style={styles.generalContainer}>
+        <View style={styles.generalContainer}>
             <View style={styles.logoContainer}>
                 <FloridaHeader />
             </View>
@@ -122,24 +122,18 @@ const DeleteInputData = () => {
                     </View>
                 </View>
             </View>
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
-        margin: 10,
-        backgroundColor: 'white',
-    },
-    loadingContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: "#C02830",
     },
     logoContainer: {
         flex: 0.15,
-        backgroundColor: "#fff",
+        backgroundColor: "#C02830",
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20,
@@ -147,8 +141,10 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         flex: 1,
+        backgroundColor: 'white',
     },
     card: {
+        flex: 0.9,
         margin: 20,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
@@ -156,7 +152,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
-        elevation: 5,
     },
     sectionTitle: {
         margin: 5,
@@ -189,120 +184,11 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 5,
         justifyContent: 'center',
-    },
-    sectionDegreeDescription: {
-        flex: 1,
-        flexDirection: "column",
-        margin: 5,
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: "#ede5c8",
-        elevation: 5,
-    },
-    sectionInfoSmall: {
-        flex: 1,
-        marginTop: 5,
-        marginBottom: 5,
     },
     textInfoTitle: {
         fontSize: 16,
         fontWeight: "bold",
         textAlign: "left",
-    },
-    textInfoDescription: {
-        fontSize: 16,
-        textAlign: "right",
-        marginLeft: 10,
-    },
-    textInfoValorations: {
-        fontSize: 16,
-        textAlign: "justify",
-    },
-    sectionValorations: {
-        flex: 1,
-        flexDirection: 'column',
-        margin: 5,
-    },
-    valoration: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        padding: 10,
-    },
-    progressBarContainer: {
-        flex: 1,
-        margin: 10,
-    },
-    image: {
-        width: 280,
-        height: 200,
-        resizeMode: "contain",
-        borderRadius: 10,
-    },
-    memberContainer: {
-        margin: 5,
-        backgroundColor: "#bc9c1c",
-        borderRadius: 10,
-        padding: 5,
-        alignItems: "center",
-    },
-    generalContainer: {
-        flex: 1,
-        margin: 10,
-        backgroundColor: 'white',
-    },
-    logoContainer: {
-        flex: 0.15,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        padding: 20,
-        paddingTop: 60,
-    },
-    cardContainer: {
-        flex: 1,
-    },
-    card: {
-        margin: 20,
-        borderRadius: 10,
-        backgroundColor: "#ede5c8",
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-        elevation: 5,
-    },
-    sectionTitle: {
-        margin: 5,
-        padding: 20,
-        borderRadius: 10,
-        backgroundColor: "#C02830",
-        justifyContent: "center",
-        elevation: 5,
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: "bold",
-        marginBottom: 10,
-        textAlign: "center",
-        color: 'white',
-    },
-    sectionInfo: {
-        flex: 1,
-        flexDirection: "row",
-        margin: 5,
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: "#ede5c8",
-        elevation: 5,
-    },
-    sectionButton: {
-        flex: 1,
-        margin: 5,
-        padding: 10,
-        borderRadius: 10,
-        elevation: 5,
-        justifyContent: 'center',
     },
 });
 

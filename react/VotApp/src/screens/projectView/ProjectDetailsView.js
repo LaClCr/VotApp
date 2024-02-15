@@ -100,7 +100,7 @@ const ProjectDetails = () => {
                         <View style={styles.sectionTitle}>
                             <Text style={styles.title}>{selectedProject.name}</Text>
                         </View>
-                        <View style={styles.sectionInfo}>
+                        <View style={{...styles.sectionInfo, justifyContent:'center'}}>
                             <Image style={styles.image} source={{ uri: selectedProject.picture }} />
                         </View>
                         <Divider />
@@ -183,8 +183,7 @@ const ProjectDetails = () => {
 const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
-        margin: 10,
-        backgroundColor: 'white',
+        backgroundColor: "#C02830",
     },
     loadingContainer: {
         flex: 1,
@@ -193,7 +192,7 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         flex: 0.15,
-        backgroundColor: "#fff",
+        backgroundColor: "#C02830",
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20,
@@ -203,7 +202,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     card: {
-        margin: 20,
+        margin: 5,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
         shadowColor: "#000",
@@ -290,6 +289,7 @@ const styles = StyleSheet.create({
     image: {
         width: 280,
         height: 200,
+        alignSelf: "center",
         resizeMode: "contain",
         borderRadius: 10,
     },

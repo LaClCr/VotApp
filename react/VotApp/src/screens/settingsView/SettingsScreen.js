@@ -172,12 +172,11 @@ const styles = StyleSheet.create({
     },
     generalContainer: {
         flex: 1,
-        margin: 10,
-        backgroundColor: 'white',
+        backgroundColor: "#C02830",
     },
     logoContainer: {
         flex: 0.15,
-        backgroundColor: "#fff",
+        backgroundColor: "#C02830",
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20,
@@ -187,7 +186,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     card: {
-        margin: 20,
+        margin: 5,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
         shadowColor: "#000",

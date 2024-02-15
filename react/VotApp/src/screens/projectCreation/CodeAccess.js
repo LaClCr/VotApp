@@ -10,7 +10,7 @@ const CodeAccess = () => {
 
     const { selectedDegree, setSelectedDegree } = useContext(ScreensContext);
     const navigation = useNavigation();
-    const [code, setCode] = useState(''); 
+    const [code, setCode] = useState('');
     const [degreeData, setDegreeData] = useState([]);
 
 
@@ -28,14 +28,15 @@ const CodeAccess = () => {
     };
 
     const handleButtonPress = () => {
-       
+
         let equals = false;
 
         degreeData.forEach(degree => {
             if (degree.code === code) {
                 setSelectedDegree(degree);
                 equals = true;
-                navigation.navigate("ProjectCreation"); 
+                setCode('');
+                navigation.navigate("ProjectCreation");
             }
         });
 
@@ -45,45 +46,45 @@ const CodeAccess = () => {
     };
 
     return (
-        <ScrollView style={styles.generalContainer}>
+        <View style={styles.generalContainer}>
             <View style={styles.logoContainer}>
                 <FloridaHeader />
             </View>
-                <View style={styles.cardContainer}>
-                    <View style={styles.card}>
-                        <View style={styles.sectionTitle}>
-                            <Text style={styles.title}>Introduce código de ciclo:</Text>
-                        </View>
-                        <View style={styles.sectionInfo}>
-                            <TextInput
-                                label="Código de ciclo"	
-                                value={code}
-                                onChangeText={text => setCode(text)}
-                                mode="outlined"
-                                outlineColor="#C02830"
-                                activeOutlineColor="#C02830"
-                                style={{ flex: 1 }}
-                            />
-                        </View>
-                        <Divider />
-                        <View style={styles.sectionButton}>
-                            <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">Continuar</Button>
-                        </View>
+            <View style={styles.cardContainer}>
+                <View style={styles.card}>
+                    <View style={styles.sectionTitle}>
+                        <Text style={styles.title}>Introduce código de ciclo:</Text>
+                    </View>
+                    <View style={styles.sectionInfo}>
+                        <TextInput
+                            label="Código de ciclo"
+                            value={code}
+                            onChangeText={text => setCode(text)}
+                            mode="outlined"
+                            outlineColor="#C02830"
+                            activeOutlineColor="#C02830"
+                            style={{ flex: 1 }}
+                        />
+                    </View>
+                    <Divider />
+                    <View style={styles.sectionButton}>
+                        <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">Continuar</Button>
                     </View>
                 </View>
-        </ScrollView>
+            </View>
+        </View>
+
     );
 };
 
 const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
-        margin: 10,
-        backgroundColor: 'white',
+        backgroundColor: "#C02830",
     },
     logoContainer: {
         flex: 0.15,
-        backgroundColor: "#fff",
+        backgroundColor: "#C02830",
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20,
@@ -91,8 +92,10 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         flex: 1,
+        backgroundColor: 'white',
     },
     card: {
+        flex:0.5,
         margin: 20,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
