@@ -10,12 +10,17 @@ const DropdownComponent = ({ data, onChange }) => {
 
     const renderItem = (item) => {
         return (
-            <View style={styles.item}>
-                <Text style={styles.textItem}>{item.label}</Text>
+            <View
+                style={
+                    styles.item
+                }
+            >
+                <Text style={styles.textItem}>
+                    {item.label}
+                </Text>
                 {item.value === value && (
                     <AntDesign
                         style={styles.icon}
-                        color="black"
                         name="checkcircle"
                         size={20}
                     />
@@ -32,10 +37,19 @@ const DropdownComponent = ({ data, onChange }) => {
     };
     return (
         <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
+            style={
+                styles.dropdown
+            }
+            placeholderStyle={[
+                styles.placeholderStyle,
+                
+            ]}
+            selectedTextStyle={[
+                styles.selectedTextStyle,
+            ]}
+            inputSearchStyle={[
+                styles.inputSearchStyle,
+            ]}
             iconStyle={styles.iconStyle}
             data={data}
             search={false}
@@ -50,7 +64,6 @@ const DropdownComponent = ({ data, onChange }) => {
             renderLeftIcon={() => (
                 <AntDesign
                     style={styles.icon}
-                    color="black"
                     name="book"
                     size={20}
                 />
@@ -65,7 +78,6 @@ const styles = StyleSheet.create({
         flex: 0.5,
         margin: 16,
         height: 60,
-        backgroundColor: "white",
         borderRadius: 12,
         padding: 12,
         shadowColor: "#000",
@@ -75,8 +87,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
-
-        elevation: 2,
+        backgroundColor: "white",
     },
     icon: {
         marginRight: 5,

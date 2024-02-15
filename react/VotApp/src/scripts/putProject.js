@@ -18,7 +18,7 @@ export async function putProject(name, valoracion) {
 
     return response; // Devuelve la respuesta de la solicitud HTTP
   } catch (error) {
-    console.error("Error al actualizar la reseña:", error);
+    console.error("Error al actualizar la reseña:");
     throw error; // Lanza el error para que sea capturado por el bloque catch
   }
 }

@@ -4,13 +4,12 @@ import { Divider, Button, Modal } from 'react-native-paper';
 import Slider from '@react-native-community/slider';
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import ConfirmationScreen from "./ConfirmationScreen";
 import { putProject } from "../../scripts/putProject";
 import { useTranslation } from "react-i18next";
 
 const ProjectValoration = () => {
-
     const { selectedProject } = useContext(ScreensContext);
     const { nieValoration, setNieValoration } = useContext(ScreensContext);
     const [innovationValoration, setInnovationValoration] = useState(0);
@@ -18,7 +17,6 @@ const ProjectValoration = () => {
     const [odsValoration, setOdsValoration] = useState(0);
     const { t } = useTranslation();
     const navigation = useNavigation();
-
 
     const handleOriginalityChange = (value) => {
         setOriginalityValoration(value.toFixed(0));
@@ -33,7 +31,11 @@ const ProjectValoration = () => {
     };
 
     const handlePressSendValoration = async () => {
-        if (originalityValoration === 0 && innovationValoration === 0 && odsValoration === 0) {
+        if (
+            originalityValoration === 0 &&
+            innovationValoration === 0 &&
+            odsValoration === 0
+        ) {
             alert("Debe asignar al menos una valoración para enviar.");
         } else {
             const originality = Math.trunc(originalityValoration);
@@ -42,31 +44,34 @@ const ProjectValoration = () => {
             console.log(innovation);
             const ods = Math.trunc(odsValoration);
             console.log(ods);
-    
+
             const valorationJSON = {
                 nie: nieValoration,
                 originality: originality,
                 innovation: innovation,
-                ods: ods
+                ods: ods,
             };
             const stringValorationJSON = JSON.stringify(valorationJSON);
             console.log(stringValorationJSON);
-            
+
             try {
-                let response = await putProject(selectedProject.name, stringValorationJSON);
+                let response = await putProject(
+                    selectedProject.name,
+                    stringValorationJSON
+                );
                 if (response.status === 201) {
                     navigation.navigate(ConfirmationScreen);
                 } else {
-                    alert("No se puede valorar dos veces con el mismo documento de identificación");
+                    alert(
+                        "No se puede valorar dos veces con el mismo documento de identificación"
+                    );
                 }
             } catch (error) {
                 console.error("Error al enviar la valoración:", error);
-                alert("Hubo un error al enviar la valoración. Por favor, inténtalo de nuevo.");
+                alert("No se puede valorar dos veces con el mismo documento de identificación");
             }
         }
     };
-    
-    
 
     return (
         <ScrollView style={styles.generalContainer}>
@@ -140,7 +145,7 @@ const ProjectValoration = () => {
                             <Button onPress={handlePressSendValoration} icon="star" mode="contained" buttonColor="#C02830">{t("ENVIAR VALORACIÓN")}</Button>
                         </View>
                     </View>
-                </View>
+                </Card>
             </View>
         </ScrollView>
     );
@@ -149,93 +154,87 @@ const ProjectValoration = () => {
 export default ProjectValoration;
 
 const styles = StyleSheet.create({
-  generalContainer: {
-    flex: 1,
-    margin: 10,
-    backgroundColor: "white",
-  },
-  logoContainer: {
-    flex: 0.15,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    padding: 20,
-    paddingTop: 60,
-  },
-  cardContainer: {
-    flex: 1,
-  },
-  card: {
-    margin: 20,
-    borderRadius: 10,
-    backgroundColor: "#ede5c8",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  sectionTitle: {
-    margin: 5,
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: "#C02830",
-    justifyContent: "center",
-    elevation: 5,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
-    color: "white",
-  },
-  subtitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
-    color: "black",
-  },
-  sectionInfo: {
-    flex: 1,
-    flexDirection: "row",
-    margin: 5,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "#ede5c8",
-    elevation: 5,
-  },
-  sectionButton: {
-    flex: 1,
-    margin: 5,
-    padding: 10,
-    borderRadius: 10,
-    elevation: 5,
-    justifyContent: "center",
-  },
-  sectionInfoSmall: {
-    flex: 1,
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  textInfoValorations: {
-    fontSize: 16,
-    textAlign: "justify",
-  },
-  sectionValorations: {
-    flex: 1,
-    flexDirection: "column",
-    margin: 5,
-  },
-  valoration: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-  },
-  progressBarContainer: {
-    flex: 1,
-    margin: 10,
-  },
+    generalContainer: {
+        flex: 1,
+        backgroundColor: "#C02830",
+    },
+    logoContainer: {
+        flex: 0.15,
+        backgroundColor: "#C02830",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        padding: 20,
+        paddingTop: 60,
+    },
+    card: {
+        flex: 1,
+    },
+    card: {
+        margin: 5,
+        borderRadius: 10,
+        backgroundColor: "#ede5c8",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+    },
+    sectionTitle: {
+        margin: 5,
+        padding: 20,
+        borderRadius: 10,
+        backgroundColor: "#C02830",
+        justifyContent: "center",
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 10,
+        textAlign: "center",
+        color: "white",
+    },
+    subtitle: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginBottom: 10,
+        textAlign: "center",
+        color: "black",
+    },
+    sectionInfo: {
+        flex: 1,
+        flexDirection: "row",
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+    },
+    sectionButton: {
+        flex: 1,
+        margin: 5,
+        padding: 10,
+        borderRadius: 10,
+        justifyContent: "center",
+    },
+    sectionInfoSmall: {
+        flex: 1,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    textInfoValorations: {
+        fontSize: 16,
+        textAlign: "justify",
+    },
+    sectionValorations: {
+        flex: 1,
+        flexDirection: "column",
+        margin: 5,
+    },
+    valoration: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 10,
+    },
+    progressBarContainer: {
+        flex: 1,
+        margin: 10,
+    },
 });

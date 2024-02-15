@@ -2,10 +2,12 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProjectCreation from "./ProjectCreation";
 import CodeAccess from "./CodeAccess";
+import Terms from "../settingsView/Terms";
 import ConfirmationScreenCreation from "./ConfirmationScreenCreation";
 import { ScreensProvider } from "./projectCreationScreensContext";
 
 const Stack = createStackNavigator();
+
 const HomeProjCreation = () => {
     return (
         <ScreensProvider>
@@ -25,9 +27,13 @@ const HomeProjCreation = () => {
                     component={ConfirmationScreenCreation}
                     options={{ headerShown: false }}
                 />
+                <Stack.Screen
+                    name="Terms"
+                    component={Terms}
+                    options={{ headerShown: false }}
+                />
             </Stack.Navigator>
         </ScreensProvider>
-
     );
 };
 

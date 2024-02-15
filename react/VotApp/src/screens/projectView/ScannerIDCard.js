@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
     },
     sectionButton: {
         padding: 20,
-        elevation: 5,
         justifyContent: 'center',
         backgroundColor: '#C02830',
     },

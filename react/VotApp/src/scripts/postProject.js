@@ -15,10 +15,9 @@ export async function postProject(data) {
     } else {
       console.error("Error al crear el proyecto. Código de estado:", response.status);
     }
-
     return response; // Devuelve la respuesta de la solicitud HTTP
   } catch (error) {
-    console.error("Error al crear el proyecto:", error);
+    console.error("Error al crear el proyecto:");
     throw error; // Lanza el error para que sea capturado por el bloque catch
   }
 }

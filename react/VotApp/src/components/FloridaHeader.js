@@ -1,16 +1,12 @@
-import { Image, StyleSheet } from "react-native";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { Image, StyleSheet, View } from "react-native";
 import React from "react";
-import FloridaStandardLogo from "../assets/floridaLogoTransparenteV2.png";
-import FloridaDarkLogo from "../assets/floridaLogoNegro.png";
+import FloridaStandardLogo from "../assets/floridaLogoBlanco.png";
 
 const FloridaHeader = () => {
-    const { isDarkMode } = useContext(ThemeContext);
 
     return (
         <Image
-            source={isDarkMode ? FloridaDarkLogo : FloridaStandardLogo}
+            source={FloridaStandardLogo}
             style={styles.standardLogo}
         />
     );
@@ -21,7 +17,8 @@ export default FloridaHeader;
 const styles = StyleSheet.create({
     standardLogo: {
         resizeMode: "contain",
-        height: 50,
+        height: 60,
         marginBottom: 20,
     },
+
 });

@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Divider, TextInput, Button } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Divider, TextInput, Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
 import { getDegree } from "../../scripts/getDegree";
-import ScreensContext from "./projectCreationScreensContext";
-import { useTranslation } from 'react-i18next';
+import { getProject } from "../../scripts/getProject";
+import { deleteProject } from "../../scripts/deleteProject";
 
-const CodeAccess = () => {
+const DeleteInputData = () => {
 
-    const { selectedDegree, setSelectedDegree } = useContext(ScreensContext);
     const navigation = useNavigation();
-    const [code, setCode] = useState("");
+    const [code, setCode] = useState('');
+    const [nie, setNie] = useState('');
     const [degreeData, setDegreeData] = useState([]);
+    const [projectData, setProjectData] = useState([]);
 
     useEffect(() => {
         fetchDegrees();
+        fetchProjects();
     }, []);
 
     const fetchDegrees = async () => {
@@ -27,23 +29,56 @@ const CodeAccess = () => {
         }
     };
 
-    const handleButtonPress = () => {
-       
-        let equals = false;
+    const fetchProjects = async () => {
+        try {
+            const projects = await getProject("all");
+            setProjectData(projects);
+            if (projects.length === 0) {
+                alert("No se ha encontrado ningún proyecto.");
+            }
+        } catch (error) {
+            console.error("Error al obtener proyectos", error);
+        }
+    };
 
-        degreeData.forEach((degree) => {
+    const handleButtonPress = async () => {
+        let equalsDegreeCode = false;
+        let equalsCreatorNIE = false;
+
+        degreeData.forEach(degree => {
             if (degree.code === code) {
-                setSelectedDegree(degree);
-                equals = true;
-                setCode('');
-                navigation.navigate("ProjectCreation");
+                console.log(degree.code);
+                console.log(code);
+                equalsDegreeCode = true;
             }
         });
 
-        if (!equals) {
-            alert("Código de ciclo incorrecto");
+        projectData.forEach(project => {
+            if (project.creator === nie) {
+                console.log(project.creator);
+                console.log(nie);
+                equalsCreatorNIE = true;
+            }
+        });
+
+        !equalsDegreeCode && alert("Código de ciclo incorrecto");
+        !equalsCreatorNIE && alert("NIE/NIF no corresponde a ningún representante de proyecto");
+
+        if (equalsDegreeCode && equalsCreatorNIE) {
+            try {
+                const response = await deleteProject(nie);
+                if (response.status === 200) {
+                    navigation.navigate("ConfirmationDeleteProject");
+                } else {
+                    alert("No se pudo eliminar el proyecto");
+                }
+            } catch (error) {
+                console.error("Error al eliminar el proyecto", error);
+                alert("Error al eliminar el proyecto");
+            }
         }
     };
+
 
     return (
         <View style={styles.generalContainer}>
@@ -53,7 +88,10 @@ const CodeAccess = () => {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <View style={styles.sectionTitle}>
-                        <Text style={styles.title}>Introduce código de ciclo:</Text>
+                        <Text style={styles.title}>DATOS DE PROYECTO</Text>
+                    </View>
+                    <View style={styles.sectionInfo}>
+                        <Text style={styles.textInfoTitle}>Introduce los datos de tu proyecto: </Text>
                     </View>
                     <View style={styles.sectionInfo}>
                         <TextInput
@@ -67,19 +105,24 @@ const CodeAccess = () => {
                         />
                     </View>
                     <Divider />
+                    <View style={styles.sectionInfo}>
+                        <TextInput
+                            label="NIF/NIE representante"
+                            value={nie}
+                            onChangeText={text => setNie(text)}
+                            mode="outlined"
+                            outlineColor="#C02830"
+                            activeOutlineColor="#C02830"
+                            style={{ flex: 1 }}
+                        />
+                    </View>
+                    <Divider />
                     <View style={styles.sectionButton}>
                         <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">Continuar</Button>
-                        <View style={styles.terms}>
-                                <Text style={styles.termsText}>Al continuar, aceptas nuestros</Text>
-                                <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
-                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>TÉRMINOS Y CONDICIONES</Text>
-                                </TouchableOpacity>
-                            </View>
                     </View>
                 </View>
             </View>
         </View>
-
     );
 };
 
@@ -87,13 +130,6 @@ const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
         backgroundColor: "#C02830",
-    },
-    terms: {
-        justifyContent: 'center',
-        padding:10,
-    },
-    termsText: {
-        textAlign: 'center',
     },
     logoContainer: {
         flex: 0.15,
@@ -108,7 +144,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     card: {
-        flex:0.55,
+        flex: 0.9,
         margin: 20,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
@@ -146,6 +182,11 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
     },
+    textInfoTitle: {
+        fontSize: 16,
+        fontWeight: "bold",
+        textAlign: "left",
+    },
 });
 
-export default CodeAccess;
+export default DeleteInputData;
