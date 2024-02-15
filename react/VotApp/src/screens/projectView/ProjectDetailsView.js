@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
 import { Divider, ProgressBar, Surface, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
@@ -11,7 +11,7 @@ import { getProject } from "../../scripts/getProject";
 const ProjectDetails = () => {
 
     const { selectedProject, setSelectedProject } = useContext(ScreensContext);
-    const { projectName } = useContext(ScreensContext); 
+    const { projectName } = useContext(ScreensContext);
 
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
@@ -52,14 +52,14 @@ const ProjectDetails = () => {
         let sumInnovacion = 0;
         let sumOds = 0;
         let cantProjects = selectedProject.valorations.length;
-    
+
         if (cantProjects > 0) {
             selectedProject.valorations.forEach((valoracion) => {
                 sumOriginalidad += valoracion.originality;
                 sumInnovacion += valoracion.innovation;
                 sumOds += valoracion.ods;
             });
-    
+
             let averageOriginalidad = normalizeValue(sumOriginalidad / cantProjects);
             let averageInnovacion = normalizeValue(sumInnovacion / cantProjects);
             let averageOds = normalizeValue(sumOds / cantProjects);
@@ -100,7 +100,7 @@ const ProjectDetails = () => {
                         <View style={styles.sectionTitle}>
                             <Text style={styles.title}>{selectedProject.name}</Text>
                         </View>
-                        <View style={{...styles.sectionInfo, justifyContent:'center'}}>
+                        <View style={{ ...styles.sectionInfo, justifyContent: 'center' }}>
                             <Image style={styles.image} source={{ uri: selectedProject.picture }} />
                         </View>
                         <Divider />
@@ -172,6 +172,13 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionButton}>
                             <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
+                            <View style={styles.terms}>
+                                <Text style={styles.termsText}>Al continuar, aceptas nuestros</Text>
+                                <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
+                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>TÉRMINOS Y CONDICIONES</Text>
+                                </TouchableOpacity>
+                            </View>
+
                         </View>
                     </View>
                 </View>
@@ -184,6 +191,13 @@ const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
         backgroundColor: "#C02830",
+    },
+    terms: {
+        justifyContent: 'center',
+        padding:20,
+    },
+    termsText: {
+        textAlign: 'center',
     },
     loadingContainer: {
         flex: 1,

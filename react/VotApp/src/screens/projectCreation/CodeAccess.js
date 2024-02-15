@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Divider, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
@@ -69,6 +69,12 @@ const CodeAccess = () => {
                     <Divider />
                     <View style={styles.sectionButton}>
                         <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">Continuar</Button>
+                        <View style={styles.terms}>
+                                <Text style={styles.termsText}>Al continuar, aceptas nuestros</Text>
+                                <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
+                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>TÉRMINOS Y CONDICIONES</Text>
+                                </TouchableOpacity>
+                            </View>
                     </View>
                 </View>
             </View>
@@ -81,6 +87,13 @@ const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
         backgroundColor: "#C02830",
+    },
+    terms: {
+        justifyContent: 'center',
+        padding:10,
+    },
+    termsText: {
+        textAlign: 'center',
     },
     logoContainer: {
         flex: 0.15,
@@ -95,7 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     card: {
-        flex:0.5,
+        flex:0.55,
         margin: 20,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
