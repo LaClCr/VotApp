@@ -7,7 +7,7 @@ import {
     Keyboard,
     Image,
 } from "react-native";
-import { Searchbar, Card, useTheme } from "react-native-paper";
+import { Searchbar, Card } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import ScreensContext from "./projectViewScreensContext";
@@ -17,7 +17,6 @@ import { getDegree } from "../../scripts/getDegree";
 import FloridaHeader from "../../components/FloridaHeader";
 
 const GeneralView = ({ navigation }) => {
-    const theme = useTheme();
     const { projectName, setProjectName } = useContext(ScreensContext);
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
@@ -133,7 +132,6 @@ const GeneralView = ({ navigation }) => {
                     value={searchQuery}
                     style={[
                         styles.searchbar,
-                        { backgroundColor: theme.colors.background },
                     ]}
                     inputStyle={styles.searchbarInput}
                     iconColor={"#C02830"}
@@ -238,7 +236,6 @@ const styles = StyleSheet.create({
     },
     card: {
         borderRadius: 8,
-        elevation: 5,
         shadowColor: "#000",
         backgroundColor: "#bc9c1c",
         shadowOffset: {

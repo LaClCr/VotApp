@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -8,20 +8,16 @@ import {
     TouchableOpacity,
 } from "react-native";
 import {
-    Switch,
     RadioButton,
     Divider,
-    IconButton,
     Button,
-    useTheme,
 } from "react-native-paper";
-import { ThemeContext } from "../../context/ThemeContext";
 import FloridaHeader from "../../components/FloridaHeader";
 import { useNavigation } from '@react-navigation/native';
 
 
 const SettingsScreen = () => {
-    const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+
     const [language, setLanguage] = useState("English");
     const navigation = useNavigation();
 
@@ -33,7 +29,6 @@ const SettingsScreen = () => {
         navigation.navigate("Terms");
     }
 
-    const theme = useTheme();
 
     return (
         <ScrollView style={styles.generalContainer}>
@@ -45,33 +40,6 @@ const SettingsScreen = () => {
                     <View style={styles.sectionTitle}>
                         <Text style={styles.title}>CONFIGURACIÓN</Text>
                     </View>
-                    <View style={styles.sectionInfo}>
-                        <View style={styles.switchContainer}>
-                            <Text
-                                style={[
-                                    styles.radioButtonLabel,
-                                    { color: theme.colors.text },
-                                ]}
-                            >
-                                {isDarkMode ? "Modo Oscuro" : "Modo Claro"}
-                            </Text>
-                            <IconButton
-                                icon={
-                                    isDarkMode
-                                        ? "weather-night"
-                                        : "white-balance-sunny"
-                                }
-                                color="#C02830"
-                                size={20}
-                            />
-                            <Switch
-                                value={isDarkMode}
-                                onValueChange={toggleDarkMode}
-                                color="#C02830"
-                            />
-                        </View>
-                    </View>
-                    <Divider />
                     <View style={styles.sectionInfo}>
                         <View style={styles.sectionInfoSmall}>
                             <Text style={styles.textInfoTitle}>Idioma / Language:</Text>
@@ -87,7 +55,6 @@ const SettingsScreen = () => {
                                 <Text
                                     style={[
                                         styles.radioButtonLabel,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     Español 🇪🇸
@@ -98,7 +65,6 @@ const SettingsScreen = () => {
                                 <Text
                                     style={[
                                         styles.radioButtonLabel,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     English 🇬🇧
@@ -107,7 +73,7 @@ const SettingsScreen = () => {
                             </View>
                             <View style={styles.radioButtonContainer}>
                                 <View style={styles.sectionInfoSmall}>
-                                    <Text style={[styles.radioButtonLabel, { color: theme.colors.text }]}>
+                                    <Text style={[styles.radioButtonLabel,]}>
                                         Valenciano
                                     </Text>
                                     <Image
@@ -154,7 +120,6 @@ const styles = StyleSheet.create({
         margin: 5,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
-        elevation: 5,
     },
     radioButtonContainer: {
         flex: 1,
@@ -168,7 +133,7 @@ const styles = StyleSheet.create({
     },
     radioButtonLabel: {
         fontSize: 16,
-        color: "#C02830",
+        color: "#000",
     },
     generalContainer: {
         flex: 1,
@@ -193,7 +158,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
-        elevation: 5,
     },
     sectionTitle: {
         margin: 5,
@@ -201,7 +165,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "#C02830",
         justifyContent: "center",
-        elevation: 5,
     },
     title: {
         fontSize: 20,
@@ -217,14 +180,12 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
-        elevation: 5,
     },
     sectionButton: {
         flex: 1,
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
         justifyContent: 'center',
     },
     sectionInfoSmall: {

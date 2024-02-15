@@ -1,17 +1,14 @@
 import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { Divider, Button, Card, useTheme } from "react-native-paper";
+import { Divider, Button, Card } from "react-native-paper";
 import Slider from "@react-native-community/slider";
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import { useNavigation } from "@react-navigation/native";
 import ConfirmationScreen from "./ConfirmationScreen";
 import { putProject } from "../../scripts/putProject";
-import { ThemeContext } from "../../context/ThemeContext";
 
 const ProjectValoration = () => {
-    const theme = useTheme();
-    const { customBackgroundColor } = useContext(ThemeContext);
     const { selectedProject } = useContext(ScreensContext);
     const { nieValoration, setNieValoration } = useContext(ScreensContext);
     const [innovationValoration, setInnovationValoration] = useState(0);
@@ -84,7 +81,6 @@ const ProjectValoration = () => {
                 <Card
                     style={[
                         styles.card,
-                        { backgroundColor: customBackgroundColor },
                     ]}
                 >
                     <View style={styles.sectionTitle}>
@@ -95,7 +91,6 @@ const ProjectValoration = () => {
                             <Text
                                 style={[
                                     styles.subtitle,
-                                    { color: theme.colors.text },
                                 ]}
                             >
                                 {nieValoration}
@@ -103,7 +98,6 @@ const ProjectValoration = () => {
                             <Text
                                 style={[
                                     styles.subtitle,
-                                    { color: theme.colors.text },
                                 ]}
                             >
                                 VALORA ESTE PROYECTO:
@@ -116,7 +110,6 @@ const ProjectValoration = () => {
                             <Text
                                 style={[
                                     styles.textInfoValorations,
-                                    { color: theme.colors.text },
                                 ]}
                             >
                                 Originalidad:
@@ -124,7 +117,6 @@ const ProjectValoration = () => {
                             <Text
                                 style={[
                                     styles.textInfoValorations,
-                                    { color: theme.colors.text },
                                 ]}
                             >
                                 {originalityValoration} / 10
@@ -147,7 +139,6 @@ const ProjectValoration = () => {
                             <Text
                                 style={[
                                     styles.textInfoValorations,
-                                    { color: theme.colors.text },
                                 ]}
                             >
                                 Innovación:
@@ -155,7 +146,6 @@ const ProjectValoration = () => {
                             <Text
                                 style={[
                                     styles.textInfoValorations,
-                                    { color: theme.colors.text },
                                 ]}
                             >
                                 {innovationValoration} / 10
@@ -178,7 +168,6 @@ const ProjectValoration = () => {
                             <Text
                                 style={[
                                     styles.textInfoValorations,
-                                    { color: theme.colors.text },
                                 ]}
                             >
                                 ODS:
@@ -186,7 +175,6 @@ const ProjectValoration = () => {
                             <Text
                                 style={[
                                     styles.textInfoValorations,
-                                    { color: theme.colors.text },
                                 ]}
                             >
                                 {odsValoration} / 10
@@ -241,6 +229,7 @@ const styles = StyleSheet.create({
     card: {
         margin: 5,
         borderRadius: 10,
+        backgroundColor: "#ede5c8",
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,

@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
-        elevation: 5,
     },
     sectionTitle: {
         margin: 5,
@@ -92,7 +91,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "#C02830",
         justifyContent: "center",
-        elevation: 5,
     },
     title: {
         fontSize: 20,
@@ -116,7 +114,6 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
         justifyContent: 'center',
     },
     textInfoTitle: {

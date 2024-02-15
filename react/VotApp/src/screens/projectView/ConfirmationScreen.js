@@ -1,16 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Button, useTheme } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import GeneralView from "./GeneralProjectsView";
-import { ThemeContext } from "../../context/ThemeContext";
 
 export default function ConfirmationScreen() {
     const lottieAnimationRef = useRef(null);
     const navigation = useNavigation();
-    const theme = useTheme();
-    const { customBackgroundColor } = useContext(ThemeContext);
 
     useEffect(() => {
         lottieAnimationRef.current.play();
@@ -34,7 +31,6 @@ export default function ConfirmationScreen() {
                 <Text
                     style={[
                         styles.confirmationText,
-                        { color: theme.colors.text },
                     ]}
                 >
                     ¡Valoración enviada!
@@ -76,7 +72,6 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
         justifyContent: "center",
     },
 });

@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "#C02830",
         justifyContent: "center",
-        elevation: 5,
     },
     title: {
         fontSize: 20,
@@ -175,14 +174,12 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
-        elevation: 5,
     },
     sectionButton: {
         flex: 1,
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
         justifyContent: 'center',
     },
     textInfoTitle: {

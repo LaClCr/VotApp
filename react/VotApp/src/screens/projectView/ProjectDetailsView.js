@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
-import { Divider, ProgressBar, Surface, Button } from 'react-native-paper';
+import { Divider, ProgressBar, Surface, Button, Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import ScannerIDCard from "./ScannerIDCard";
 import LottieView from "lottie-react-native";
 import { getProject } from "../../scripts/getProject";
-import { ThemeContext } from "../../context/ThemeContext";
 
 const ProjectDetails = () => {
-    const theme = useTheme();
     const { selectedProject, setSelectedProject } = useContext(ScreensContext);
     const { projectName } = useContext(ScreensContext);
-    const { customBackgroundColor } = useContext(ThemeContext);
 
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
@@ -76,7 +73,7 @@ const ProjectDetails = () => {
     };
 
     function normalizeValue(value) {
-        return parseFloat(((10 * value) / 10).toFixed(2));
+        return parseFloat(value.toFixed(2));
     }
 
     return (
@@ -101,7 +98,6 @@ const ProjectDetails = () => {
                     <Card
                         style={[
                             styles.card,
-                            { backgroundColor: customBackgroundColor },
                         ]}
                     >
                         <View style={styles.sectionTitle}>
@@ -118,7 +114,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoTitle,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     TITULACIÓN:
@@ -128,7 +123,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoDescription,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     {selectedProject.degree}
@@ -141,7 +135,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoTitle,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     DESCRIPCIÓN:
@@ -151,7 +144,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoDescription,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     {selectedProject.description}
@@ -164,7 +156,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoTitle,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     INTEGRANTES:
@@ -197,7 +188,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoTitle,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     VALORACIONES:
@@ -209,7 +199,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoValorations,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     Originalidad:
@@ -217,7 +206,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoValorations,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     {averageOriginalidad} / 10
@@ -226,7 +214,7 @@ const ProjectDetails = () => {
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar
                                     color="#C02830"
-                                    progress={averageOriginalidad}
+                                    progress={averageOriginalidad/10}
                                     indeterminate={false}
                                 />
                             </View>
@@ -236,7 +224,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoValorations,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     Innovación:
@@ -244,7 +231,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoValorations,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     {averageInnovacion} / 10
@@ -253,7 +239,7 @@ const ProjectDetails = () => {
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar
                                     color="#C02830"
-                                    progress={averageInnovacion}
+                                    progress={averageInnovacion/10}
                                     indeterminate={false}
                                 />
                             </View>
@@ -263,7 +249,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoValorations,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     ODS:
@@ -271,7 +256,6 @@ const ProjectDetails = () => {
                                 <Text
                                     style={[
                                         styles.textInfoValorations,
-                                        { color: theme.colors.text },
                                     ]}
                                 >
                                     {averageOds} / 10
@@ -280,7 +264,7 @@ const ProjectDetails = () => {
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar
                                     color="#C02830"
-                                    progress={averageOds}
+                                    progress={averageOds/10}
                                     indeterminate={false}
                                 />
                             </View>
@@ -322,24 +306,20 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         flex: 0.15,
-        backgroundColor: "#fff",
+        backgroundColor: "#C02830",
         alignItems: "center",
+        justifyContent: "flex-start",
         padding: 20,
         paddingTop: 60,
     },
-    logoContainer: {
-        flex: 0.1,
-        alignItems: "center",
-        justifyContent: "flex-start",
-    },
     card: {
-        margin: 20,
+        margin: 5,
         borderRadius: 10,
         shadowColor: "#000",
+        backgroundColor: "#ede5c8",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
-        elevation: 5,
     },
     sectionTitle: {
         margin: 5,
@@ -347,7 +327,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "#C02830",
         justifyContent: "center",
-        elevation: 5,
     },
     title: {
         color: "#fff",
@@ -362,14 +341,12 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
     },
     sectionButton: {
         flex: 1,
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
         justifyContent: "center",
     },
     sectionDegreeDescription: {
@@ -378,7 +355,6 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
     },
     sectionInfoSmall: {
         flex: 1,

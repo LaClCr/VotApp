@@ -9,14 +9,6 @@ import {
     Image,
     TouchableOpacity,
     Alert,
-    View,
-    Text,
-    StyleSheet,
-    ScrollView,
-    FlatList,
-    Image,
-    TouchableOpacity,
-    Alert,
 } from "react-native";
 import {
     TextInput,
@@ -24,11 +16,9 @@ import {
     Chip,
     Divider,
     Card,
-    useTheme,
 } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import { ThemeContext } from "../../context/ThemeContext";
 import ScreensContext from "./projectCreationScreensContext";
 import FloridaHeader from "../../components/FloridaHeader";
 import { postProject } from "../../scripts/postProject";
@@ -36,8 +26,6 @@ import { validateNIF } from "../../scripts/validateNIF";
 
 const ProjectCreation = () => {
       const navigation = useNavigation();
-    const theme = useTheme();
-    const { customBackgroundColor } = useContext(ThemeContext);
 
     const { selectedDegree, setSelectedDegree } = useContext(ScreensContext);
 
@@ -199,7 +187,6 @@ const ProjectCreation = () => {
             <Card
                 style={[
                     styles.card,
-                    { backgroundColor: customBackgroundColor },
                 ]}
             >
                 <View style={styles.sectionTitle}>
@@ -209,7 +196,6 @@ const ProjectCreation = () => {
                     <Text
                         style={[
                             styles.textInfoTitle,
-                            { color: theme.colors.text },
                         ]}
                     >
                         Imagen:
@@ -240,7 +226,6 @@ const ProjectCreation = () => {
                     <Text
                         style={[
                             styles.textInfoTitle,
-                            { color: theme.colors.text },
                         ]}
                     >
                         Nombre del proyecto:
@@ -267,7 +252,6 @@ const ProjectCreation = () => {
                     <Text
                         style={[
                             styles.textInfoTitle,
-                            { color: theme.colors.text },
                         ]}
                     >
                         Descripción:
@@ -295,7 +279,6 @@ const ProjectCreation = () => {
                     <Text
                         style={[
                             styles.textInfoTitle,
-                            { color: theme.colors.text },
                         ]}
                     >
                         Miembros del equipo:
@@ -326,7 +309,7 @@ const ProjectCreation = () => {
                     </Button>
                 </View>
                 <View style={styles.sectionInfo}>
-                    <Text style={{ color: theme.colors.text }}>
+                    <Text>
                         Presiona sobre un miembro para eliminarlo
                     </Text>
                 </View>
@@ -344,7 +327,6 @@ const ProjectCreation = () => {
                     <Text
                         style={[
                             styles.textInfoTitle,
-                            { color: theme.colors.text },
                         ]}
                     >
                         NIF/NIE del representante:
@@ -396,16 +378,13 @@ const styles = StyleSheet.create({
         paddingTop: 60,
     },
     card: {
-        flex: 1,
-    },
-    card: {
+        backgroundColor: "#ede5c8",
         margin: 5,
         borderRadius: 10,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
-        elevation: 5,
     },
     sectionTitle: {
         margin: 5,
@@ -413,7 +392,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "#C02830",
         justifyContent: "center",
-        elevation: 5,
     },
     title: {
         fontSize: 20,
@@ -428,7 +406,6 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
     },
     sectionParticipants: {
         flex: 1,
@@ -437,14 +414,12 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
     },
     sectionButton: {
         flex: 1,
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        elevation: 5,
         justifyContent: "center",
     },
     sectionInfoSmall: {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Button, useTheme } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import GeneralView from "../projectView/GeneralProjectsView";
@@ -8,7 +8,6 @@ import GeneralView from "../projectView/GeneralProjectsView";
 export default function ConfirmationScreenCreation() {
     const lottieAnimationRef = useRef(null);
     const navigation = useNavigation();
-    const theme = useTheme();
 
     useEffect(() => {
         lottieAnimationRef.current.play();
@@ -32,7 +31,7 @@ export default function ConfirmationScreenCreation() {
                 <Text
                     style={[
                         styles.confirmationText,
-                        { color: theme.colors.text },
+                        
                     ]}
                 >
                     ¡Proyecto creado!
