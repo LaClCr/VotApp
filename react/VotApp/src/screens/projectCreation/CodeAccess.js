@@ -84,7 +84,7 @@ const CodeAccess = () => {
                     </Button>
                 </View>
             </Card>
-        </ScrollView>
+        </View>
     );
 };
 
