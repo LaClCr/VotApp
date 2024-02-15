@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, StyleSheet, FlatList, TouchableOpacity, Keyboard } from "react-native";
+import {
+    View,
+    StyleSheet,
+    FlatList,
+    TouchableOpacity,
+    Keyboard,
+} from "react-native";
 import { Searchbar, Card } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
@@ -19,11 +25,13 @@ const GeneralView = ({ navigation }) => {
         const fetchDegrees = async () => {
             try {
                 const degrees = await getDegree("all");
-                let degreeDropdownData = degrees.map(degree => ({
+                let degreeDropdownData = degrees.map((degree) => ({
                     label: degree.abbreviation,
-                    value: degree.abbreviation
+                    value: degree.abbreviation,
                 }));
-                degreeDropdownData.sort((a, b) => a.label.localeCompare(b.label));
+                degreeDropdownData.sort((a, b) =>
+                    a.label.localeCompare(b.label)
+                );
                 degreeDropdownData.unshift({ label: "Todos", value: "all" });
                 setDegreeData(degreeDropdownData);
             } catch (error) {
@@ -41,13 +49,16 @@ const GeneralView = ({ navigation }) => {
     const fetchData = async () => {
         try {
             let projects = [];
-            if (searchQuery.trim() !== '') {
+            if (searchQuery.trim() !== "") {
                 projects = await getProject(searchQuery.trim());
                 if (projects) {
                     setProjectData(projects); // Actualiza el estado con el proyecto por el nombre de la searchbar
                 } else {
                     setProjectData([]);
-                    alert("No se ha encontrado ningún proyecto con el nombre: " + searchQuery.trim());
+                    alert(
+                        "No se ha encontrado ningún proyecto con el nombre: " +
+                            searchQuery.trim()
+                    );
                 }
             } else {
                 projects = await getProjectFilter(selectedDegree);
@@ -93,7 +104,11 @@ const GeneralView = ({ navigation }) => {
                     inputStyle={styles.searchbarInput}
                     iconColor={"#C02830"}
                     clearIcon={() => (
-                        <MaterialCommunityIcons name="close-circle" size={24} color="#C02830" />
+                        <MaterialCommunityIcons
+                            name="close-circle"
+                            size={24}
+                            color="#C02830"
+                        />
                     )}
                     onSubmitEditing={handleSearch}
                 />
@@ -104,13 +119,25 @@ const GeneralView = ({ navigation }) => {
                 />
             </View>
             <FlatList
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 data={projectData}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => handleOnPress(item)} style={styles.cardTouch}>
+                    <TouchableOpacity
+                        onPress={() => handleOnPress(item)}
+                        style={styles.cardTouch}
+                    >
                         <Card style={styles.card}>
-                            <Card.Title title={item.name} subtitle={item.degree} titleStyle={styles.cardTitle} subtitleStyle={styles.cardSubtitle} />
-                            <Card.Cover source={{ uri: item.picture }} style={styles.cardImage} />
+                            <Card.Title
+                                title={item.name}
+                                subtitle={item.degree}
+                                titleStyle={styles.cardTitle}
+                                subtitleStyle={styles.cardSubtitle}
+                            />
+                            <Card.Cover
+                                source={{ uri: item.picture }}
+                                style={styles.cardImage}
+                                resizeMode="contain"
+                            />
                         </Card>
                     </TouchableOpacity>
                 )}
@@ -132,18 +159,18 @@ const styles = StyleSheet.create({
     },
     searchAndFilterContainer: {
         flexDirection: "row",
-        backgroundColor: '#C02830',
-        width: '130%',
+        backgroundColor: "#C02830",
+        width: "130%",
         paddingHorizontal: 40,
-        alignItems: 'center',
-        marginLeft: 15
+        alignItems: "center",
+        marginLeft: 15,
     },
     searchbar: {
         height: 60,
         flex: 1,
         marginRight: 10,
         borderRadius: 10,
-        backgroundColor: '#fff'
+        backgroundColor: "#fff",
     },
     searchbarInput: {
         fontSize: 16,
@@ -159,7 +186,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         elevation: 5,
         shadowColor: "#000",
-        backgroundColor: '#B58933',
+        backgroundColor: "#B58933",
         shadowOffset: {
             width: 0,
             height: 2,
