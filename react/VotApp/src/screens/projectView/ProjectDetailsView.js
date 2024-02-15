@@ -194,8 +194,7 @@ const ProjectDetails = () => {
                                             >
                                                 <Text
                                                     style={{
-                                                        color: theme.colors
-                                                            .text,
+                                                        color: "#fff",
                                                     }}
                                                 >
                                                     {member.name}
