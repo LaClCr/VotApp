@@ -9,10 +9,18 @@ import {
     TouchableOpacity,
     Alert,
 } from "react-native";
-import { TextInput, Button, Chip, Divider, Card } from "react-native-paper";
+import {
+    TextInput,
+    Button,
+    Chip,
+    Divider,
+    Card,
+    useTheme,
+} from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
+import { ThemeContext } from "../../context/ThemeContext";
 import ScreensContext from "./projectCreationScreensContext";
 import FloridaHeader from "../../components/FloridaHeader";
 import { postProject } from "../../scripts/postProject";
@@ -20,6 +28,8 @@ import { validateNIF } from "../../scripts/validateNIF";
 
 const ProjectCreation = () => {
     const navigation = useNavigation();
+    const theme = useTheme();
+    const { customBackgroundColor } = useContext(ThemeContext);
 
     const { selectedDegree, setSelectedDegree } = useContext(ScreensContext);
 
@@ -143,11 +153,7 @@ const ProjectCreation = () => {
 
     const renderParticipant = ({ item, index }) => (
         <TouchableOpacity onPress={() => confirmDelete(item, index)}>
-            <Chip
-                style={styles.chip}
-                textStyle={styles.chipText}
-                mode="outlined"
-            >
+            <Chip mode="outlined" textStyle={styles.chipText}>
                 {item}
             </Chip>
         </TouchableOpacity>
@@ -158,12 +164,24 @@ const ProjectCreation = () => {
             <View style={styles.logoContainer}>
                 <FloridaHeader />
             </View>
-            <Card style={styles.card}>
+            <Card
+                style={[
+                    styles.card,
+                    { backgroundColor: customBackgroundColor },
+                ]}
+            >
                 <View style={styles.sectionTitle}>
                     <Text style={styles.title}>Crear proyecto</Text>
                 </View>
                 <View style={styles.sectionInfoSmall}>
-                    <Text style={styles.textInfoTitle}>Imagen:</Text>
+                    <Text
+                        style={[
+                            styles.textInfoTitle,
+                            { color: theme.colors.text },
+                        ]}
+                    >
+                        Imagen:
+                    </Text>
                 </View>
                 <View style={styles.sectionInfo}>
                     <View style={styles.sectionInfoSmall}>
@@ -184,13 +202,15 @@ const ProjectCreation = () => {
                             )}
                         </TouchableOpacity>
                     </View>
-                    {/* <View style={styles.sectionInfoSmall}>
-              {logoLoaded ? (<Text style={styles.logoText}>Imagen cargada correctamente</Text>) : (<Text style={{ ...styles.logoText, color: 'black' }}>Selecciona una imagen</Text>)}
-            </View> */}
                 </View>
                 <Divider />
                 <View style={styles.sectionInfoSmall}>
-                    <Text style={styles.textInfoTitle}>
+                    <Text
+                        style={[
+                            styles.textInfoTitle,
+                            { color: theme.colors.text },
+                        ]}
+                    >
                         Nombre del proyecto:
                     </Text>
                 </View>
@@ -206,15 +226,20 @@ const ProjectCreation = () => {
                         theme={{
                             colors: {
                                 primary: "#C02830",
-                                underlineColor: "transparent",
-                                background: "#ffffff",
                             },
                         }}
                     />
                 </View>
                 <Divider />
                 <View style={styles.sectionInfoSmall}>
-                    <Text style={styles.textInfoTitle}>Descripción:</Text>
+                    <Text
+                        style={[
+                            styles.textInfoTitle,
+                            { color: theme.colors.text },
+                        ]}
+                    >
+                        Descripción:
+                    </Text>
                 </View>
                 <View style={styles.sectionInfo}>
                     <TextInput
@@ -229,18 +254,18 @@ const ProjectCreation = () => {
                         mode="outlined"
                         multiline
                         numberOfLines={4}
-                        theme={{
-                            colors: {
-                                primary: "#C02830",
-                                underlineColor: "transparent",
-                                background: "#ffffff",
-                            },
-                        }}
+                        outlineColor="#C02830"
+                        activeOutlineColor="#C02830"
                     />
                 </View>
                 <Divider />
                 <View style={styles.sectionInfoSmall}>
-                    <Text style={styles.textInfoTitle}>
+                    <Text
+                        style={[
+                            styles.textInfoTitle,
+                            { color: theme.colors.text },
+                        ]}
+                    >
                         Miembros del equipo:
                     </Text>
                 </View>
@@ -251,15 +276,11 @@ const ProjectCreation = () => {
                         value={participantName}
                         onChangeText={(text) => setParticipantName(text)}
                         mode="outlined"
-                        theme={{
-                            colors: {
-                                primary: "#C02830",
-                                underlineColor: "transparent",
-                                background: "#ffffff",
-                            },
-                        }}
+                        outlineColor="#C02830"
+                        activeOutlineColor="#C02830"
                     />
                     <Button
+                        textColor="#fff"
                         mode="contained"
                         onPress={handleAddParticipant}
                         labelStyle={{ fontSize: 20, textAlign: "center" }}
@@ -273,7 +294,9 @@ const ProjectCreation = () => {
                     </Button>
                 </View>
                 <View style={styles.sectionInfo}>
-                    <Text>Presiona sobre un miembro para eliminarlo</Text>
+                    <Text style={{ color: theme.colors.text }}>
+                        Presiona sobre un miembro para eliminarlo
+                    </Text>
                 </View>
                 <View style={styles.sectionParticipants}>
                     <FlatList
@@ -286,7 +309,12 @@ const ProjectCreation = () => {
                     />
                 </View>
                 <View style={styles.sectionInfoSmall}>
-                    <Text style={styles.textInfoTitle}>
+                    <Text
+                        style={[
+                            styles.textInfoTitle,
+                            { color: theme.colors.text },
+                        ]}
+                    >
                         NIF/NIE del representante:
                     </Text>
                 </View>
@@ -297,17 +325,13 @@ const ProjectCreation = () => {
                         value={representativeDNI}
                         onChangeText={(text) => setRepresentativeDNI(text)}
                         mode="outlined"
-                        theme={{
-                            colors: {
-                                primary: "#C02830",
-                                underlineColor: "transparent",
-                                background: "#ffffff",
-                            },
-                        }}
+                        outlineColor="#C02830"
+                        activeOutlineColor="#C02830"
                     />
                 </View>
                 <View style={styles.sectionButton}>
                     <Button
+                        textColor="#fff"
                         onPress={handleCreateProject}
                         icon="plus"
                         mode="contained"
@@ -322,114 +346,9 @@ const ProjectCreation = () => {
 };
 
 const styles = StyleSheet.create({
-    scrollView: {
-        backgroundColor: "#fff",
-    },
-    electLogoButton: {
-        padding: 10, // Añadir padding para el área táctil
-        borderRadius: 5, // Bordes redondeados
-        backgroundColor: "#E1E1E1", // Color de fondo
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    logoSection: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        alignContent: "center",
-        marginBottom: 20,
-    },
-    logoButton: {
-        marginRight: 10,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    projectLogo: {
-        width: 100,
-        height: 100,
-        borderRadius: 10,
-    },
-    logoText: {
-        flex: 1,
-        fontWeight: "bold",
-        fontSize: 16,
-        color: "green",
-        textAlign: "center",
-    },
-    iconButton: {
-        backgroundColor: "#E8E8E8", // Un color de fondo claro
-        borderRadius: 50, // Hacer el botón completamente redondo
-    },
-    descriptionInput: {
-        textAlignVertical: "top",
-        height: 100,
-    },
-    inputMargin: {
-        marginBottom: 15,
-    },
-    participantContainerMargin: {
-        marginBottom: 12,
-    },
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        padding: 20,
-        paddingTop: 60,
-    },
-    logo: {
-        width: 500, // Ajusta el ancho según tus necesidades
-        height: 100, // Ajusta la altura según tus necesidades
-        marginBottom: 5,
-        // Añade resizeMode si es necesario, por ejemplo: resizeMode: 'contain'
-    },
-    header: {
-        fontSize: 20,
-        marginVertical: 10,
-    },
-    input: {
-        backgroundColor: "white",
-        fontSize: 18,
-        flex: 1,
-    },
-    logoPlaceholder: {
-        width: 100,
-        height: 100,
-        backgroundColor: "#e1e1e1", // Un color de fondo gris claro
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: 20,
-    },
-    addButton: {
-        backgroundColor: "#B58933",
-        marginLeft: 10,
-        justifyContent: "center",
-        alignContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
-    },
-    participantInputContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: 12,
-    },
-    chip: {
-        marginRight: 8,
-        marginBottom: 8,
-    },
-    chipText: {
-        fontSize: 14,
-    },
     generalContainer: {
         flex: 1,
         margin: 10,
-        backgroundColor: "white",
-    },
-    loadingContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
     },
     logoContainer: {
         flex: 0.15,
@@ -488,14 +407,6 @@ const styles = StyleSheet.create({
         elevation: 5,
         justifyContent: "center",
     },
-    sectionDegreeDescription: {
-        flex: 1,
-        flexDirection: "column",
-        margin: 5,
-        padding: 10,
-        borderRadius: 10,
-        elevation: 5,
-    },
     sectionInfoSmall: {
         flex: 1,
         marginTop: 5,
@@ -509,42 +420,37 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "left",
     },
-    textInfoDescription: {
-        fontSize: 16,
-        textAlign: "right",
+    descriptionInput: {
+        textAlignVertical: "top",
+        height: 100,
+    },
+    inputMargin: {
+        marginBottom: 15,
+    },
+    input: {
+        fontSize: 18,
+        flex: 1,
+    },
+    addButton: {
+        backgroundColor: "#C02830",
         marginLeft: 10,
-    },
-    textInfoValorations: {
-        fontSize: 16,
-        textAlign: "justify",
-    },
-    sectionValorations: {
-        flex: 1,
-        flexDirection: "column",
-        margin: 5,
-    },
-    valoration: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        padding: 10,
-    },
-    progressBarContainer: {
-        flex: 1,
-        margin: 10,
-    },
-    image: {
-        width: 280,
-        height: 200,
-        resizeMode: "contain",
-        borderRadius: 10,
-    },
-    memberContainer: {
-        margin: 5,
-        backgroundColor: "#bc9c1c",
-        borderRadius: 10,
-        padding: 5,
+        justifyContent: "center",
+        alignContent: "center",
         alignItems: "center",
+        alignSelf: "center",
+    },
+    chipText: {
+        fontSize: 14,
+    },
+    logoButton: {
+        marginRight: 10,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    projectLogo: {
+        width: 100,
+        height: 100,
+        borderRadius: 10,
     },
 });
 
