@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     Keyboard,
 } from "react-native";
-import { Searchbar, Card } from "react-native-paper";
+import { Searchbar, Card, useTheme } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import FloridaHeader from "../../components/FloridaHeader";
@@ -15,6 +15,7 @@ import { getProject, getProjectFilter } from "../../scripts/getProject";
 import { getDegree } from "../../scripts/getDegree";
 
 const GeneralView = ({ navigation }) => {
+    const theme = useTheme();
     const { projectName, setProjectName } = useContext(ScreensContext);
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
@@ -70,7 +71,7 @@ const GeneralView = ({ navigation }) => {
     };
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
+        const unsubscribe = navigation.addListener("focus", () => {
             // Realiza la búsqueda cada vez que la pantalla recibe el enfoque
             fetchData();
         });
@@ -97,10 +98,19 @@ const GeneralView = ({ navigation }) => {
             <FloridaHeader />
             <View style={styles.searchAndFilterContainer}>
                 <Searchbar
+                    theme={{
+                        colors: {
+                            primary: "#C02830", // Color del borde y del texto
+                            text: "#C02830", // Color del texto
+                        },
+                    }}
                     placeholder="Buscar..."
                     onChangeText={setSearchQuery}
                     value={searchQuery}
-                    style={styles.searchbar}
+                    style={[
+                        styles.searchbar,
+                        { backgroundColor: theme.colors.background },
+                    ]}
                     inputStyle={styles.searchbarInput}
                     iconColor={"#C02830"}
                     clearIcon={() => (
@@ -127,17 +137,8 @@ const GeneralView = ({ navigation }) => {
                         style={styles.cardTouch}
                     >
                         <Card style={styles.card}>
-                            <Card.Title
-                                title={item.name}
-                                subtitle={item.degree}
-                                titleStyle={styles.cardTitle}
-                                subtitleStyle={styles.cardSubtitle}
-                            />
-                            <Card.Cover
-                                source={{ uri: item.picture }}
-                                style={styles.cardImage}
-                                resizeMode="contain"
-                            />
+                            <Card.Title title={item.name} subtitle={item.degree} titleStyle={styles.cardTitle} subtitleStyle={styles.cardSubtitle} />
+                            <Card.Cover source={{ uri: item.picture }} style={styles.cardImage} />
                         </Card>
                     </TouchableOpacity>
                 )}
@@ -151,7 +152,6 @@ const GeneralView = ({ navigation }) => {
 const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
-        backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20,
@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
         flex: 1,
         marginRight: 10,
         borderRadius: 10,
-        backgroundColor: "#fff",
     },
     searchbarInput: {
         fontSize: 16,
