@@ -92,20 +92,23 @@ const ProjectDetails = () => {
 
     return (
         <View style={styles.generalContainer}>
-            <FloridaHeader />
-            <ScrollView>
-                {loading ? (
-                    <View style={styles.loadingContainer}>
-                        <LottieView
-                            ref={lottieAnimationRef}
-                            style={{
-                                width: 200,
-                                height: 200,
-                            }}
-                            source={require("../../assets/animations/LoadingAnimation.json")}
-                        />
-                    </View>
-                ) : (
+            <View style={styles.logoContainer}>
+                <FloridaHeader />
+            </View>
+
+            {loading ? (
+                <View style={styles.loadingContainer}>
+                    <LottieView
+                        ref={lottieAnimationRef}
+                        style={{
+                            width: 200,
+                            height: 200,
+                        }}
+                        source={require("../../assets/animations/LoadingAnimation.json")}
+                    />
+                </View>
+            ) : (
+                <ScrollView style={{ flex: 1 }}>
                     <Card
                         style={[
                             styles.card,
@@ -237,7 +240,7 @@ const ProjectDetails = () => {
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar
-                                    color="#bc9c1c"
+                                    color="#C02830"
                                     progress={averageOriginalidad}
                                     indeterminate={false}
                                 />
@@ -264,7 +267,7 @@ const ProjectDetails = () => {
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar
-                                    color="#bc9c1c"
+                                    color="#C02830"
                                     progress={averageInnovacion}
                                     indeterminate={false}
                                 />
@@ -291,7 +294,7 @@ const ProjectDetails = () => {
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <ProgressBar
-                                    color="#bc9c1c"
+                                    color="#C02830"
                                     progress={averageOds}
                                     indeterminate={false}
                                 />
@@ -312,8 +315,8 @@ const ProjectDetails = () => {
                             </Button>
                         </View>
                     </Card>
-                )}
-            </ScrollView>
+                </ScrollView>
+            )}
         </View>
     );
 };
@@ -321,7 +324,6 @@ const ProjectDetails = () => {
 const styles = StyleSheet.create({
     generalContainer: {
         flex: 1,
-        alignItems: "center",
         justifyContent: "flex-start",
         paddingTop: 60,
     },
@@ -428,7 +430,7 @@ const styles = StyleSheet.create({
     },
     memberContainer: {
         margin: 5,
-        backgroundColor: "#bc9c1c",
+        backgroundColor: "#C02830",
         borderRadius: 10,
         padding: 5,
         alignItems: "center",
