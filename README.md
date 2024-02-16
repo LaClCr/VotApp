@@ -24,6 +24,6 @@ VOTAPP es una aplicación de ámbito universitario diseñada para realizar valor
 //Añadir link apk
 
 ## 🖋️ Documentación:
-[Documentación de la API](https://github.com/rsanzfloridauni/DAM2324_VotAPP/tree/main/api/votAppAPI/doc)
+[Documentación de la API](https://github.com/rsanzfloridauni/DAM2324_VotAPP/tree/main/api/votAppAPI/doc)<br>
 [Documentación de desarrollo](https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/sge/Documentación_Desarrollo_SW.pdf)
 
