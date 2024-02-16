@@ -4,6 +4,11 @@
 </div>
 
 ## 🧍Integrantes :
+
+<div align="center">
+  <img src="
+https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/logo/FullSizeRender_VSCO.jpeg" alt="Foto grupal"/>
+</div>
 - David Reinón García (darega@floridauniversitaria.es)
 - Juan Bautista Peretto (jupexx@floridauniversitaria.es)
 - Alberto Aracil Millán (alarmi@floridauniversitaria.es)
