@@ -1,26 +1,44 @@
 package votAppAPI.objects;
 
+/**
+ * Represents a team member involved in a project.
+ */
 public class TeamMember {
-	
-	private String name;
+    
+    private String name;
 
-	public TeamMember(String name) {
-		super();
-		this.name = name;
-	}
-	
-	public TeamMember() {
+    /**
+     * Parameterized constructor for the TeamMember class.
+     *
+     * @param name The name of the team member.
+     */
+    public TeamMember(String name) {
+        super();
+        this.name = name;
+    }
+    
+    /**
+     * Default constructor for the TeamMember class.
+     */
+    public TeamMember() {
 
-	}
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * Retrieves the name of the team member.
+     *
+     * @return The name of the team member.
+     */
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
-
+    /**
+     * Sets the name of the team member.
+     *
+     * @param name The name of the team member to set.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 }

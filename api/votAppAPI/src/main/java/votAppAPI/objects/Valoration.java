@@ -8,49 +8,100 @@ public class Valoration {
     private int ods;
         
     
-	public Valoration() {
-		super();
-	}
+    /**
+     * Default constructor for the Valoration class.
+     */
+    public Valoration() {
+        super();
+    }
 
-	public Valoration(String nie, int originality, int innovation, int ods) {
-		super();
-		this.nie = nie;
-		this.originality = originality;
-		this.innovation = innovation;
-		this.ods = ods;
-	}
+    /**
+     * Parameterized constructor for the Valoration class.
+     *
+     * @param nie The NIE (identification number) associated with the valuation.
+     * @param originality The originality score of the valuation.
+     * @param innovation The innovation score of the valuation.
+     * @param ods The ODS (Sustainable Development Goals) score of the valuation.
+     */
+    public Valoration(String nie, int originality, int innovation, int ods) {
+        super();
+        this.nie = nie;
+        this.originality = originality;
+        this.innovation = innovation;
+        this.ods = ods;
+    }
 
-	public String getNie() {
-		return nie;
-	}
+    /**
+     * Retrieves the NIE (identification number) associated with the valuation.
+     *
+     * @return The NIE associated with the valuation.
+     */
+    public String getNie() {
+        return nie;
+    }
 
-	public void setNie(String nie) {
-		this.nie = nie;
-	}
+    /**
+     * Sets the NIE (identification number) associated with the valuation.
+     *
+     * @param nie The NIE associated with the valuation to set.
+     */
+    public void setNie(String nie) {
+        this.nie = nie;
+    }
 
-	public int getOriginality() {
-		return originality;
-	}
+    /**
+     * Retrieves the originality score of the valuation.
+     *
+     * @return The originality score of the valuation.
+     */
+    public int getOriginality() {
+        return originality;
+    }
 
-	public void setOriginality(int originality) {
-		this.originality = originality;
-	}
+    /**
+     * Sets the originality score of the valuation.
+     *
+     * @param originality The originality score of the valuation to set.
+     */
+    public void setOriginality(int originality) {
+        this.originality = originality;
+    }
 
-	public int getInnovation() {
-		return innovation;
-	}
+    /**
+     * Retrieves the innovation score of the valuation.
+     *
+     * @return The innovation score of the valuation.
+     */
+    public int getInnovation() {
+        return innovation;
+    }
 
-	public void setInnovation(int innovation) {
-		this.innovation = innovation;
-	}
+    /**
+     * Sets the innovation score of the valuation.
+     *
+     * @param innovation The innovation score of the valuation to set.
+     */
+    public void setInnovation(int innovation) {
+        this.innovation = innovation;
+    }
 
-	public int getOds() {
-		return ods;
-	}
+    /**
+     * Retrieves the ODS (Sustainable Development Goals) score of the valuation.
+     *
+     * @return The ODS score of the valuation.
+     */
+    public int getOds() {
+        return ods;
+    }
 
-	public void setOds(int ods) {
-		this.ods = ods;
-	}
+    /**
+     * Sets the ODS (Sustainable Development Goals) score of the valuation.
+     *
+     * @param ods The ODS score of the valuation to set.
+     */
+    public void setOds(int ods) {
+        this.ods = ods;
+    }
     
     
 

@@ -7,10 +7,18 @@ import org.springframework.stereotype.Repository;
 import votAppAPI.objects.Degree;
 
 
+/**
+ * Repository interface for managing Degree entities in the database.
+ */
 @Repository
 public interface DegreeRepository extends MongoRepository<Degree, String> {
-    // Método para buscar un ciclo por su abreviatura
-	
-	@Query(value = "{ abbreviation : ?0 }")
+
+    /**
+     * Retrieves a degree by its abbreviation.
+     *
+     * @param abbreviation The abbreviation of the degree to retrieve.
+     * @return The degree object with the specified abbreviation.
+     */
+    @Query(value = "{ abbreviation : ?0 }")
     Degree findByAbbreviation(String abbreviation);
 }

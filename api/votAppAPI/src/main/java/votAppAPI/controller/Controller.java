@@ -21,6 +21,11 @@ import votAppAPI.objects.Valoration;
 import votAppAPI.repository.DegreeRepository;
 import votAppAPI.repository.ProjectRepository;
 
+
+/**
+ * Controller class for handling requests related to projects and degrees.
+ */
+
 @RestController
 public class Controller {
 
@@ -29,6 +34,14 @@ public class Controller {
 	@Autowired
 	private ProjectRepository projectRepository;
 
+	
+	/**
+     * Retrieves information about projects based on the provided name.
+     *
+     * @param strVariable The name of the project to retrieve information for.
+     * @return ResponseEntity containing JSON representation of the project information.
+     */
+	
 	@GetMapping("/votApp/project")
 	public ResponseEntity<String> tornaInfoProjecte(@RequestParam(value = "nom") String strVariable) {
 
@@ -131,6 +144,14 @@ public class Controller {
 		}
 	}
 
+	
+	/**
+     * Retrieves information about degrees based on the provided abbreviation.
+     *
+     * @param strVariable The abbreviation of the degree to retrieve information for.
+     * @return ResponseEntity containing JSON representation of the degree information.
+     */
+	
 	@GetMapping("/votApp/degree")
 	public ResponseEntity<String> tornaInfoDegree(@RequestParam(value = "abbreviation") String strVariable) {
 
@@ -169,6 +190,15 @@ public class Controller {
 		}
 	}
 
+	
+	
+	 /**
+     * Adds a new project to the database.
+     *
+     * @param project The project object to be added.
+     * @return ResponseEntity indicating the status of the operation.
+     */
+	
 	@PostMapping("votApp/nouProjecte")
 	ResponseEntity<String> postNouProjecte(@RequestBody Project project) {
 
@@ -188,6 +218,15 @@ public class Controller {
 
 	}
 
+	
+	/**
+     * Adds a new review to an existing project.
+     *
+     * @param projectName The name of the project to add the review to.
+     * @param valuationJSON The JSON representation of the review to be added.
+     * @return ResponseEntity indicating the status of the operation.
+     */
+	
 	@PutMapping("votApp/novaRessenya")
 	public ResponseEntity<String> putNovaRessenya(@RequestParam(value = "name") String projectName,
 			@RequestBody String valuationJSON) {
@@ -227,6 +266,14 @@ public class Controller {
 
 	}
 
+	
+	/**
+     * Deletes a project based on the creator's identifier.
+     *
+     * @param creator The identifier of the creator associated with the project to be deleted.
+     * @return ResponseEntity indicating the status of the operation.
+     */
+	
 	@DeleteMapping("votApp/borrarProject")
 	public ResponseEntity<String> deleteProject(@RequestParam(value = "creator") String creator) {
 		Project project = projectRepository.findByCreator(creator);
@@ -244,6 +291,14 @@ public class Controller {
 		}
 	}
 
+	
+	/**
+     * Checks if a project with the given name exists.
+     *
+     * @param nom The name of the project to check existence for.
+     * @return True if a project with the given name exists, false otherwise.
+     */
+	
 	public boolean projectExists(String nom) {
 		boolean exists = false;
 		List<Project> listAllProjects = projectRepository.findAll();
@@ -256,6 +311,15 @@ public class Controller {
 		return exists;
 	}
 
+	
+	/**
+     * Checks if a valuation with the given NIE exists for the specified project.
+     *
+     * @param nie The NIE (identification number) to check for within valuations.
+     * @param project The project object to search for the valuation.
+     * @return True if a valuation with the given NIE exists for the project, false otherwise.
+     */
+	
 	public boolean valorationExistsWithNie(String nie, Project project) {
 		boolean exists = false;
 		List<Valoration> valorations = project.getValorations();
@@ -267,6 +331,14 @@ public class Controller {
 		return exists;
 	}
 
+	
+	/**
+     * Checks if a project exists for the given creator.
+     *
+     * @param creator The identifier of the creator to check for associated projects.
+     * @return True if a project exists for the given creator, false otherwise.
+     */
+	
 	public boolean creatorExists(String creator) {
 		boolean exists = false;
 		List<Project> listAllProjects = projectRepository.findAll();
