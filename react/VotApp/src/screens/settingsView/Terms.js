@@ -4,10 +4,10 @@ import { Divider, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import GeneralView from "../projectView/GeneralProjectsView";
 import FloridaHeader from "../../components/FloridaHeader";
-
+import { useTranslation } from "react-i18next"; 
 
 const Terms = () => {
-
+    const { t } = useTranslation();
     const navigation = useNavigation();
 
     const handleButtonPress = () => {
@@ -22,37 +22,38 @@ const Terms = () => {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <View style={styles.sectionTitle}>
-                        <Text style={styles.title}>Términos y condiciones</Text>
+                        <Text style={styles.title}>{t("Términos y condiciones")}</Text>
                     </View>
                     <View style={styles.textContainer}>
                         <View>
                             <Text style={styles.textInfoTitle}>
-                                Uso de la Aplicación:
+                                {t("Uso de la Aplicación")}:
                             </Text>
                         </View>
                         <View>
                             <Text style={styles.text}>
-                                Esta aplicación está destinada exclusivamente para uso interno de la comunidad universitaria.
-                                La aplicación se utiliza para votar y clasificar proyectos presentados por estudiantes y personal de la universidad.
+                                {t("Esta aplicación está destinada exclusivamente para uso interno de la comunidad universitaria.")}
+                                {t("La aplicación se utiliza para votar y clasificar proyectos presentados por estudiantes y personal de la universidad.")}
                             </Text>
                         </View>
                         <View>
-                            <Text style={styles.textInfoTitle}>Privacidad:</Text>
-                            <Text style={styles.text}>Respetamos tu privacidad y protegemos tus datos personales de acuerdo con nuestra política de privacidad.
-                                La información que proporcionas al utilizar la aplicación se utiliza únicamente con el propósito de facilitar el proceso de votación y no será compartida con terceros sin tu consentimiento.</Text>
+                            <Text style={styles.textInfoTitle}>{t("Privacidad")}:</Text>
+                            <Text style={styles.text}>
+                                {t("Respetamos tu privacidad y protegemos tus datos personales de acuerdo con nuestra política de privacidad.")}
+                                {t("La información que proporcionas al utilizar la aplicación se utiliza únicamente con el propósito de facilitar el proceso de votación y no será compartida con terceros sin tu consentimiento.")}</Text>
                         </View>
                         <View>
-                            <Text style={styles.textInfoTitle}>Uso Adecuado:</Text>
-                            <Text style={styles.text}>No debes utilizar la aplicación de manera que pueda dañar, deshabilitar, sobrecargar o deteriorar el funcionamiento de la misma.
-                                No debes intentar obtener acceso no autorizado a la aplicación ni a los sistemas relacionados.</Text>
+                            <Text style={styles.textInfoTitle}>{t("Uso Adecuado")}:</Text>
+                            <Text style={styles.text}>{t("No debes utilizar la aplicación de manera que pueda dañar, deshabilitar, sobrecargar o deteriorar el funcionamiento de la misma.")}
+                                {t("No debes intentar obtener acceso no autorizado a la aplicación ni a los sistemas relacionados.")}</Text>
                         </View>
                         <Divider />
                         <View>
-                            <Text style={{ ...styles.textInfoTitle, textAlign: 'justify' }}>Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones entrarán en vigencia inmediatamente después de su publicación en la aplicación.</Text>
+                            <Text style={{ ...styles.textInfoTitle, textAlign: 'justify' }}>{t("Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones entrarán en vigencia inmediatamente después de su publicación en la aplicación.")}</Text>
                         </View>
                     </View>
                     <View style={styles.sectionButton}>
-                        <Button onPress={handleButtonPress} icon="arrow-collapse-left" mode="contained" buttonColor="#C02830">Ir a proyectos</Button>
+                        <Button onPress={handleButtonPress} icon="arrow-collapse-left" mode="contained" buttonColor="#C02830">{t("Ir a proyectos")}</Button>
                     </View>
                 </View>
             </View>

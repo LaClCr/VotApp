@@ -6,6 +6,7 @@ import FloridaHeader from "../../components/FloridaHeader";
 import { getDegree } from "../../scripts/getDegree";
 import { getProject } from "../../scripts/getProject";
 import { deleteProject } from "../../scripts/deleteProject";
+import { useTranslation } from "react-i18next"; 
 
 const DeleteInputData = () => {
 
@@ -14,6 +15,7 @@ const DeleteInputData = () => {
     const [nie, setNie] = useState('');
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetchDegrees();
@@ -34,7 +36,7 @@ const DeleteInputData = () => {
             const projects = await getProject("all");
             setProjectData(projects);
             if (projects.length === 0) {
-                alert("No se ha encontrado ningún proyecto.");
+                alert(t("No se ha encontrado ningún proyecto."));
             }
         } catch (error) {
             console.error("Error al obtener proyectos", error);
@@ -61,8 +63,8 @@ const DeleteInputData = () => {
             }
         });
 
-        !equalsDegreeCode && alert("Código de ciclo incorrecto");
-        !equalsCreatorNIE && alert("NIE/NIF no corresponde a ningún representante de proyecto");
+        !equalsDegreeCode && alert(t("Código de ciclo incorrecto"));
+        !equalsCreatorNIE && alert(t("NIE/NIF no corresponde a ningún representante de proyecto"));
 
         if (equalsDegreeCode && equalsCreatorNIE) {
             try {
@@ -70,11 +72,11 @@ const DeleteInputData = () => {
                 if (response.status === 200) {
                     navigation.navigate("ConfirmationDeleteProject");
                 } else {
-                    alert("No se pudo eliminar el proyecto");
+                    alert(t("No se pudo eliminar el proyecto"));
                 }
             } catch (error) {
                 console.error("Error al eliminar el proyecto", error);
-                alert("Error al eliminar el proyecto");
+                alert(t("Error al eliminar el proyecto"));
             }
         }
     };
@@ -88,14 +90,14 @@ const DeleteInputData = () => {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <View style={styles.sectionTitle}>
-                        <Text style={styles.title}>DATOS DE PROYECTO</Text>
+                        <Text style={styles.title}>{t("DATOS DE PROYECTO")}</Text>
                     </View>
                     <View style={styles.sectionInfo}>
-                        <Text style={styles.textInfoTitle}>Introduce los datos de tu proyecto: </Text>
+                        <Text style={styles.textInfoTitle}>{t("Introduce los datos de tu proyecto")}: </Text>
                     </View>
                     <View style={styles.sectionInfo}>
                         <TextInput
-                            label="Código de ciclo"
+                            label={t("Código de ciclo")}
                             value={code}
                             onChangeText={text => setCode(text)}
                             mode="outlined"
@@ -107,7 +109,7 @@ const DeleteInputData = () => {
                     <Divider />
                     <View style={styles.sectionInfo}>
                         <TextInput
-                            label="NIF/NIE representante"
+                            label={t("NIF/NIE representante")}
                             value={nie}
                             onChangeText={text => setNie(text)}
                             mode="outlined"
@@ -118,7 +120,7 @@ const DeleteInputData = () => {
                     </View>
                     <Divider />
                     <View style={styles.sectionButton}>
-                        <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">Continuar</Button>
+                        <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">{t("Continuar")}</Button>
                     </View>
                 </View>
             </View>
