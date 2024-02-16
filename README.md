@@ -1,18 +1,20 @@
 <div align="center">
   <h1>Proyecto VOTAPP</h1>
-  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/logo/logo.png" width=200, height=200 alt="VOTAPP Logo"/>
+  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/logo/logo.png" width=300, height=300 alt="VOTAPP Logo"/>
 </div>
 
 ## 🧍Integrantes :
 
 <div align="center">
-  <img src="
-https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/logo/FullSizeRender_VSCO.jpeg" alt="Foto grupal"/>
+  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/logo/FullSizeRender_VSCO.jpeg" width=500 alt="Foto grupal"/>
+  <br><br>
+  <p>Laia Clemente Crespo (laclcr@floridauniversitaria.es)</p>
+  <p>Alberto Aracil Millán (alarmi@floridauniversitaria.es)</p>
+<p>David Reinón García (darega@floridauniversitaria.es)</p>
+<p>Juan Bautista Peretto (jupexx@floridauniversitaria.es)</p>
+  <br><br>
 </div>
-- David Reinón García (darega@floridauniversitaria.es)
-- Juan Bautista Peretto (jupexx@floridauniversitaria.es)
-- Alberto Aracil Millán (alarmi@floridauniversitaria.es)
-- Laia Clemente Crespo (laclcr@floridauniversitaria.es)
+
 
 ## 📰 Descripción del Proyecto:
 VOTAPP es una aplicación de ámbito universitario diseñada para realizar valoraciones sobre los proyectos expuestos en Florida Expo.
