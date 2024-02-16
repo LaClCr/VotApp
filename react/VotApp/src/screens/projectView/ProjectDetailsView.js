@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 const ProjectDetails = () => {
     const { selectedProject, setSelectedProject } = useContext(ScreensContext);
     const { projectName } = useContext(ScreensContext);
+    const { t } = useTranslation();
 
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
@@ -178,7 +179,7 @@ const ProjectDetails = () => {
                                         styles.textInfoValorations,
                                     ]}
                                 >
-                                    Originalidad:
+                                    {t("Originalidad")}:
                                 </Text>
                                 <Text
                                     style={[
@@ -203,7 +204,7 @@ const ProjectDetails = () => {
                                         styles.textInfoValorations,
                                     ]}
                                 >
-                                    Innovación:
+                                    {t("Innovación")}:
                                 </Text>
                                 <Text
                                     style={[
@@ -248,11 +249,11 @@ const ProjectDetails = () => {
                         </View>
                         <Divider />
                         <View style={styles.sectionButton}>
-                            <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
+                            <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">{t("VALORAR")}</Button>
                             <View style={styles.terms}>
-                                <Text style={styles.termsText}>Al continuar, aceptas nuestros</Text>
+                                <Text style={styles.termsText}>{t("Al continuar, aceptas nuestros")}</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
-                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>TÉRMINOS Y CONDICIONES</Text>
+                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>{t("TÉRMINOS Y CONDICIONES")}</Text>
                                 </TouchableOpacity>
                             </View>
 

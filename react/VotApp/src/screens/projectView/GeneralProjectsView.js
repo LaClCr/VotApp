@@ -62,7 +62,7 @@ const GeneralView = ({ navigation }) => {
             degreeDropdownData.sort((a, b) =>
                 a.label.localeCompare(b.label)
             );
-            degreeDropdownData.unshift({ label: "Todos", value: "all" });
+            degreeDropdownData.unshift({ label: t("Todos"), value: "all" });
             setDegreeData(degreeDropdownData);
         } catch (error) {
             console.error("Error al obtener grados", error);
@@ -79,7 +79,7 @@ const GeneralView = ({ navigation }) => {
                 } else {
                     setProjectData([]);
                     alert(
-                        "No se ha encontrado ningún proyecto con el nombre: " +
+                        t("No se ha encontrado ningún proyecto con el nombre: ") +
                         searchQuery.trim()
                     );
                 }
@@ -129,7 +129,7 @@ const GeneralView = ({ navigation }) => {
                             text: "#C02830", // Color del texto
                         },
                     }}
-                    placeholder="Buscar..."
+                    placeholder={t("Buscar...")}
                     onChangeText={setSearchQuery}
                     value={searchQuery}
                     style={[

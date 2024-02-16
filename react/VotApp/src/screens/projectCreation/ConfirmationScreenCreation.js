@@ -4,10 +4,12 @@ import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import GeneralView from "../projectView/GeneralProjectsView";
+import { useTranslation } from "react-i18next";
 
 export default function ConfirmationScreenCreation() {
     const lottieAnimationRef = useRef(null);
     const navigation = useNavigation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         lottieAnimationRef.current.play();
@@ -34,7 +36,7 @@ export default function ConfirmationScreenCreation() {
                         
                     ]}
                 >
-                    ¡Proyecto creado!
+                    {t("¡Proyecto creado!")}
                 </Text>
             </View>
             <View style={styles.sectionButton}>
@@ -45,7 +47,7 @@ export default function ConfirmationScreenCreation() {
                     buttonColor="#C02830"
                     textColor="#fff"
                 >
-                    IR A PROYECTOS
+                    {t("IR A PROYECTOS")}
                 </Button>
             </View>
         </View>

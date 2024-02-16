@@ -145,7 +145,7 @@ const ProjectValoration = () => {
                             <Button onPress={handlePressSendValoration} icon="star" mode="contained" buttonColor="#C02830">{t("ENVIAR VALORACIÓN")}</Button>
                         </View>
                     </View>
-                </Card>
+                </View>
             </View>
         </ScrollView>
     );

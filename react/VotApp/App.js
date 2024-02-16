@@ -9,17 +9,13 @@ import {
 import Home from "./src/screens/projectView/Home";
 import HomeProjCreation from "./src/screens/projectCreation/HomeProjCreation";
 import HomeSettings from "./src/screens/settingsView/HomeSettings";
-
-
-const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
-const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
 import "./src/screens/i18n"; // Importa la configuración de i18next
 import { useTranslation } from "react-i18next";
 
 const Tab = createMaterialBottomTabNavigator();
 
 const App = () => {
-
+    const { t } = useTranslation();
     return (
         <SafeAreaProvider>
             <NavigationContainer>
@@ -33,7 +29,7 @@ const App = () => {
                         name="Home"
                         component={Home}
                         options={{
-                            tabBarLabel: "Proyectos",
+                            tabBarLabel: t("Proyectos"),
                             tabBarIcon: ({ color }) => (
                                 <MaterialCommunityIcons
                                     name="home"
@@ -48,7 +44,7 @@ const App = () => {
                         name="Create"
                         component={HomeProjCreation}
                         options={{
-                            tabBarLabel: "Crear",
+                            tabBarLabel: t("Crear"),
                             tabBarIcon: ({ color }) => (
                                 <MaterialCommunityIcons
                                     name="plus-box"
@@ -62,7 +58,7 @@ const App = () => {
                         name="Settings"
                         component={HomeSettings}
                         options={{
-                            tabBarLabel: "Configuración",
+                            tabBarLabel: t("Configuración"),
                             tabBarIcon: ({ color }) => (
                                 <MaterialCommunityIcons
                                     name="cog"

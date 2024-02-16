@@ -13,6 +13,7 @@ const CodeAccess = () => {
     const navigation = useNavigation();
     const [code, setCode] = useState("");
     const [degreeData, setDegreeData] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetchDegrees();
@@ -41,7 +42,7 @@ const CodeAccess = () => {
         });
 
         if (!equals) {
-            alert("Código de ciclo incorrecto");
+            alert(t("Código de ciclo incorrecto"));
         }
     };
 
@@ -53,11 +54,11 @@ const CodeAccess = () => {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <View style={styles.sectionTitle}>
-                        <Text style={styles.title}>Introduce código de ciclo:</Text>
+                        <Text style={styles.title}>{t("Introduce código de ciclo")}:</Text>
                     </View>
                     <View style={styles.sectionInfo}>
                         <TextInput
-                            label="Código de ciclo"
+                            label={t("Código de ciclo")}
                             value={code}
                             onChangeText={text => setCode(text)}
                             mode="outlined"
@@ -68,11 +69,11 @@ const CodeAccess = () => {
                     </View>
                     <Divider />
                     <View style={styles.sectionButton}>
-                        <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">Continuar</Button>
+                        <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">{t("Continuar")}</Button>
                         <View style={styles.terms}>
-                                <Text style={styles.termsText}>Al continuar, aceptas nuestros</Text>
+                                <Text style={styles.termsText}>{t("Al continuar, aceptas nuestros")}</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
-                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>TÉRMINOS Y CONDICIONES</Text>
+                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>{t("TÉRMINOS Y CONDICIONES")}</Text>
                                 </TouchableOpacity>
                             </View>
                     </View>

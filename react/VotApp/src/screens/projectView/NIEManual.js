@@ -5,16 +5,18 @@ import { useNavigation } from "@react-navigation/native";
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import { validateNIF } from "../../scripts/validateNIF";
+import { useTranslation } from "react-i18next";
 
 const NIEManual = () => {
     const navigation = useNavigation();
     const { nieValoration, setNieValoration } = useContext(ScreensContext);
+    const { t } = useTranslation();
 
     const handleButtonPress = () => {
         if (validateNIF(nieValoration)) {
             navigation.navigate("ProjectValoration");
         } else {
-            alert("NIF/NIE inválido. Por favor, ingresa un NIF/NIE válido.");
+            alert(t("NIF/NIE inválido. Por favor, ingresa un NIF/NIE válido."));
         }
     };
 
@@ -26,7 +28,7 @@ const NIEManual = () => {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <View style={styles.sectionTitle}>
-                        <Text style={styles.title}>Introduce tu NIF/NIE</Text>
+                        <Text style={styles.title}>{t("Introduce tu NIF/NIE")}</Text>
                     </View>
                     <View style={styles.sectionInfo}>
                         <TextInput
@@ -41,7 +43,7 @@ const NIEManual = () => {
                     </View>
                     <Divider />
                     <View style={styles.sectionButton}>
-                        <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">Continuar</Button>
+                        <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">{t("Continuar")}</Button>
                     </View>
                 </View>
             </View>

@@ -59,7 +59,7 @@ const ScannerIDCard = () => {
                     <Button
                         onPress={() => setScanned(false)}
                         mode="contained"
-                        buttonColor="#C02830">Escanear de nuevo</Button>
+                        buttonColor="#C02830">{t("Escanear de nuevo")}</Button>
                 </View>
             )}
             <View style={styles.sectionButton}>
@@ -69,7 +69,7 @@ const ScannerIDCard = () => {
                     mode="contained"
                     buttonColor='white'
                     textColor='#C02830'
-                >Introducir manualmente</Button>
+                >{t("Introducir manualmente")}</Button>
             </View>
         </View>
     );
