@@ -4,6 +4,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Camera } from 'expo-camera';
 import ScreensContext from "./projectViewScreensContext";
+import { useTranslation } from 'react-i18next';
 
 const ScannerIDCard = () => {
 
@@ -11,6 +12,7 @@ const ScannerIDCard = () => {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const navigation = useNavigation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         (async () => {
@@ -37,10 +39,10 @@ const ScannerIDCard = () => {
     };
 
     if (hasPermission === null) {
-        return <Text>Solicitando permiso para acceder a la cámara...</Text>;
+        return <Text>{t("Solicitando permiso para acceder a la cámara...")}</Text>;
     }
     if (hasPermission === false) {
-        return <Text>No se ha concedido acceso a la cámara</Text>;
+        return <Text>{t("No se ha concedido acceso a la cámara")}</Text>;
     }
 
     return (
@@ -57,7 +59,7 @@ const ScannerIDCard = () => {
                     <Button
                         onPress={() => setScanned(false)}
                         mode="contained"
-                        buttonColor="#C02830">Escanear de nuevo</Button>
+                        buttonColor="#C02830">{t("Escanear de nuevo")}</Button>
                 </View>
             )}
             <View style={styles.sectionButton}>
@@ -67,7 +69,7 @@ const ScannerIDCard = () => {
                     mode="contained"
                     buttonColor='white'
                     textColor='#C02830'
-                >Introducir manualmente</Button>
+                >{t("Introducir manualmente")}</Button>
             </View>
         </View>
     );

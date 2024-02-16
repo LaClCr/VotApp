@@ -14,10 +14,12 @@ import ScreensContext from "./projectViewScreensContext";
 import LottieView from 'lottie-react-native';
 import { getProject, getProjectFilter } from "../../scripts/getProject";
 import { getDegree } from "../../scripts/getDegree";
+import { useTranslation } from "react-i18next";
 import FloridaHeader from "../../components/FloridaHeader";
 
 const GeneralView = ({ navigation }) => {
     const { projectName, setProjectName } = useContext(ScreensContext);
+    const { t } = useTranslation();
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -60,7 +62,7 @@ const GeneralView = ({ navigation }) => {
             degreeDropdownData.sort((a, b) =>
                 a.label.localeCompare(b.label)
             );
-            degreeDropdownData.unshift({ label: "Todos", value: "all" });
+            degreeDropdownData.unshift({ label: t("Todos"), value: "all" });
             setDegreeData(degreeDropdownData);
         } catch (error) {
             console.error("Error al obtener grados", error);
@@ -77,7 +79,7 @@ const GeneralView = ({ navigation }) => {
                 } else {
                     setProjectData([]);
                     alert(
-                        "No se ha encontrado ningún proyecto con el nombre: " +
+                        t("No se ha encontrado ningún proyecto con el nombre: ") +
                         searchQuery.trim()
                     );
                 }
@@ -127,7 +129,7 @@ const GeneralView = ({ navigation }) => {
                             text: "#C02830", // Color del texto
                         },
                     }}
-                    placeholder="Buscar..."
+                    placeholder={t("Buscar...")}
                     onChangeText={setSearchQuery}
                     value={searchQuery}
                     style={[

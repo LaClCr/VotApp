@@ -1,12 +1,13 @@
-import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { Divider, Button, Card } from "react-native-paper";
-import Slider from "@react-native-community/slider";
+import React, { useState, useContext, useRef, useTransition } from "react";
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Animated } from "react-native";
+import { Divider, Button, Modal } from 'react-native-paper';
+import Slider from '@react-native-community/slider';
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import { useNavigation } from "@react-navigation/native";
 import ConfirmationScreen from "./ConfirmationScreen";
 import { putProject } from "../../scripts/putProject";
+import { useTranslation } from "react-i18next";
 
 const ProjectValoration = () => {
     const { selectedProject } = useContext(ScreensContext);
@@ -14,7 +15,7 @@ const ProjectValoration = () => {
     const [innovationValoration, setInnovationValoration] = useState(0);
     const [originalityValoration, setOriginalityValoration] = useState(0);
     const [odsValoration, setOdsValoration] = useState(0);
-
+    const { t } = useTranslation();
     const navigation = useNavigation();
 
     const handleOriginalityChange = (value) => {
@@ -78,131 +79,73 @@ const ProjectValoration = () => {
                 <View style={styles.logoContainer}>
                     <FloridaHeader />
                 </View>
-                <Card
-                    style={[
-                        styles.card,
-                    ]}
-                >
-                    <View style={styles.sectionTitle}>
-                        <Text style={styles.title}>{selectedProject.name}</Text>
-                    </View>
-                    <View style={styles.sectionInfo}>
-                        <View style={styles.sectionInfoSmall}>
-                            <Text
-                                style={[
-                                    styles.subtitle,
-                                ]}
-                            >
-                                {nieValoration}
-                            </Text>
-                            <Text
-                                style={[
-                                    styles.subtitle,
-                                ]}
-                            >
-                                VALORA ESTE PROYECTO:
-                            </Text>
+                <View style={styles.cardContainer}>
+                    <View style={styles.card}>
+                        <View style={styles.sectionTitle}>
+                            <Text style={styles.title}>{selectedProject.name}</Text>
+                        </View>
+                        <View style={styles.sectionInfo}>
+                            <View style={styles.sectionInfoSmall}>
+                                <Text style={styles.subtitle}>{nieValoration}</Text>
+                                <Text style={styles.subtitle}>{t("VALORA ESTE PROYECTO")}:</Text>
+                            </View>
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>{t("Originalidad")}:</Text>
+                                <Text style={styles.textInfoValorations}>{originalityValoration} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <Slider
+                                    style={{ width: 280, height: 40 }}
+                                    minimumValue={0}
+                                    maximumValue={10}
+                                    minimumTrackTintColor="#bc9c1c"
+                                    maximumTrackTintColor="#ffffff"
+                                    onValueChange={handleOriginalityChange}
+                                />
+                            </View>
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>{t("Innovación")}:</Text>
+                                <Text style={styles.textInfoValorations}>{innovationValoration} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <Slider
+                                    style={{ width: 280, height: 40 }}
+                                    minimumValue={0}
+                                    maximumValue={10}
+                                    minimumTrackTintColor="#bc9c1c"
+                                    maximumTrackTintColor="#ffffff"
+                                    onValueChange={handleInnovationChange}
+                                />
+                            </View>
+                        </View>
+                        <Divider />
+                        <View style={styles.sectionValorations}>
+                            <View style={styles.valoration}>
+                                <Text style={styles.textInfoValorations}>ODS:</Text>
+                                <Text style={styles.textInfoValorations}>{odsValoration} / 10</Text>
+                            </View>
+                            <View style={styles.progressBarContainer}>
+                                <Slider
+                                    style={{ width: 280, height: 40 }}
+                                    minimumValue={0}
+                                    maximumValue={10}
+                                    minimumTrackTintColor="#bc9c1c"
+                                    maximumTrackTintColor="#ffffff"
+                                    onValueChange={handleOdsChange}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.sectionButton}>
+                            <Button onPress={handlePressSendValoration} icon="star" mode="contained" buttonColor="#C02830">{t("ENVIAR VALORACIÓN")}</Button>
                         </View>
                     </View>
-                    <Divider />
-                    <View style={styles.sectionValorations}>
-                        <View style={styles.valoration}>
-                            <Text
-                                style={[
-                                    styles.textInfoValorations,
-                                ]}
-                            >
-                                Originalidad:
-                            </Text>
-                            <Text
-                                style={[
-                                    styles.textInfoValorations,
-                                ]}
-                            >
-                                {originalityValoration} / 10
-                            </Text>
-                        </View>
-                        <View style={styles.progressBarContainer}>
-                            <Slider
-                                style={{ width: 280, height: 40 }}
-                                minimumValue={0}
-                                maximumValue={10}
-                                minimumTrackTintColor="#C02830"
-                                maximumTrackTintColor="#ffffff"
-                                onValueChange={handleOriginalityChange}
-                            />
-                        </View>
-                    </View>
-                    <Divider />
-                    <View style={styles.sectionValorations}>
-                        <View style={styles.valoration}>
-                            <Text
-                                style={[
-                                    styles.textInfoValorations,
-                                ]}
-                            >
-                                Innovación:
-                            </Text>
-                            <Text
-                                style={[
-                                    styles.textInfoValorations,
-                                ]}
-                            >
-                                {innovationValoration} / 10
-                            </Text>
-                        </View>
-                        <View style={styles.progressBarContainer}>
-                            <Slider
-                                style={{ width: 280, height: 40 }}
-                                minimumValue={0}
-                                maximumValue={10}
-                                minimumTrackTintColor="#C02830"
-                                maximumTrackTintColor="#ffffff"
-                                onValueChange={handleInnovationChange}
-                            />
-                        </View>
-                    </View>
-                    <Divider />
-                    <View style={styles.sectionValorations}>
-                        <View style={styles.valoration}>
-                            <Text
-                                style={[
-                                    styles.textInfoValorations,
-                                ]}
-                            >
-                                ODS:
-                            </Text>
-                            <Text
-                                style={[
-                                    styles.textInfoValorations,
-                                ]}
-                            >
-                                {odsValoration} / 10
-                            </Text>
-                        </View>
-                        <View style={styles.progressBarContainer}>
-                            <Slider
-                                style={{ width: 280, height: 40 }}
-                                minimumValue={0}
-                                maximumValue={10}
-                                minimumTrackTintColor="#C02830"
-                                maximumTrackTintColor="#ffffff"
-                                onValueChange={handleOdsChange}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles.sectionButton}>
-                        <Button
-                            textColor="#fff"
-                            onPress={handlePressSendValoration}
-                            icon="star"
-                            mode="contained"
-                            buttonColor="#C02830"
-                        >
-                            ENVIAR VALORACIÓN
-                        </Button>
-                    </View>
-                </Card>
+                </View>
             </View>
         </ScrollView>
     );

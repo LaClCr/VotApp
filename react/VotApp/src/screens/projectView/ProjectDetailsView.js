@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
-import { Divider, ProgressBar, Surface, Button, Card } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { Divider, ProgressBar, Surface, Button, Card } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import ScannerIDCard from "./ScannerIDCard";
 import LottieView from "lottie-react-native";
 import { getProject } from "../../scripts/getProject";
+import { useTranslation } from "react-i18next";
 
 const ProjectDetails = () => {
     const { selectedProject, setSelectedProject } = useContext(ScreensContext);
     const { projectName } = useContext(ScreensContext);
+    const { t } = useTranslation();
 
     const [averageOriginalidad, setAverageOriginalidad] = useState(0);
     const [averageInnovacion, setAverageInnovacion] = useState(0);
@@ -111,13 +113,7 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionInfo}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text
-                                    style={[
-                                        styles.textInfoTitle,
-                                    ]}
-                                >
-                                    TITULACIÓN:
-                                </Text>
+                                <Text style={styles.textInfoTitle}>{t("TITULACIÓN")}:</Text>
                             </View>
                             <View style={styles.sectionInfoSmall}>
                                 <Text
@@ -132,13 +128,7 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionDegreeDescription}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text
-                                    style={[
-                                        styles.textInfoTitle,
-                                    ]}
-                                >
-                                    DESCRIPCIÓN:
-                                </Text>
+                                <Text style={styles.textInfoTitle}>{t("DESCRIPCIÓN")}:</Text>
                             </View>
                             <View style={styles.sectionInfoSmall}>
                                 <Text
@@ -153,13 +143,7 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionDegreeDescription}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text
-                                    style={[
-                                        styles.textInfoTitle,
-                                    ]}
-                                >
-                                    INTEGRANTES:
-                                </Text>
+                                <Text style={styles.textInfoTitle}>{t("INTEGRANTES")}:</Text>
                             </View>
                             {!loading && (
                                 <View style={styles.sectionInfoSmall}>
@@ -185,13 +169,7 @@ const ProjectDetails = () => {
                         <Divider />
                         <View style={styles.sectionInfo}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text
-                                    style={[
-                                        styles.textInfoTitle,
-                                    ]}
-                                >
-                                    VALORACIONES:
-                                </Text>
+                                <Text style={styles.textInfoTitle}>{t("VALORACIONES")}:</Text>
                             </View>
                         </View>
                         <View style={styles.sectionValorations}>
@@ -201,7 +179,7 @@ const ProjectDetails = () => {
                                         styles.textInfoValorations,
                                     ]}
                                 >
-                                    Originalidad:
+                                    {t("Originalidad")}:
                                 </Text>
                                 <Text
                                     style={[
@@ -226,7 +204,7 @@ const ProjectDetails = () => {
                                         styles.textInfoValorations,
                                     ]}
                                 >
-                                    Innovación:
+                                    {t("Innovación")}:
                                 </Text>
                                 <Text
                                     style={[
@@ -271,11 +249,11 @@ const ProjectDetails = () => {
                         </View>
                         <Divider />
                         <View style={styles.sectionButton}>
-                            <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">VALORAR</Button>
+                            <Button onPress={() => navigation.navigate(ScannerIDCard)} icon="star" mode="contained" buttonColor="#C02830">{t("VALORAR")}</Button>
                             <View style={styles.terms}>
-                                <Text style={styles.termsText}>Al continuar, aceptas nuestros</Text>
+                                <Text style={styles.termsText}>{t("Al continuar, aceptas nuestros")}</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
-                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>TÉRMINOS Y CONDICIONES</Text>
+                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>{t("TÉRMINOS Y CONDICIONES")}</Text>
                                 </TouchableOpacity>
                             </View>
 
