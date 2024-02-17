@@ -7,14 +7,18 @@
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "../../logo/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.votapp",
@@ -28,7 +32,10 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.yourcompany.votapp",
-      "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
@@ -36,6 +43,11 @@
     "dependencies": {
       "react": "17.0.2",
       "react-dom": "17.0.2"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9295ba17-e9a6-4def-bfa8-871137bf1789"
+      }
     }
   }
 }
