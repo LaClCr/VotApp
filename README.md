@@ -28,7 +28,7 @@ VOTAPP es una aplicación de ámbito universitario diseñada para realizar valor
 - Traducción al inglés.
 
 ## 📲 Método de Descarga:
-//Añadir link apk
+[APK](https://github.com/rsanzfloridauni/DAM2324_VotAPP/tree/main/VotApp-universal.apk)
 
 ## 🖋️ Documentación:
 [Documentación de la API](https://github.com/rsanzfloridauni/DAM2324_VotAPP/tree/main/api/votAppAPI/doc)<br>
