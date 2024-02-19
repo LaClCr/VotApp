@@ -19,6 +19,9 @@
 ## 📰 Descripción del Proyecto:
 VOTAPP es una aplicación de ámbito universitario diseñada para realizar valoraciones sobre los proyectos expuestos en Florida Expo.
 
+## 🎥 Elevator pitch: 
+[Vídeo promocional / Elevator pitch](https://www.youtube.com/watch?v=LFfRcPwlzYA&t=1s)
+
 ## ✔️ Funcionalidades a Destacar:
 - Permite valorar proyectos, validando la identidad de los votantes a través de un escaneo del carné universitario.
 - Visualizar proyectos.
