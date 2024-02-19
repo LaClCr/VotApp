@@ -1,12 +1,12 @@
 <div align="center">
   <h1>Proyecto VOTAPP</h1>
-  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/logo/logo.png" width=300, height=300 alt="VOTAPP Logo"/>
+  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/floridaExpo/VotAPP_logo.png" width=300, height=300 alt="VOTAPP Logo"/>
 </div>
 
 ## 🧍Integrantes :
 
 <div align="center">
-  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/logo/FullSizeRender_VSCO.jpeg" width=500 alt="Foto grupal"/>
+  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/img/FullSizeRender_VSCO.jpeg" width=500 alt="Foto grupal"/>
   <br><br>
   <p>Laia Clemente Crespo (laclcr@floridauniversitaria.es)</p>
   <p>Alberto Aracil Millán (alarmi@floridauniversitaria.es)</p>
