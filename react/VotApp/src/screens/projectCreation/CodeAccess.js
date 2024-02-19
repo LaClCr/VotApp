@@ -5,10 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import FloridaHeader from "../../components/FloridaHeader";
 import { getDegree } from "../../scripts/getDegree";
 import ScreensContext from "./projectCreationScreensContext";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const CodeAccess = () => {
-
     const { selectedDegree, setSelectedDegree } = useContext(ScreensContext);
     const navigation = useNavigation();
     const [code, setCode] = useState("");
@@ -29,14 +28,13 @@ const CodeAccess = () => {
     };
 
     const handleButtonPress = () => {
-       
         let equals = false;
 
         degreeData.forEach((degree) => {
             if (degree.code === code) {
                 setSelectedDegree(degree);
                 equals = true;
-                setCode('');
+                setCode("");
                 navigation.navigate("ProjectCreation");
             }
         });
@@ -54,13 +52,15 @@ const CodeAccess = () => {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <View style={styles.sectionTitle}>
-                        <Text style={styles.title}>{t("Introduce código de ciclo")}:</Text>
+                        <Text style={styles.title}>
+                            {t("Introduce código de ciclo")}:
+                        </Text>
                     </View>
                     <View style={styles.sectionInfo}>
                         <TextInput
                             label={t("Código de ciclo")}
                             value={code}
-                            onChangeText={text => setCode(text)}
+                            onChangeText={(text) => setCode(text)}
                             mode="outlined"
                             outlineColor="#C02830"
                             activeOutlineColor="#C02830"
@@ -69,18 +69,39 @@ const CodeAccess = () => {
                     </View>
                     <Divider />
                     <View style={styles.sectionButton}>
-                        <Button onPress={handleButtonPress} icon="check" mode="contained" buttonColor="#C02830">{t("Continuar")}</Button>
+                        <Button
+                            onPress={handleButtonPress}
+                            icon="check"
+                            mode="contained"
+                            buttonColor="#C02830"
+                        >
+                            {t("Continuar")}
+                        </Button>
                         <View style={styles.terms}>
-                                <Text style={styles.termsText}>{t("Al continuar, aceptas nuestros")}</Text>
-                                <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
-                                <Text style={{ ...styles.termsText, textDecorationLine: "underline" }}>{t("TÉRMINOS Y CONDICIONES")}</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <Text style={styles.termsText}>
+                                {t("Al continuar, aceptas nuestros")}
+                            </Text>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    navigation.navigate("Terms", {
+                                        backScreen: "CodeAccess",
+                                    })
+                                }
+                            >
+                                <Text
+                                    style={{
+                                        ...styles.termsText,
+                                        textDecorationLine: "underline",
+                                    }}
+                                >
+                                    {t("TÉRMINOS Y CONDICIONES")}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </View>
         </View>
-
     );
 };
 
@@ -90,11 +111,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#C02830",
     },
     terms: {
-        justifyContent: 'center',
-        padding:10,
+        justifyContent: "center",
+        padding: 10,
     },
     termsText: {
-        textAlign: 'center',
+        textAlign: "center",
     },
     logoContainer: {
         flex: 0.15,
@@ -106,10 +127,10 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: "white",
     },
     card: {
-        flex:0.55,
+        flex: 0.55,
         margin: 20,
         borderRadius: 10,
         backgroundColor: "#ede5c8",
@@ -130,7 +151,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 10,
         textAlign: "center",
-        color: 'white',
+        color: "white",
     },
     sectionInfo: {
         flex: 1,
@@ -145,7 +166,7 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 10,
         borderRadius: 10,
-        justifyContent: 'center',
+        justifyContent: "center",
     },
 });
 
