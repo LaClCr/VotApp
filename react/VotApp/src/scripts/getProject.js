@@ -16,9 +16,9 @@ export async function getProject(name) {
     }
   } catch (error) {
     if (error.response && error.response.status === 404) {
-      console.error("No se encontró el proyecto");
+      console.error("No se encontró el proyecto" + error);
     } else {
-      alert("Error al buscar.");
+      alert("Error al buscar." +  error);
       console.error(error);
     }
     return []; // Maneja el error devolviendo un array vacío
@@ -51,7 +51,7 @@ export async function getProjectFilter(degree) {
       }
     }
   } catch (error) {
-    alert("Error al buscar.");
+    alert("Error al buscar. " + error);
     console.error(error);
     return [];
   }

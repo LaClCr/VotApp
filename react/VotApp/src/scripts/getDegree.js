@@ -18,9 +18,9 @@ export async function getDegree(abbreviation) {
     })
     .catch(function (error) {
       if (error.response && error.response.status === 404) {
-        console.error("No se encontró el grado");
+        console.error("No se encontró el grado" + error);
       } else {
-        console.error("Error al buscar.", error);
+        console.error("Error al buscar." + error);
       }
       return []; // Devuelve un array vacío en caso de error
     });
