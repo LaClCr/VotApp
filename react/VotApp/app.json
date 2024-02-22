@@ -1,15 +1,5 @@
 {
     "expo": {
-        "plugins": [
-            [
-              "expo-build-properties",
-              {
-                "android": {
-                  "usesCleartextTraffic": true
-                }
-              }
-            ]
-          ],
         "name": "VotApp",
         "slug": "VotApp",
         "version": "1.0.0",
@@ -36,7 +26,17 @@
                 "backgroundColor": "#C02830"
             },
             "package": "com.yourcompany.votapp",
-            "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
+            "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
+            "plugins": [
+                [
+                    "expo-build-properties",
+                    {
+                        "android": {
+                            "usesCleartextTraffic": true
+                        }
+                    }
+                ]
+            ]
         },
         "web": {
             "favicon": "./src/assets/favicon.png"
