@@ -4,7 +4,6 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    Image,
     TouchableOpacity,
 } from "react-native";
 import { RadioButton, Divider, Button } from "react-native-paper";
@@ -29,7 +28,7 @@ const SettingsScreen = () => {
     };
 
     const handleTermsPress = () => {
-        navigation.navigate("Terms", { backScreen: "SettingsScreen"});
+        navigation.navigate("Terms", { backScreen: "SettingsScreen" });
     };
 
     return (
