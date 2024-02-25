@@ -1,24 +1,25 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect, useContext } from "react";
 import {
     View,
     StyleSheet,
     FlatList,
     TouchableOpacity,
     Keyboard,
-    Image,
 } from "react-native";
 import { Searchbar, Card } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DropdownComponent from "../../components/projectView/DropdownComponent";
 import ScreensContext from "./projectViewScreensContext";
-import LottieView from 'lottie-react-native';
+import LottieView from "lottie-react-native";
 import { getProject, getProjectFilter } from "../../scripts/getProject";
 import { getDegree } from "../../scripts/getDegree";
 import { useTranslation } from "react-i18next";
 import FloridaHeader from "../../components/FloridaHeader";
 
 const GeneralView = ({ navigation }) => {
-    const { projectName, setProjectName } = useContext(ScreensContext);
+    const { setProjectName } = useContext(ScreensContext);
     const { t } = useTranslation();
     const [degreeData, setDegreeData] = useState([]);
     const [projectData, setProjectData] = useState([]);
@@ -26,31 +27,21 @@ const GeneralView = ({ navigation }) => {
     const [selectedDegree, setSelectedDegree] = useState("all");
     const [loading, setLoading] = useState(true);
 
-    const lottieAnimationRef = useRef(null);
-
-
-    useEffect(() => {
-        if (loading) {
-            lottieAnimationRef.current.play();
-        }
-    }, []);
-
-
     useEffect(() => {
         fetchDegrees();
     }, []);
 
     useEffect(() => {
-        fetchData();
+        setLoading(true);
+        fetchData(); //Se renederiza al principio ya que el grado por defecto es "all"
     }, [selectedDegree]);
 
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
+    useFocusEffect(
+        React.useCallback(() => {
+            if (degreeData.length === 0) return; //Evitamos que se ejecute al principio
             fetchData();
-        });
-
-        return unsubscribe;
-    }, [navigation]);
+        }, [degreeData, selectedDegree, fetchData])
+    );
 
     const fetchDegrees = async () => {
         try {
@@ -59,9 +50,7 @@ const GeneralView = ({ navigation }) => {
                 label: degree.abbreviation,
                 value: degree.abbreviation,
             }));
-            degreeDropdownData.sort((a, b) =>
-                a.label.localeCompare(b.label)
-            );
+            degreeDropdownData.sort((a, b) => a.label.localeCompare(b.label));
             degreeDropdownData.unshift({ label: t("Todos"), value: "all" });
             setDegreeData(degreeDropdownData);
         } catch (error) {
@@ -73,16 +62,19 @@ const GeneralView = ({ navigation }) => {
         try {
             let projects = [];
             if (searchQuery.trim() !== "") {
-                projects = await getProject(searchQuery.trim());
-                if (projects) {
+                setLoading(true);
+                const thisProjects = await getProject(formattingName());
+                if (thisProjects) {
+                    projects.push(thisProjects);
                     setProjectData(projects);
                 } else {
-                    setProjectData([]);
                     alert(
-                        t("No se ha encontrado ningún proyecto con el nombre: ") +
-                        searchQuery.trim()
+                        t(
+                            "No se ha encontrado ningún proyecto con el nombre: "
+                        ) + searchQuery.trim()
                     );
                 }
+                setSearchQuery("");
             } else {
                 projects = await getProjectFilter(selectedDegree);
                 setProjectData(projects);
@@ -93,15 +85,14 @@ const GeneralView = ({ navigation }) => {
         }
     };
 
-    useEffect(() => {
-        const unsubscribe = navigation.addListener("focus", () => {
-            // Realiza la búsqueda cada vez que la pantalla recibe el enfoque
-            fetchData();
-        });
+    const formattingName = () => {
+        let projectCustomName = searchQuery.trim().toLowerCase();
+        projectCustomName =
+            projectCustomName.charAt(0).toUpperCase() +
+            projectCustomName.slice(1);
 
-        // Devuelve una función de limpieza para cancelar la suscripción al evento 'focus'
-        return unsubscribe;
-    }, [navigation]);
+        return projectCustomName;
+    };
 
     const handleSearch = () => {
         // Oculta el teclado
@@ -112,14 +103,13 @@ const GeneralView = ({ navigation }) => {
 
     const handleOnPress = (item) => {
         setProjectName(item.name);
-        console.log("URI: " + item.picture);
         navigation.navigate("ProjectDetails");
     };
 
     return (
         <View style={styles.generalContainer}>
             <View style={styles.logoContainer}>
-                <FloridaHeader/>
+                <FloridaHeader />
             </View>
             <View style={styles.searchAndFilterContainer}>
                 <Searchbar
@@ -132,9 +122,7 @@ const GeneralView = ({ navigation }) => {
                     placeholder={t("Buscar...")}
                     onChangeText={setSearchQuery}
                     value={searchQuery}
-                    style={[
-                        styles.searchbar,
-                    ]}
+                    style={[styles.searchbar]}
                     inputStyle={styles.searchbarInput}
                     iconColor={"#C02830"}
                     clearIcon={() => (
@@ -155,12 +143,13 @@ const GeneralView = ({ navigation }) => {
             {loading ? (
                 <View style={styles.loadingContainer}>
                     <LottieView
-                        ref={lottieAnimationRef}
+                        autoPlay
+                        loop
                         style={{
                             width: 200,
                             height: 200,
                         }}
-                        source={require('../../assets/animations/LoadingAnimation.json')}
+                        source={require("../../assets/animations/LoadingAnimation.json")}
                     />
                 </View>
             ) : (
@@ -188,7 +177,8 @@ const GeneralView = ({ navigation }) => {
                     )}
                     keyExtractor={(item) => item.name}
                     contentContainerStyle={styles.listContentContainer}
-                />)}
+                />
+            )}
         </View>
     );
 };
@@ -202,7 +192,10 @@ const styles = StyleSheet.create({
         paddingTop: 60,
     },
     flatListContainer: {
-        width: "100%", backgroundColor: "white", margin: 0, padding: 10,
+        width: "100%",
+        backgroundColor: "white",
+        margin: 0,
+        padding: 10,
     },
     standardLogo: {
         resizeMode: "contain",
