@@ -42,7 +42,7 @@ const ProjectDetails = () => {
             const projectData = await getProject(name);
             setSelectedProject(projectData);
         } catch (error) {
-            console.error(error);
+            console.error(error + " Error fetching project data");
         }
         setLoading(false);
     };

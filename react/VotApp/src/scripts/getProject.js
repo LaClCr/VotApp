@@ -1,58 +1,59 @@
-import axios from "axios";
-
 export async function getProject(name) {
-  var apiUrl = 'http://107.21.99.46:8080/votApp/project?nom=' + name;
+    var apiUrl = "http://107.21.99.46:8080/votApp/project?nom=" + name;
 
-  try {
-    const response = await axios.get(apiUrl);
-    if (response.status === 200) {
-      var data = response.data;
-      if (data) {
-        return data;
-      } else {
-        console.error("El array de proyectos está vacío");
-        return []; // Devuelve un array vacío si no hay datos
-      }
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else if (response.status === 404) {
+            console.error("No se encontró el proyecto");
+        } else {
+            console.error(
+                "Error al buscar. Código de estado: " + response.status
+            );
+        }
+    } catch (error) {
+        console.error("Error al buscar." + error);
     }
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      console.error("No se encontró el proyecto");
-    } else {
-      alert("Error al buscar.");
-      console.error(error);
-    }
-    return []; // Maneja el error devolviendo un array vacío
-  }
 }
 
 export async function getProjectFilter(degree) {
-  console.log("Grado: " + degree);
-  var apiUrl = 'http://107.21.99.46:8080/votApp/project?nom=all';
+    console.log("Grado: " + degree);
+    var apiUrl = "http://107.21.99.46:8080/votApp/project?nom=all";
 
-  try {
-    const response = await axios.get(apiUrl);
-    if (response.status === 200) {
-      var data = response.data;
-      // Si el parámetro es all devolverá todos los proyectos
-      if (degree === "all") {
-        console.log("Proyectos encontrados");
-        return data
-      } else {
-        var filteredProjects = data.filter(project => project.degree === degree);
-        // Si existen proyectos con ese grado, los devolverá
-        if (filteredProjects && Array.isArray(filteredProjects) && filteredProjects.length > 0) {
-          console.log("Proyectos encontrados");
-          return filteredProjects;
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const data = await response.json();
+            if (degree === "all") {
+                console.log("Proyectos encontrados");
+                return data;
+            } else {
+                var filteredProjects = data.filter(
+                    (project) => project.degree === degree
+                );
+                if (filteredProjects.length > 0) {
+                    console.log("Proyectos encontrados");
+                    return filteredProjects;
+                } else {
+                    alert("No existen proyectos en este grado.");
+                    console.log("El array de proyectos está vacío para esete grado.");
+                    return [];
+                }
+            }
+        } else if (response.status === 404) {
+            alert("No se encontró el proyecto");
+            console.error("No se encontró el proyecto");
         } else {
-          // En caso contrario devolverá un array vacío
-          console.log("El array de proyectos está vacío");
-          return [];
+            alert("Error al buscar. Código de estado: " + response.status);
+            console.error(
+                "Error al buscar. Código de estado: " + response.status
+            );
         }
-      }
+    } catch (error) {
+        alert("Error al buscar." + error);
+        console.error("Error al buscar." + error);
+        return [];
     }
-  } catch (error) {
-    alert("Error al buscar.");
-    console.error(error);
-    return [];
-  }
 }

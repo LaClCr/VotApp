@@ -1,7 +1,7 @@
-import React, { useState, useContext, useRef, useTransition } from "react";
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Animated } from "react-native";
-import { Divider, Button, Modal } from 'react-native-paper';
-import Slider from '@react-native-community/slider';
+import React, { useState, useContext } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Divider, Button } from "react-native-paper";
+import Slider from "@react-native-community/slider";
 import FloridaHeader from "../../components/FloridaHeader";
 import ScreensContext from "./projectViewScreensContext";
 import { useNavigation } from "@react-navigation/native";
@@ -60,6 +60,7 @@ const ProjectValoration = () => {
                     stringValorationJSON
                 );
                 if (response.status === 201) {
+                    setNieValoration("");
                     navigation.navigate(ConfirmationScreen);
                 } else {
                     alert(
@@ -68,7 +69,9 @@ const ProjectValoration = () => {
                 }
             } catch (error) {
                 console.error("Error al enviar la valoración:", error);
-                alert("No se puede valorar dos veces con el mismo documento de identificación");
+                alert(
+                    "No se puede valorar dos veces con el mismo documento de identificación"
+                );
             }
         }
     };
@@ -82,19 +85,29 @@ const ProjectValoration = () => {
                 <View style={styles.cardContainer}>
                     <View style={styles.card}>
                         <View style={styles.sectionTitle}>
-                            <Text style={styles.title}>{selectedProject.name}</Text>
+                            <Text style={styles.title}>
+                                {selectedProject.name}
+                            </Text>
                         </View>
                         <View style={styles.sectionInfo}>
                             <View style={styles.sectionInfoSmall}>
-                                <Text style={styles.subtitle}>{nieValoration}</Text>
-                                <Text style={styles.subtitle}>{t("VALORA ESTE PROYECTO")}:</Text>
+                                <Text style={styles.subtitle}>
+                                    {nieValoration}
+                                </Text>
+                                <Text style={styles.subtitle}>
+                                    {t("VALORA ESTE PROYECTO")}:
+                                </Text>
                             </View>
                         </View>
                         <Divider />
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>{t("Originalidad")}:</Text>
-                                <Text style={styles.textInfoValorations}>{originalityValoration} / 10</Text>
+                                <Text style={styles.textInfoValorations}>
+                                    {t("Originalidad")}:
+                                </Text>
+                                <Text style={styles.textInfoValorations}>
+                                    {originalityValoration} / 10
+                                </Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <Slider
@@ -110,8 +123,12 @@ const ProjectValoration = () => {
                         <Divider />
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>{t("Innovación")}:</Text>
-                                <Text style={styles.textInfoValorations}>{innovationValoration} / 10</Text>
+                                <Text style={styles.textInfoValorations}>
+                                    {t("Innovación")}:
+                                </Text>
+                                <Text style={styles.textInfoValorations}>
+                                    {innovationValoration} / 10
+                                </Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <Slider
@@ -127,8 +144,12 @@ const ProjectValoration = () => {
                         <Divider />
                         <View style={styles.sectionValorations}>
                             <View style={styles.valoration}>
-                                <Text style={styles.textInfoValorations}>ODS:</Text>
-                                <Text style={styles.textInfoValorations}>{odsValoration} / 10</Text>
+                                <Text style={styles.textInfoValorations}>
+                                    ODS:
+                                </Text>
+                                <Text style={styles.textInfoValorations}>
+                                    {odsValoration} / 10
+                                </Text>
                             </View>
                             <View style={styles.progressBarContainer}>
                                 <Slider
@@ -142,7 +163,14 @@ const ProjectValoration = () => {
                             </View>
                         </View>
                         <View style={styles.sectionButton}>
-                            <Button onPress={handlePressSendValoration} icon="star" mode="contained" buttonColor="#C02830">{t("ENVIAR VALORACIÓN")}</Button>
+                            <Button
+                                onPress={handlePressSendValoration}
+                                icon="star"
+                                mode="contained"
+                                buttonColor="#C02830"
+                            >
+                                {t("ENVIAR VALORACIÓN")}
+                            </Button>
                         </View>
                     </View>
                 </View>
