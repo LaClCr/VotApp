@@ -1,12 +1,11 @@
 <div align="center">
-  <h1>Proyecto VOTAPP</h1>
-  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/floridaExpo/VotAPP_logo.png" width=300, height=300 alt="VOTAPP Logo"/>
+  <h1>VotApp</h1>
+  <img src="https://github.com/LaClCr/VotApp/blob/main/Media/VotAPP_logo.png" width=300, height=300 alt="VOTAPP Logo"/>
 </div>
 
-## 🧍Integrantes :
+## 🧍Realizado por:
 
 <div align="center">
-  <img src="https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/img/FullSizeRender_VSCO.jpeg" width=500 alt="Foto grupal"/>
   <br><br>
   <p>Laia Clemente Crespo (laclcr@floridauniversitaria.es)</p>
   <p>Alberto Aracil Millán (alarmi@floridauniversitaria.es)</p>
@@ -17,23 +16,24 @@
 
 
 ## 📰 Descripción del Proyecto:
-VOTAPP es una aplicación de ámbito universitario diseñada para realizar valoraciones sobre los proyectos expuestos en Florida Expo.
+VotApp es una aplicación móvil de ámbito universitario (En especial, Florida Universitària) diseñada para realizar valoraciones sobre los proyectos expuestos en Florida Expo.
 
-## 🎥 Elevator pitch: 
+## 🎥 Vídeos: 
 [Vídeo promocional / Elevator pitch](https://www.youtube.com/watch?v=LFfRcPwlzYA&t=1s)
+<br>
+[Vídeo demo](https://www.youtube.com/watch?v=rfuRBw3TMS0)
 
 ## ✔️ Funcionalidades a Destacar:
 - Permite valorar proyectos, validando la identidad de los votantes a través de un escaneo del carné universitario.
 - Visualizar proyectos.
 - Crear proyectos (solo accesible para participantes de la Expo).
 - Borrar tu propio proyecto.
-- Posibles ampliaciones futuras.
 - Traducción al inglés.
 
 ## 📲 Método de Descarga:
-[APK](https://github.com/rsanzfloridauni/DAM2324_VotAPP/tree/main/Votapp-universal.apk)
+[APK](https://github.com/LaClCr/VotApp/blob/main/Download/Votapp-universal.apk)
 
 ## 🖋️ Documentación:
-[Documentación de la API](https://github.com/rsanzfloridauni/DAM2324_VotAPP/tree/main/api/votAppAPI/doc)<br>
-[Documentación de desarrollo](https://github.com/rsanzfloridauni/DAM2324_VotAPP/blob/main/sge/Documentación_Desarrollo_SW.pdf)
+[Documentación de la API](https://github.com/LaClCr/VotApp/tree/main/BackEnd_JavaProject/votAppAPI/doc)<br>
+[Documentación de desarrollo](https://github.com/LaClCr/VotApp/blob/main/Doc/Documentación_Desarrollo_SW.pdf)
 
