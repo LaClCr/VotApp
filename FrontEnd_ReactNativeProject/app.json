@@ -1,0 +1,54 @@
+{
+    "expo": {
+        "name": "VotApp",
+        "slug": "VotApp",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./src/assets/icon.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./src/assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#e62330"
+        },
+        "assetBundlePatterns": ["**/*"],
+        "platforms": ["ios", "android", "web"],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.yourcompany.votapp",
+            "infoPlist": {
+                "NSPhotoLibraryUsageDescription": "This app requires access to the photo library to select project logos."
+            }
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./src/assets/adaptive-icon.png",
+                "backgroundColor": "#C02830"
+            },
+            "package": "com.yourcompany.votapp",
+            "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
+        },
+        "web": {
+            "favicon": "./src/assets/favicon.png"
+        },
+        "dependencies": {
+            "react": "17.0.2",
+            "react-dom": "17.0.2"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "9295ba17-e9a6-4def-bfa8-871137bf1789"
+            }
+        },
+        "plugins": [
+            [
+                "expo-build-properties",
+                {
+                    "android": {
+                        "usesCleartextTraffic": true
+                    }
+                }
+            ]
+        ]
+    }
+}
